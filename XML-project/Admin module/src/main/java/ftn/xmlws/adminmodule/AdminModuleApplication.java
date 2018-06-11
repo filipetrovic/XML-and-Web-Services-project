@@ -8,5 +8,6 @@ public class AdminModuleApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AdminModuleApplication.class, args);
+		int a;
 	}
 }
