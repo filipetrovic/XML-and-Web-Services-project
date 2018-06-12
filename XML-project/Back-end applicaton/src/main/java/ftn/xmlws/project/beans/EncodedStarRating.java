@@ -21,21 +21,18 @@ public class EncodedStarRating implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long ratingID;
+	private Long ratingId;
 	
 	@NotNull
-	@Column
+	@Column(unique=true)
 	private String ratingName;
 	
 	public EncodedStarRating() {}
 	
-	public Long getRatingID() {
-		return ratingID;
+	public Long getRatingId() {
+		return ratingId;
 	}
 
-	public void setRatingID(Long ratingID) {
-		this.ratingID = ratingID;
-	}
 
 	public String getRatingName() {
 		return ratingName;

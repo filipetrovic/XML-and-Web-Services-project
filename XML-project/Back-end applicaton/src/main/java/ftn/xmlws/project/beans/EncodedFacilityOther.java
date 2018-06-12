@@ -14,16 +14,36 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "encoded_facilities")
-public class EncodedFacility implements Serializable {
+public class EncodedFacilityOther implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long facilityID;
+	private Long facilityId;
 	
 	@NotNull
 	@Column
 	private String facilityName;
 	
-	public EncodedFacility() {}
+	public EncodedFacilityOther() {}
+	
+	public Long getFacilityId() {
+		return facilityId;
+	}
+
+	
+
+	public void setFacilityId(Long facilityId) {
+		this.facilityId = facilityId;
+	}
+
+	public String getFacilityName() {
+		return facilityName;
+	}
+
+	public void setFacilityName(String facilityName) {
+		this.facilityName = facilityName;
+	}
+
+	
 }

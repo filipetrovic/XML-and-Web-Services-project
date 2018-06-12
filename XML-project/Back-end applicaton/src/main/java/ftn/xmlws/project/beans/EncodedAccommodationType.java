@@ -22,17 +22,13 @@ public class EncodedAccommodationType implements Serializable {
 	private Long typeId;
 	
 	@NotNull
-	@Column
+	@Column(unique=true)
 	private String typeName;
 	
 	public EncodedAccommodationType() {}
 
 	public Long getTypeId() {
 		return typeId;
-	}
-
-	public void setTypeId(Long typeId) {
-		this.typeId = typeId;
 	}
 
 	public String getTypeName() {
