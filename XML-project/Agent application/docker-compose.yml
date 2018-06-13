@@ -1,0 +1,59 @@
+version: '3'
+services:
+
+  agent-1-mysql:
+   container_name: sql-ws-2
+   image: mysql/mysql-server:5.7
+   environment:
+    MYSQL_DATABASE: root
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_ROOT_HOST: '%'
+   ports:
+   - "8005:3306"
+   restart: always
+
+  agent-2-mysql:
+   container_name: sql-ws-1
+   image: mysql/mysql-server:5.7
+   environment:
+    MYSQL_DATABASE: root
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_ROOT_HOST: '%'
+   ports:
+   - "8006:3307"
+   restart: always
+
+  ws-agent-1:
+    container_name: ws-agent-1
+    restart: always
+    build: .
+    working_dir: /app
+    volumes:
+      - .:/app
+      - ~/.m2:/root/.m2
+    ports:
+      - "8080:8080"
+    environment:
+      - INSTANCE_NO=1
+      - INSTANCE_DATABASE=agent-1-mysql
+    command: mvn clean spring-boot:run
+    depends_on:
+      - agent-1-mysql
+
+  ws-agent-2:
+    container_name: ws-agent-2
+    restart: always
+    build: .
+    working_dir: /app
+    volumes:
+      - .:/app
+      - ~/.m2:/root/.m2
+    ports:
+      - "8081:8081"
+    environment:
+      - INSTANCE_NO=2
+      - INSTANCE_DATABASE=agent-2-mysql
+    command: mvn clean spring-boot:run
+    depends_on:
+      - agent-2-mysql
+
