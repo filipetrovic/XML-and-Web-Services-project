@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "encoded_facilities")
-public class EncodedFacilityOther implements Serializable {
+public class EncodedFacility implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -25,7 +25,7 @@ public class EncodedFacilityOther implements Serializable {
 	@Column
 	private String facilityName;
 	
-	public EncodedFacilityOther() {}
+	public EncodedFacility() {}
 	
 	public Long getFacilityId() {
 		return facilityId;

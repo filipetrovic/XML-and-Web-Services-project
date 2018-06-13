@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import ftn.xmlws.project.beans.EncodedAccommodationType;
-import ftn.xmlws.project.beans.EncodedFacilityOther;
+import ftn.xmlws.project.beans.EncodedFacility;
 import ftn.xmlws.project.beans.EncodedStarRating;
 
 @Service
@@ -25,10 +25,10 @@ public interface EncodedEntitiesService {
 	Boolean editStarRating(EncodedStarRating rating );
 	
 	//Facility
-	List<EncodedFacilityOther> getAllFacilities();
-	EncodedFacilityOther getFacility(Long facilityId);
-	Boolean addFacility(EncodedFacilityOther facility);
-	Boolean deleteFacility(EncodedFacilityOther facility );
-	Boolean editFacility(EncodedFacilityOther facility );
+	List<EncodedFacility> getAllFacilities();
+	EncodedFacility getFacility(Long facilityId);
+	Boolean addFacility(EncodedFacility facility);
+	Boolean deleteFacility(EncodedFacility facility );
+	Boolean editFacility(EncodedFacility facility );
 	
 }

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ftn.xmlws.project.beans.EncodedAccommodationType;
-import ftn.xmlws.project.beans.EncodedFacilityOther;
+import ftn.xmlws.project.beans.EncodedFacility;
 import ftn.xmlws.project.beans.EncodedStarRating;
 import ftn.xmlws.project.repository.EncodedAccommodationTypeRepository;
 import ftn.xmlws.project.repository.EncodedFacilityRepository;
@@ -113,17 +113,17 @@ public class EncodedEntitiesServiceImpl implements EncodedEntitiesService {
 	//================================================ Facility ==========================================================
 	
 	@Override
-	public List<EncodedFacilityOther> getAllFacilities() {
+	public List<EncodedFacility> getAllFacilities() {
 		return facilityRepository.findAll();
 	}
 
 	@Override
-	public EncodedFacilityOther getFacility(Long facilityId) {
+	public EncodedFacility getFacility(Long facilityId) {
 		return facilityRepository.findOneByFacilityId(facilityId);
 	}
 
 	@Override
-	public Boolean addFacility(EncodedFacilityOther facility) {
+	public Boolean addFacility(EncodedFacility facility) {
 		try {
 			facilityRepository.saveAndFlush(facility);
 			return true;
@@ -134,7 +134,7 @@ public class EncodedEntitiesServiceImpl implements EncodedEntitiesService {
 	}
 
 	@Override
-	public Boolean deleteFacility(EncodedFacilityOther facility) {
+	public Boolean deleteFacility(EncodedFacility facility) {
 		try {
 			facilityRepository.delete(facility);
 			return true;
@@ -145,7 +145,7 @@ public class EncodedEntitiesServiceImpl implements EncodedEntitiesService {
 	}
 
 	@Override
-	public Boolean editFacility(EncodedFacilityOther facility) {
+	public Boolean editFacility(EncodedFacility facility) {
 		try { 
 			facilityRepository.saveAndFlush(facility);
 			return true;

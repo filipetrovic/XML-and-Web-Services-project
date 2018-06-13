@@ -16,10 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.xmlws.project.beans.EncodedAccommodationType;
-import ftn.xmlws.project.beans.EncodedFacilityOther;
+import ftn.xmlws.project.beans.EncodedFacility;
 import ftn.xmlws.project.beans.EncodedStarRating;
 import ftn.xmlws.project.service.EncodedEntitiesService;
-import ftn.xmlws.project.web.dto.EncodedFacility;
 
 
 @RestController
@@ -92,36 +91,35 @@ public class EncodedEntitiesController {
 	//============================================================== Facility ===================================================================
 	
 	@GetMapping("/getAllFacilities")
-	public ResponseEntity<List<EncodedFacilityOther>> getAllFacilities() {
-		System.out.println("Pogodio sam getAllFacilities u back-end app");
-		return new ResponseEntity<List<EncodedFacilityOther>>(service.getAllFacilities(),HttpStatus.OK);
+	public ResponseEntity<List<EncodedFacility>> getAllFacilities() {
+		return new ResponseEntity<List<EncodedFacility>>(service.getAllFacilities(),HttpStatus.OK);
 	}
 	
 	@GetMapping("/getFacility")
-	public ResponseEntity<EncodedFacilityOther> getFacility(@RequestParam("facilityId") Long facilityId){
+	public ResponseEntity<EncodedFacility> getFacility(@RequestParam("facilityId") Long facilityId){
 		System.out.println("Pogodio sam getFacility u back-end app");
-		return new ResponseEntity<EncodedFacilityOther>(service.getFacility(facilityId), HttpStatus.OK);
+		return new ResponseEntity<EncodedFacility>(service.getFacility(facilityId), HttpStatus.OK);
 	}
 	
 	@PostMapping("/addFacility")
-	public ResponseEntity<Boolean> addFacility(@RequestBody EncodedFacility facility  ) { //treba da prosledim samo parametar facilityName
-		EncodedFacilityOther f= new EncodedFacilityOther();
-		f.setFacilityName(facility.getFacilityName());
+	public ResponseEntity<Boolean> addFacility(@RequestParam("facilityName") String facilityName) { //treba da prosledim samo parametar facilityName
+		EncodedFacility f= new EncodedFacility();
+		f.setFacilityName(facilityName);
 		return new ResponseEntity<Boolean>(service.addFacility(f), HttpStatus.CREATED);
 	}
 	
-	@PostMapping("/deleteFacility")
+	@DeleteMapping("/deleteFacility")
 	public ResponseEntity<Boolean> deleteFacility(@RequestBody EncodedFacility facility){
-		EncodedFacilityOther f = new EncodedFacilityOther();
+		EncodedFacility f = new EncodedFacility();
 		f.setFacilityId(facility.getFacilityId());
 		f.setFacilityName(facility.getFacilityName());
-		System.out.println(f.getFacilityId());
+		
 		
 		return new ResponseEntity<Boolean>(service.deleteFacility(f), HttpStatus.OK);
 	}
 	
 	@PutMapping("/editFacility")
-	public ResponseEntity<Boolean> editFacility(@RequestBody EncodedFacilityOther facility){
+	public ResponseEntity<Boolean> editFacility(@RequestBody EncodedFacility facility){
 		return new ResponseEntity<Boolean>(service.editFacility(facility), HttpStatus.OK);
 	}
 	

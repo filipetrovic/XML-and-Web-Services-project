@@ -2,7 +2,7 @@ package ftn.xmlws.adminmodule.beans;
 
 import java.io.Serializable;
 
-public class EncodedFacility implements Serializable{
+public class Facility implements Serializable{
 	/**
 	 * 
 	 */
@@ -26,7 +26,7 @@ public class EncodedFacility implements Serializable{
 		this.facilityName = facilityName;
 	}
 
-	public EncodedFacility() {}
+	public Facility() {}
 	
 	
 }
