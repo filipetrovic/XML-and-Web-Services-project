@@ -1,7 +1,7 @@
 <template>
   <div id="app" >
     
-    <router-view></router-view>
+    <router-view ></router-view>
   </div>
 </template>
 
@@ -19,6 +19,14 @@ export default {
 </script>
 
 <style>
+
+.page {
+   background-image: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3)), url("assets/images/sand.png");
+   background-size: 100%;
+   background-repeat: no-repeat;
+   
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

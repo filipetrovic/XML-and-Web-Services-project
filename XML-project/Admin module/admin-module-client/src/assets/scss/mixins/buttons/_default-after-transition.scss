@@ -1,0 +1,5 @@
+@mixin default-after-transition {
+    -webkit-transition: border-top-color 0.3s;
+    -o-transition: border-top-color 0.3s;
+    transition: border-top-color 0.3s;
+}

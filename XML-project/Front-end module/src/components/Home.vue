@@ -3,7 +3,7 @@
     <br>
     <h1> Book unique homes and experiences all over the world. </h1>
 
-  
+    
     <br/>
     <br/>
     <br/>
@@ -11,19 +11,25 @@
     <form>
 
         <div class="form-group">
-            <input type="text" style="text-align: center;" class="form-control" id="inputAddress" placeholder="Where do you want to travel?">
+            <input type="text" style="text-align: center;"
+             class="form-control" id="inputAddress" placeholder="Where do you want to travel?"
+             v-model="searchData.inputAddress">
         </div>
 
         <div class="form-row">
 
             <div class="form-group col-md-6">
-                <label for="checkInDate">Check in</label>
-                <input type="date" style="text-align: center;" class="form-control" id="checkInDate">
+                <label for="checkInDate"> <b> Check in </b></label>
+                <input type="date" style="text-align: center;"
+                 class="form-control" id="checkInDate"
+                 v-model="searchData.checkInDate">
             </div>
 
             <div class="form-group col-md-6">
-                <label for="checkOutDate">Check out</label>
-                <input type="date" style="text-align: center;" class="form-control" id="checkOutDate">
+                <label for="checkOutDate"> <b> Check out </b></label>
+                <input type="date" style="text-align: center;"
+                 class="form-control" id="checkOutDate"
+                 v-model="searchData.checkOutDate">
             </div>
 
         </div>
@@ -32,19 +38,19 @@
 
         <div class="form-group row">
 
-            <label for="numberOfPeople" class="col-md-2 col-form-label"> Number of people: </label>
+            <label for="numberOfPeople" class="col-md-2 col-form-label"> <b> Number of people: </b> </label>
             <div class="col-md-4">
-                <select id="numberOfPeople" class="form-control" >
-                    <option value="volvo" >1</option>
-                    <option value="saab">2</option>
-                    <option value="mercedes">3</option>
-                    <option value="audi">4</option>
+                <select id="numberOfPeople" class="form-control" v-model="searchData.numberOfPeople">
+                    <option value="1" >1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
                 </select>
             </div>
 
         
             <label  for="advancedSearchChecked" class="col-md-2 col-form-label">
-                Advanced search
+                <b>Advanced search</b>
             </label>
             <div class="col-md-4">
                 <input type="checkbox" id="advancedSearchChecked" v-model="advancedSearchChecked" >
@@ -59,18 +65,18 @@
 
         <div class="form-group row" v-if="advancedSearchChecked">
 
-            <label for="numberOfPeople" class="col-md-2 col-form-label"> Type of accomodation: </label>
+            <label for="typeOfAccomodation" class="col-md-2 col-form-label"> <b> Type of accomodation: </b> </label>
             <div class="col-md-4">
-                <select id="numberOfPeople" class="form-control" >
+                <select id="typeOfAccomodation" class="form-control" v-model="searchData.typeOfAccomodation">
                     <option value="hotel" >Hotel</option>
                     <option value="bed&breakfast">Bed&breakfast</option>
                     <option value="apartment">Apartment</option> 
                 </select>
             </div>
 
-             <label for="numberOfPeople" class="col-md-2 col-form-label"> Category: </label>
+             <label for="category" class="col-md-2 col-form-label"> <b>Category:</b> </label>
             <div class="col-md-4">
-                <select id="numberOfPeople" class="form-control" >
+                <select id="category" class="form-control" v-model="searchData.category" >
                     <option value="Uncategorized" >Uncategorized</option>
                     <option value="1 star" >1 star</option>
                     <option value="2 stars">2 stars</option>
@@ -83,7 +89,7 @@
         </div>
 
         <div class="form-group row" v-if="advancedSearchChecked">
-            <label class="col-md-12 col-form-label"> Additional services: </label>
+            <label class="col-md-12 col-form-label"> <b>Additional services:</b> </label>
 
         </div>
 
@@ -92,8 +98,9 @@
             <div class="form-group col-md-3">
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                    <label class="form-check-label" for="gridCheck">
+                    <input class="form-check-input" type="checkbox"
+                     id="parkingSpot" value="Parking spot" v-model="searchData.additionalServices">
+                    <label class="form-check-label" for="parkingSpot">
                         Parking spot
                     </label>
                 </div>
@@ -103,8 +110,9 @@
               <div class="form-group col-md-3">
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                    <label class="form-check-label" for="gridCheck">
+                    <input class="form-check-input" type="checkbox"
+                     id="wifi" value="WiFi" v-model="searchData.additionalServices">
+                    <label class="form-check-label" for="wifi">
                         WiFi
                     </label>
                 </div>
@@ -114,8 +122,9 @@
           <div class="form-group col-md-3">
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                    <label class="form-check-label" for="gridCheck">
+                    <input class="form-check-input" type="checkbox" 
+                    id="breakfast" value="Breakfast" v-model="searchData.additionalServices">
+                    <label class="form-check-label" for="breakfast">
                         Breakfast
                     </label>
                 </div>
@@ -125,8 +134,9 @@
           <div class="form-group col-md-3">
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                    <label class="form-check-label" for="gridCheck">
+                    <input class="form-check-input" type="checkbox"
+                     id="halfBoard" value="Half-board" v-model="searchData.additionalServices">
+                    <label class="form-check-label" for="halfBoard">
                         Half-board
                     </label>
                 </div>
@@ -139,8 +149,9 @@
             <div class="form-group col-md-3">
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                    <label class="form-check-label" for="gridCheck">
+                    <input class="form-check-input" type="checkbox"
+                     id="board" value="Board" v-model="searchData.additionalServices">
+                    <label class="form-check-label" for="board">
                         Board
                     </label>
                 </div>
@@ -150,8 +161,9 @@
               <div class="form-group col-md-3">
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                    <label class="form-check-label" for="gridCheck">
+                    <input class="form-check-input" type="checkbox"
+                     id="tv" value="TV" v-model="searchData.additionalServices">
+                    <label class="form-check-label" for="tv">
                         TV
                     </label>
                 </div>
@@ -161,8 +173,9 @@
           <div class="form-group col-md-3">
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                    <label class="form-check-label" for="gridCheck">
+                    <input class="form-check-input" type="checkbox"
+                     id="kitchen" value="Kitchen" v-model="searchData.additionalServices">
+                    <label class="form-check-label" for="kitchen">
                         Kitchen
                     </label>
                 </div>
@@ -172,8 +185,9 @@
           <div class="form-group col-md-3">
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                    <label class="form-check-label" for="gridCheck">
+                    <input class="form-check-input" type="checkbox"
+                     id="privateBathroom"  value="Private bathroom" v-model="searchData.additionalServices">
+                    <label class="form-check-label" for="privateBathroom">
                         Private bathroom
                     </label>
                 </div>
@@ -181,13 +195,10 @@
             </div>
         </div>
 
-         
-
-
-     
         <hr  class="my-4"> 
         
-        <button type="submit" class="btn btn-primary btn-block">Book</button>
+        <button type="button" class="btn btn-primary btn-block"
+        @click="searchClicked()">Search</button>
 
     </form>
 
@@ -199,12 +210,38 @@ export default {
   name: 'Home',
   data () {
     return {
-      date: new Date('2011-04-11T10:20:30Z'),
+      searchData: {
+        checkInDate: new Date(),
+        checkOutDate: new Date(),
+        inputAddress: '',
+        numberOfPeople: '',
+        typeOfAccomodation: '',
+        category: '',
+        additionalServices: []
+      },
       advancedSearchChecked: false
     }
   },
   methods : {
       advancedSearchCheckedChanged : function() {
+      },
+
+      searchClicked: function() {
+          console.log(JSON.stringify(this.searchData));
+         
+
+          this.$http.post('http://localhost:8080/api/client/search', JSON.stringify(this.searchData))
+	        .then(response =>  {
+			console.log(response)
+		    }, error => {
+			console.log(error)
+			});
+
+    //     this.$http.get('http://localhost:8080/api/client/search1')
+	// .then(response => {
+	// 	const data = response.json();
+	// 	console.log(data);
+	// });
       }
   }
 }

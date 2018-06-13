@@ -1,0 +1,5 @@
+@mixin default-transition {
+    -webkit-transition: background-color 0.3s;
+    -o-transition: background-color 0.3s;
+    transition: background-color 0.3s;
+}

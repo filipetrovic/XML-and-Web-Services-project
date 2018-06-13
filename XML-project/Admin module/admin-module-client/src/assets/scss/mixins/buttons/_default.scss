@@ -1,0 +1,49 @@
+@import "../../variables/vars.scss";
+@import "default-transition.scss";
+@import "default-after-transition.scss";
+
+@mixin default-button {
+    .button {
+        margin: 0;
+        padding: 0;
+        border: none;
+        height: 3.75rem;
+        width: 9.2rem;
+        color: white;
+        font-weight: bold;
+        text-transform: uppercase;
+        background-color: $default-color;
+        position: relative;
+        z-index: 2;
+        @include default-transition;
+
+        &:hover {
+            cursor: pointer;
+            background-color: darken($default-color,10%);
+            @include default-transition;
+        }
+
+        &:after {
+            width: 0;
+            height: 0;
+            border-right: 1.875rem solid transparent;
+            border-top: 3.75rem solid #6494AC;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 100%;
+            @include default-after-transition
+        }
+
+        &:hover:after {
+            cursor: pointer;
+            border-top-color: darken($default-color, 10%);
+            @include default-after-transition
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+    }
+}
