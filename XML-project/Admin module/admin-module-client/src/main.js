@@ -12,8 +12,14 @@ import {store} from './store';
 const router = new VueRouter({
   routes : routes,
   mode: 'history'
- 
 })
+
+router.beforeEach(function (to, from, next) {
+  setTimeout(() => {
+      window.scrollTo(0, 0);
+  }, 100);
+  next();
+});
 
 Vue.config.productionTip = false
 Vue.use(VueResource);

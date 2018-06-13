@@ -1,0 +1,10 @@
+@mixin itemTransition {
+  transition: transform 0.1s ease-out;
+}
+
+@mixin itemOnHover {
+  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out, background 0.1s ease-out;
+  box-shadow: 2px 2px 2px 2px darken($default-color, 10%);
+  background: linear-gradient(to bottom, $default-color, lighten($default-color, 20%));
+  cursor: pointer;
+}

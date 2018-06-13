@@ -1,0 +1,122 @@
+<template>
+<footer>
+  <section class="footer">
+    <nav class="footer-nav">
+      <ul class="footer-nav__items">
+        <li class="footer-nav__item ">
+            <a  href="#">About us</a>
+        </li>
+        <li class="footer-nav__item ">
+            <a  href="#">Contact</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="footer__logo">
+
+      <a href="" class="footer__logo--image">
+         <img src="../assets/images/admin_logo.png" alt="uHost"/>
+      </a>
+    </div>
+  </section>
+</footer>
+</template>
+
+<script>
+  export default {
+
+  }
+</script>
+
+<style lang="scss" scoped>
+  @import '../assets/scss/mixins/buttons/default';
+  @import '../assets/scss/variables/vars.scss';
+
+  @include default-button;
+
+  footer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer {
+    width: 100%;
+    color: white;
+    background-color: rgba(16, 16, 16, 0.952);
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    min-height: 9rem;
+
+    .footer-nav {
+      margin-left: 4rem;
+
+      .footer-nav__item a {
+        margin: 0rem 1.2rem;
+        color: white;
+        text-decoration: none;
+        font-size: 1rem;
+        text-transform: uppercase;
+        transition: color 0.2s;
+
+        &:hover,
+        &:active {
+          color: #919191;
+          transition: color 0.2s;
+        }
+      }
+    }
+  }
+
+  .footer__logo {
+    display:flex;
+    align-items: center;
+
+    a  {
+      text-decoration: none;
+      margin-right : 6.25rem;
+      margin-left: 0.8rem;
+
+      img {
+        height: 4.7rem;
+      }
+    }
+  }
+
+  @media only screen and (max-width:768px){
+    .footer {
+     flex-direction: column;
+      height: auto;
+    }
+
+    .footer-image__content {
+      width: 45%;
+      font-size: 1rem;
+    }
+
+    .footer {
+      .footer nav {
+        margin-left: 0;
+
+        .footer-nav__item {
+          font-size: 1rem;
+          margin: 1rem 0rem;
+
+          a {
+            margin: 0;
+            padding: 0.3rem;
+          }
+        }
+      }
+    }
+
+    .footer__logo {
+      a  {
+        margin: 0;
+
+      }
+    }
+
+  }
+</style>
+
