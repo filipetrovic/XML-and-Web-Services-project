@@ -36,14 +36,14 @@ public class EncodedEntitiesController {
 	}
 	
 	@GetMapping("/getAccommodationType")
-	public ResponseEntity<EncodedAccommodationType> getAccommodationType(@RequestParam("typeId") Long typeId){
+	public ResponseEntity<EncodedAccommodationType> getAccommodationType(@RequestParam("id") Long typeId){
 		return new ResponseEntity<EncodedAccommodationType>(service.getAccomodationType(typeId), HttpStatus.OK);
 	}
 	
 	@PostMapping("/addAccommodationType")
-	public ResponseEntity<Boolean> addAccommodationType(@RequestParam("typeName") String typeName  ) {
+	public ResponseEntity<Boolean> addAccommodationType(@RequestParam("name") String typeName  ) {
 		EncodedAccommodationType a = new EncodedAccommodationType();
-		a.setTypeName(typeName);
+		a.setName(typeName);
 		return new ResponseEntity<Boolean>(service.addAccommodationType(a), HttpStatus.CREATED);
 	}
 	
@@ -65,14 +65,14 @@ public class EncodedEntitiesController {
 	}
 	
 	@GetMapping("/getStarRating")
-	public ResponseEntity<EncodedStarRating> getStarRating(@RequestParam("ratingId") Long ratingId){
+	public ResponseEntity<EncodedStarRating> getStarRating(@RequestParam("id") Long ratingId){
 		return new ResponseEntity<EncodedStarRating>(service.getStarRating(ratingId), HttpStatus.OK);
 	}
 	
 	@PostMapping("/addStarRating")
-	public ResponseEntity<Boolean> addStarRating(@RequestParam("ratingName") String ratingName  ) {
+	public ResponseEntity<Boolean> addStarRating(@RequestParam("name") String ratingName  ) {
 		EncodedStarRating r = new EncodedStarRating();
-		r.setRatingName(ratingName);
+		r.setName(ratingName);
 		return new ResponseEntity<Boolean>(service.addStarRating(r), HttpStatus.CREATED);
 	}
 	
@@ -96,23 +96,24 @@ public class EncodedEntitiesController {
 	}
 	
 	@GetMapping("/getFacility")
-	public ResponseEntity<EncodedFacility> getFacility(@RequestParam("facilityId") Long facilityId){
+	public ResponseEntity<EncodedFacility> getFacility(@RequestParam("id") Long facilityId){
 		System.out.println("Pogodio sam getFacility u back-end app");
 		return new ResponseEntity<EncodedFacility>(service.getFacility(facilityId), HttpStatus.OK);
 	}
 	
 	@PostMapping("/addFacility")
-	public ResponseEntity<Boolean> addFacility(@RequestParam("facilityName") String facilityName) { //treba da prosledim samo parametar facilityName
+	public ResponseEntity<Boolean> addFacility(@RequestParam("name") String facilityName) { //treba da prosledim samo parametar facilityName
 		EncodedFacility f= new EncodedFacility();
-		f.setFacilityName(facilityName);
+		f.setName(facilityName);
 		return new ResponseEntity<Boolean>(service.addFacility(f), HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/deleteFacility")
 	public ResponseEntity<Boolean> deleteFacility(@RequestBody EncodedFacility facility){
 		EncodedFacility f = new EncodedFacility();
-		f.setFacilityId(facility.getFacilityId());
-		f.setFacilityName(facility.getFacilityName());
+		f.setId(facility.getId());
+		f.setName(facility.getName());
+		//zastooo?
 		
 		
 		return new ResponseEntity<Boolean>(service.deleteFacility(f), HttpStatus.OK);

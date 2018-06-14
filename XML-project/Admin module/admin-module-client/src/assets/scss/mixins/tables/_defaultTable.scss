@@ -1,0 +1,57 @@
+@mixin defaultTable {
+
+    width: 90%;
+    margin: 1rem auto;
+    border-collapse: collapse;
+
+    .header-row {
+      box-sizing: border-box;
+      background: $default-color;
+      color: white;
+      text-transform: uppercase;
+
+      th {
+        padding: 0.5rem;
+        border-left: 2px solid white;
+      }
+
+      .header-operations {
+        width: 100px;
+      }
+
+    }
+    tr {
+    border-bottom: 1px solid $default-color;
+
+    &:hover,
+    &:active {
+      background: lighten($default-color,30%);
+    }
+
+
+    td {
+      padding: 0.5rem;
+    }
+
+    td:first-of-type {
+      font-weight: bold;
+    }
+
+    .operations {
+      display: flex;
+      justify-content: space-around;
+
+        i {
+          cursor: pointer;
+          @include linkTransition;
+          &:hover,
+          &:active {
+            @include linkTransition;
+            color: darken($default-text-color,15%)
+          }
+        }
+      }
+    }
+
+  }
+

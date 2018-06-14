@@ -29,10 +29,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../assets/scss/mixins/buttons/default';
   @import '../assets/scss/variables/vars.scss';
 
-  @include default-button;
 
   footer {
     display: flex;

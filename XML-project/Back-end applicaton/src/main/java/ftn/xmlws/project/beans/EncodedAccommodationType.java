@@ -19,24 +19,24 @@ public class EncodedAccommodationType implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long typeId;
+	private Long id;
 	
 	@NotNull
 	@Column(unique=true)
-	private String typeName;
+	private String name;
 	
 	public EncodedAccommodationType() {}
 
-	public Long getTypeId() {
-		return typeId;
+	public Long getId() {
+		return id;
 	}
 
-	public String getTypeName() {
-		return typeName;
+	public String getName() {
+		return name;
 	}
 
-	public void setTypeName(String typeName) {
-		this.typeName = typeName;
+	public void setName(String typeName) {
+		this.name = typeName;
 	}
 	
 	

@@ -7,23 +7,23 @@ public class Facility implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Long facilityId;
-	private String facilityName;
+	private Long id;
+	private String name;
 	
-	public Long getFacilityId() {
-		return facilityId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setFacilityId(Long facilityId) {
-		this.facilityId = facilityId;
+	public void setId(Long facilityId) {
+		this.id = facilityId;
 	}
 
-	public String getFacilityName() {
-		return facilityName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFacilityName(String facilityName) {
-		this.facilityName = facilityName;
+	public void setName(String facilityName) {
+		this.name = facilityName;
 	}
 
 	public Facility() {}

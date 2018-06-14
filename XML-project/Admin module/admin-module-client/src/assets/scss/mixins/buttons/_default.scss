@@ -2,12 +2,12 @@
 @import "default-transition.scss";
 @import "default-after-transition.scss";
 
-@mixin default-button {
-    .button {
+@mixin defaultButton {
+
         margin: 0;
         padding: 0;
         border: none;
-        height: 3.75rem;
+        height: 3.0rem;
         width: 9.2rem;
         color: white;
         font-weight: bold;
@@ -27,7 +27,7 @@
             width: 0;
             height: 0;
             border-right: 1.875rem solid transparent;
-            border-top: 3.75rem solid #6494AC;
+            border-top: 3.0rem solid #6494AC;
             content: '';
             position: absolute;
             top: 0;
@@ -46,4 +46,4 @@
         }
 
     }
-}
+

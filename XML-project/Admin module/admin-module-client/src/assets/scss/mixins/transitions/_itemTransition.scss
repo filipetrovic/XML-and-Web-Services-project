@@ -8,3 +8,7 @@
   background: linear-gradient(to bottom, $default-color, lighten($default-color, 20%));
   cursor: pointer;
 }
+
+@mixin linkTransition {
+  transition: color 0.2s ease-out;
+}

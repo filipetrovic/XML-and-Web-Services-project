@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
 public interface EncodedAccommodationTypeRepository extends JpaRepository<EncodedAccommodationType, Long> {
-	EncodedAccommodationType findOneByTypeId(Long typeId);
+	EncodedAccommodationType findOneById(Long typeId);
 }

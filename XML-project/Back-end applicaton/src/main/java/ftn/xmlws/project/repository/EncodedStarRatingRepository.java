@@ -7,5 +7,5 @@ import ftn.xmlws.project.beans.EncodedStarRating;
 
 @Repository
 public interface EncodedStarRatingRepository extends JpaRepository<EncodedStarRating, Long> {
-	EncodedStarRating findOneByRatingId(Long ratingId);
+	EncodedStarRating findOneById(Long ratingId);
 }

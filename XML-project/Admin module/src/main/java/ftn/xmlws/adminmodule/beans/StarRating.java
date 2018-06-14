@@ -5,25 +5,25 @@ import java.io.Serializable;
 public class StarRating implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Long ratingId;
-	private String ratingName;
+	private Long id;
+	private String name;
 	
 	public StarRating() {}
 
-	public Long getRatingId() {
-		return ratingId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setRatingId(Long ratingId) {
-		this.ratingId = ratingId;
+	public void setId(Long ratingId) {
+		this.id = ratingId;
 	}
 
-	public String getRatingName() {
-		return ratingName;
+	public String getName() {
+		return name;
 	}
 
-	public void setRatingName(String ratingName) {
-		this.ratingName = ratingName;
+	public void setName(String ratingName) {
+		this.name = ratingName;
 	};
 	
 	

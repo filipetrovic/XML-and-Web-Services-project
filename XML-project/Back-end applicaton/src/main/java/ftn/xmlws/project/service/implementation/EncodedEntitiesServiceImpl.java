@@ -63,7 +63,7 @@ public class EncodedEntitiesServiceImpl implements EncodedEntitiesService {
 
 	@Override
 	public EncodedAccommodationType getAccomodationType(Long typeId) {
-		return accommodationTypeRepository.findOneByTypeId(typeId);
+		return accommodationTypeRepository.findOneById(typeId);
 	}
 	
 	//================================================ Star Rating ==========================================================
@@ -75,7 +75,7 @@ public class EncodedEntitiesServiceImpl implements EncodedEntitiesService {
 
 	@Override
 	public EncodedStarRating getStarRating(Long ratingId) {
-		return starRatingRepository.findOneByRatingId(ratingId);
+		return starRatingRepository.findOneById(ratingId);
 	}
 
 	@Override
@@ -119,7 +119,7 @@ public class EncodedEntitiesServiceImpl implements EncodedEntitiesService {
 
 	@Override
 	public EncodedFacility getFacility(Long facilityId) {
-		return facilityRepository.findOneByFacilityId(facilityId);
+		return facilityRepository.findOneById(facilityId);
 	}
 
 	@Override

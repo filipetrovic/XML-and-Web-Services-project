@@ -51,12 +51,12 @@ public class FacilityController {
 	}
 	
 	@GetMapping("/getAccommodationType")
-	public ResponseEntity<AccommodationType> getAccommodationType(@RequestParam("typeId") Long typeId){
+	public ResponseEntity<AccommodationType> getAccommodationType(@RequestParam("id") Long typeId){
 		RestTemplate restTemplate = new RestTemplate();
 		
 		URI targetUrl= UriComponentsBuilder.fromUriString("http://localhost:8080")  
 		    .path("/api/encoded/getAccommodationType")                           
-		    .queryParam("typeId", typeId)                               
+		    .queryParam("id", typeId)                               
 		    .build()                                                 
 		    .encode()                                                
 		    .toUri();                                                
@@ -72,10 +72,10 @@ public class FacilityController {
 	}
 	
 	@PostMapping("/addAccommodationType")
-	public ResponseEntity<Boolean> addAccommodationType(@RequestParam("typeName") String  typeName){
+	public ResponseEntity<Boolean> addAccommodationType(@RequestParam("name") String  typeName){
 		RestTemplate restTemplate = new RestTemplate();
 		MultiValueMap<String, String> parametersMap = new LinkedMultiValueMap<String, String>();
-		parametersMap.add("typeName", typeName);
+		parametersMap.add("name", typeName);
 		
 		try {
 			Boolean response = restTemplate.postForObject("http://localhost:8080/api/encoded/addAccommodationType", parametersMap, Boolean.class);
@@ -137,12 +137,12 @@ public class FacilityController {
 	}
 	
 	@GetMapping("/getStarRating")
-	public ResponseEntity<StarRating> getStarRating(@RequestParam("ratingId") Long ratingId){
+	public ResponseEntity<StarRating> getStarRating(@RequestParam("id") Long ratingId){
 		RestTemplate restTemplate = new RestTemplate();
 		
 		URI targetUrl= UriComponentsBuilder.fromUriString("http://localhost:8080")  
 		    .path("/api/encoded/getStarRating")                           
-		    .queryParam("ratingId", ratingId)                               
+		    .queryParam("id", ratingId)                               
 		    .build()                                                 
 		    .encode()                                                
 		    .toUri();                                                
@@ -158,10 +158,10 @@ public class FacilityController {
 	}
 	
 	@PostMapping("/addStarRating")
-	public ResponseEntity<Boolean> addStarRating(@RequestParam("ratingName") String  ratingName){
+	public ResponseEntity<Boolean> addStarRating(@RequestParam("name") String  ratingName){
 		RestTemplate restTemplate = new RestTemplate();
 		MultiValueMap<String, String> parametersMap = new LinkedMultiValueMap<String, String>();
-		parametersMap.add("ratingName", ratingName);
+		parametersMap.add("name", ratingName);
 		
 		try {
 			Boolean response = restTemplate.postForObject("http://localhost:8080/api/encoded/addStarRating", parametersMap, Boolean.class);
@@ -208,13 +208,12 @@ public class FacilityController {
 	
 	@GetMapping("/getAllFacilities")
 	public ResponseEntity<List<Facility>> getAllFacilities(){
-		System.out.println("POGODIO");
+		
 		RestTemplate restTemplate = new RestTemplate();
 		
 		try {
 			ResponseEntity<Facility[]> responseEntity = restTemplate.getForEntity("http://localhost:8080/api/encoded/getAllFacilities", Facility[].class);
 			Facility[] facilities = responseEntity.getBody();
-			
 			return new ResponseEntity<List<Facility>>(Arrays.asList(facilities),HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -224,12 +223,12 @@ public class FacilityController {
 	}
 	
 	@GetMapping("/getFacility")
-	public ResponseEntity<Facility> getFacility(@RequestParam("facilityId") Long facilityId){
+	public ResponseEntity<Facility> getFacility(@RequestParam("id") Long facilityId){
 		RestTemplate restTemplate = new RestTemplate();
 		
 		URI targetUrl= UriComponentsBuilder.fromUriString("http://localhost:8080")  
 		    .path("/api/encoded/getFacility")                           
-		    .queryParam("facilityId", facilityId)                               
+		    .queryParam("id", facilityId)                               
 		    .build()                                                 
 		    .encode()                                                
 		    .toUri();                                                
@@ -245,10 +244,10 @@ public class FacilityController {
 	}
 	
 	@PostMapping("/addFacility")
-	public ResponseEntity<Boolean> addFacility(@RequestParam("facilityName") String  facilityName){
+	public ResponseEntity<Boolean> addFacility(@RequestParam("name") String  facilityName){
 		RestTemplate restTemplate = new RestTemplate();
 		MultiValueMap<String, String> parametersMap = new LinkedMultiValueMap<String, String>();
-		parametersMap.add("facilityName", "Sauna");
+		parametersMap.add("name", "Sauna");
 		
 		try {
 			Boolean response = restTemplate.postForObject("http://localhost:8080/api/encoded/addFacility", parametersMap, Boolean.class);

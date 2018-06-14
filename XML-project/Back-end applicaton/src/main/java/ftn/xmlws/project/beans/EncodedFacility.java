@@ -19,30 +19,30 @@ public class EncodedFacility implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long facilityId;
+	private Long id;
 	
 	@NotNull
 	@Column
-	private String facilityName;
+	private String name;
 	
 	public EncodedFacility() {}
 	
-	public Long getFacilityId() {
-		return facilityId;
+	public Long getId() {
+		return id;
 	}
 
 	
 
-	public void setFacilityId(Long facilityId) {
-		this.facilityId = facilityId;
+	public void setId(Long facilityId) {
+		this.id = facilityId;
 	}
 
-	public String getFacilityName() {
-		return facilityName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFacilityName(String facilityName) {
-		this.facilityName = facilityName;
+	public void setName(String facilityName) {
+		this.name = facilityName;
 	}
 
 	
