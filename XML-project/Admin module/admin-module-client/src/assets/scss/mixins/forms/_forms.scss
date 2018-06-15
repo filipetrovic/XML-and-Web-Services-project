@@ -1,0 +1,52 @@
+@mixin simpleForm {
+  h4 {
+    text-align: left;
+    color: $default-color;
+    padding-left: 4rem;
+    @include linkTransition;
+
+    &:hover,
+    &:active {
+      color: darken($default-color,15%);
+      cursor: pointer;
+      @include linkTransition;
+    }
+
+    i {
+      position: relative;
+      top: 5px;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction:  column;
+    justify-content: left;
+    text-align: left;
+    width: 90%;
+    margin: 1rem auto;
+
+    label {
+      font-weight: bold;
+      padding-bottom: 0.3rem;
+    }
+    input {
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      border: 2px solid lighten($default-color,15%);
+      border-radius: 4px;
+      font-size: 1rem;
+
+      &:focus {
+        background : lighten($default-color,40%)
+      }
+    }
+
+    button {
+      @include defaultButton;
+      margin-top: 0.3rem;
+
+    }
+  }
+}
+

@@ -48,26 +48,10 @@
 <style lang="scss" scoped>
   @import '../../assets/scss/variables/vars.scss';
   @import '../../assets/scss/mixins/transitions/_itemTransition.scss';
+  @import '../../assets/scss/mixins/pageParts/_pageParts.scss';
+
   .welcome-message {
-    text-align: left;
-    text-shadow: 1px 1px 1px black;
-    color: $text-color;
-    * {
-      margin: 0;
-    }
-
-    h1 {
-      padding: 2rem;
-      text-align: left;
-      font-size: 2.5rem;
-    }
-
-    p {
-      margin: 0;
-      padding-top: 0;
-      padding-left: 4rem;
-      font-size: 1.5rem;
-    }
+    @include welcomeMessage
   }
 
   .items {

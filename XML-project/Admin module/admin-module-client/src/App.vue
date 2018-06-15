@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+
+
     <header class="header-container">
       <header-component class="header"></header-component>
     </header>
@@ -72,10 +74,8 @@ body {
 
 .header{
   position: fixed;
-  z-index: 2;
+  z-index: 1;
 }
-
-
 
 h1, h2 {
   font-weight: normal;
@@ -98,4 +98,6 @@ a {
 button {
   margin: 5px;
 }
+
+
 </style>

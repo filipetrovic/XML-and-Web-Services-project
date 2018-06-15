@@ -1,6 +1,6 @@
 <template>
   <main>
-
+    <div class="backdrop" @click="popupActivated = false" v-bind:class="{popupActive: popupActivated}"></div>
     <section class="welcome-message">
       <h1> Welcome to Codes update </h1>
       <p> Here you can choose which code registry you want to change:</p>
@@ -32,10 +32,10 @@
           <td>{{registry.id}}</td>
           <td>{{registry.name}}</td>
           <td class="operations">
-            <i class="material-icons">
+            <i class="material-icons" @click="deleteRegistryCode(registry)">
               delete
             </i>
-            <i class="material-icons">
+            <i class="material-icons" @click="editRegistryCode(registry)">
               edit
             </i>
           </td>
@@ -51,8 +51,19 @@
 
       <form class="form" v-if="formActivated">
         <label >Enter code name </label>
-        <input type="text"  placeholder="Enter code name here...">
-        <button type="button" @click="formActivated = false"> Add </button>
+        <input type="text"  placeholder="Enter code name here..." v-model="newRegistryCode" v-on:keyup.enter="formActivated = false; addRegistryCode()">
+        <button type="button" @click="formActivated = false; addRegistryCode()"> Add </button>
+      </form>
+    </section>
+
+    <section class="edit-popup" v-bind:class="{popupActive: popupActivated}">
+      <h4>
+          Edit code
+      </h4>
+      <form class="form-popup" >
+        <label >Enter new code name </label>
+        <input type="text"   v-model.once="codeForEditing.name">
+        <button type="button" @click="submitEditRegistryCode()" > Edit </button>
       </form>
     </section>
   </main>
@@ -64,45 +75,199 @@ export default {
     return {
       selectedRegistry : "Accommodation type",
       listOfSelectedRegistries : [],
-      formActivated: false
+      formActivated: false,
+      newRegistryCode: "",
+      codeForEditing: { 'id' : '0', 'name' : ''},
+      popupActivated: false
     }
   },
   methods: {
     changeSelectedRegistry(registry) {
       this.selectedRegistry = registry;
-      if (this.selectedRegistry ===  'Accommodation type') {
-        this.$http.get("http://localhost:8090/getAllAccommodationTypes")
+      switch (this.selectedRegistry){
+        case 'Accommodation type':
+          this.$http.get("http://localhost:8090/getAllAccommodationTypes")
           .then(response => {
             this.listOfSelectedRegistries = response.body;
-          },
-          (err) => {
-            console.log("Err", err);
           })
-          .catch((e) => {
-            console.log("Caught exception", e);
-          })
-      } else if (this.selectedRegistry ===  'Star rating') {
-        this.$http.get("http://localhost:8090/getAllStarRatings")
+          break;
+        case 'Star rating':
+          this.$http.get("http://localhost:8090/getAllStarRatings")
           .then(response => {
             this.listOfSelectedRegistries = response.body;
-          },
-          (err) => {
-            console.log("Err ", err);
           })
-          .catch((e) => {
-            console.log("Caught exception", e);
+          break;
+        case 'Facility':
+          this.$http.get("http://localhost:8090/getAllFacilities")
+          .then(response => {
+            this.listOfSelectedRegistries = response.body;
           })
+      }
+    },
+    addRegistryCode() {
+      if (this.newRegistryCode === ""){
+        //napisi pored dugmeta, polje je prazno, klikni opet da cancel
       } else {
-        this.$http.get("http://localhost:8090/getAllFacilities")
-          .then(response => {
-            this.listOfSelectedRegistries = response.body;
-          },
-          (err) => {
-            console.log("Err", err);
-          })
-          .catch((e) => {
-            console.log("Caught exception", e);
-          })
+        var params = { 'name' : this.newRegistryCode };
+
+        switch (this.selectedRegistry){
+          case 'Accommodation type':
+            this.$http.post("http://localhost:8090/addAccommodationType", null, {params: params} )
+            .then(response => {
+              if (response.body) {
+                this.$http.get("http://localhost:8090/getAllAccommodationTypes")
+                .then(list => {
+                  this.listOfSelectedRegistries = list.body;
+                })
+              } else {
+                alert ("Error occurred!");
+              }
+            })
+            break;
+          case 'Star rating':
+            this.$http.post("http://localhost:8090/addStarRating", null, {params: params} )
+            .then(response => {
+              if (response.body) {
+                this.$http.get("http://localhost:8090/getAllStarRatings")
+                .then(list => {
+                  this.listOfSelectedRegistries = list.body;
+                })
+              } else {
+                alert ("Error occurred!");
+              }
+            })
+            break;
+          case 'Facility':
+            this.$http.post("http://localhost:8090/addFacility", null, {params: params} )
+            .then(response => {
+              if (response.body) {
+                this.$http.get("http://localhost:8090/getAllFacilities")
+                .then(list => {
+                  this.listOfSelectedRegistries = list.body;
+                })
+              } else {
+                alert ("Error occurred!");
+              }
+            })
+        }
+
+
+      }
+    },
+    deleteRegistryCode(reg) {
+      var body = reg;
+      switch (this.selectedRegistry){
+          case 'Accommodation type':
+            this.$http.delete("http://localhost:8090/deleteAccommodationType", {body : body} )
+            .then(response => {
+              if (response.body) {
+                this.$http.get("http://localhost:8090/getAllAccommodationTypes")
+                .then(list => {
+                  this.listOfSelectedRegistries = list.body;
+                })
+              } else {
+                alert ("Error occurred!");
+              }
+            })
+            break;
+          case 'Star rating':
+            this.$http.delete("http://localhost:8090/deleteStarRating", {body : body} )
+            .then(response => {
+              if (response.body) {
+                this.$http.get("http://localhost:8090/getAllStarRatings")
+                .then(list => {
+                  this.listOfSelectedRegistries = list.body;
+                })
+              } else {
+                alert ("Error occurred!");
+              }
+            })
+            break;
+          case 'Facility':
+            this.$http.delete("http://localhost:8090/deleteFacility", {body : body})
+            .then(response => {
+              if (response.body) {
+                this.$http.get("http://localhost:8090/getAllFacilities")
+                .then(list => {
+                  this.listOfSelectedRegistries = list.body;
+                })
+              } else {
+                alert ("Error occurred!");
+              }
+            })
+      }
+    },
+    editRegistryCode(reg){
+      this.popupActivated = true;
+      var params= {'id' : reg.id }
+
+      switch (this.selectedRegistry){
+          case 'Accommodation type':
+            this.$http.get("http://localhost:8090/getAccommodationType", {params: params} )
+            .then(response => {
+              this.codeForEditing = response.body;
+            })
+            break;
+          case 'Star rating':
+            this.$http.get("http://localhost:8090/getStarRating", {params: params} )
+            .then(response => {
+              this.codeForEditing = response.body;
+
+            })
+            break;
+          case 'Facility':
+            this.$http.get("http://localhost:8090/getFacility", {params: params})
+            .then(response => {
+              this.codeForEditing = response.body;
+            })
+      }
+
+    },
+    submitEditRegistryCode(){
+      var body = this.codeForEditing;
+
+      switch (this.selectedRegistry){
+          case 'Accommodation type':
+            this.$http.put("http://localhost:8090/editAccommodationType", body )
+            .then(response => {
+              if (response.body) {
+                this.$http.get("http://localhost:8090/getAllAccommodationTypes")
+                .then(list => {
+                  this.listOfSelectedRegistries = list.body;
+                  this.popupActivated = false;
+                })
+              } else {
+                alert ("Error occurred!");
+              }
+            })
+            break;
+          case 'Star rating':
+            this.$http.put("http://localhost:8090/editStarRating", body )
+            .then(response => {
+              if (response.body) {
+                this.$http.get("http://localhost:8090/getAllStarRatings")
+                .then(list => {
+                  this.listOfSelectedRegistries = list.body;
+                  this.popupActivated = false;
+                })
+              } else {
+                alert ("Error occurred!");
+              }
+            })
+            break;
+          case 'Facility':
+            this.$http.put("http://localhost:8090/editFacility", body)
+            .then(response => {
+              if (response.body) {
+                this.$http.get("http://localhost:8090/getAllFacilities")
+                .then(list => {
+                  this.listOfSelectedRegistries = list.body;
+                  this.popupActivated = false;
+                })
+              } else {
+                alert ("Error occurred!");
+              }
+            })
       }
     }
 
@@ -126,25 +291,12 @@ export default {
   @import '../../../assets/scss/variables/vars.scss';
   @import '../../../assets/scss/mixins/transitions/_itemTransition.scss';
   @import '../../../assets/scss/mixins/buttons/_default.scss';
+  @import '../../../assets/scss/mixins/forms/_forms.scss';
+  @import '../../../assets/scss/mixins/pageParts/_pageParts.scss';
+
   .welcome-message {
-    text-align: left;
-    text-shadow: 1px 1px 1px black;
-    color: $text-color;
-    * {
-      margin: 0;
+    @include welcomeMessage
     }
-    h1 {
-      padding: 2rem;
-      text-align: left;
-      font-size: 2.5rem;
-    }
-    p {
-      margin: 0;
-      padding-top: 0;
-      padding-left: 4rem;
-      font-size: 1.5rem;
-    }
-  }
 
   .items {
     display: flex;
@@ -163,8 +315,7 @@ export default {
     }
     .active {
       @include itemOnHover;
-    }
-  }
+    }}
 
   .selectedRegistryTable {
     h2 {
@@ -230,60 +381,73 @@ export default {
           }
         }
       }
-    }
-  }
+    }}
 
   .addNewCode {
+      @include simpleForm;
+    }
+
+
+
+
+  .edit-popup {
+    @extend .addNewCode;
+    display: none;
+    background: $popup-window-color;
+    border: 3px solid $default-color;
+    padding: 1rem;
+    border-radius: 20px;
+    width: 35%;
+    position: fixed;
+    z-index: 6;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 2px 2px 2px 2px gray;
+
       h4 {
-        text-align: left;
-        color: $default-color;
-        padding-left: 4rem;
-        @include linkTransition;
+        color: $text-color;
+        text-align: center;
+        font-size: 1.3rem;
+        padding: 0;
 
         &:hover,
         &:active {
-          color: darken($default-color,15%);
-          cursor: pointer;
-          @include linkTransition;
-        }
-
-        i {
-          position: relative;
-          top: 5px;
+          color: $text-color;
+          cursor:default;
         }
       }
 
-      .form {
-        display: flex;
-        flex-direction:  column;
-        justify-content: left;
-        text-align: left;
-        width: 90%;
-        margin: 1rem auto;
+      form {
 
-        label {
-          font-weight: bold;
-          padding-bottom: 0.3rem;
-        }
+
         input {
-          padding: 0.8rem;
-          margin: 0.5rem 0;
-          border: 2px solid lighten($default-color,15%);
-          border-radius: 4px;
-          font-size: 1rem;
-
-          &:focus {
-            background : lighten($default-color,40%)
+          width: 15rem;
+        }
+        button {
+          &:after {
+            display: none;
           }
         }
-
-        button {
-          @include defaultButton;
-          margin-top: 0.3rem;
-
-        }
       }
+  }
+
+  .popupActive {
+    display: block !important;
+
+  }
+
+  .backdrop {
+      display: none;
+      position:fixed;
+      width: 100vw;
+      height: 100vh;
+      z-index: 5;
+      background: transparentize($backdrop-color,0.7);
+
+
     }
+
 
 
 

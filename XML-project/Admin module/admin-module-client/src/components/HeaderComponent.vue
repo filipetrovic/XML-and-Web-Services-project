@@ -1,7 +1,7 @@
 <template>
     <section class="main-header">
         <div class="main-header__name">
-            <router-link to="/home/testHome" class="main-header__brand">
+            <router-link to="/home" class="main-header__brand">
                 <img src="../assets/images/admin_logo.png" alt="Moore Creations"/>
                 <p class="uppercase"> <span class="main-header__brand--title ">Administration</span> module</p>
             </router-link>
@@ -65,7 +65,7 @@ export default {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        z-index: 300 ;
+        z-index: 2;
         background-color: white;
     }
 

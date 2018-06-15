@@ -14,7 +14,7 @@
 
     <div class="footer__logo">
 
-      <a href="" class="footer__logo--image">
+      <a disabled href="" class="footer__logo--image">
          <img src="../assets/images/admin_logo.png" alt="uHost"/>
       </a>
     </div>
@@ -81,40 +81,8 @@
     }
   }
 
-  @media only screen and (max-width:768px){
-    .footer {
-     flex-direction: column;
-      height: auto;
-    }
 
-    .footer-image__content {
-      width: 45%;
-      font-size: 1rem;
-    }
 
-    .footer {
-      .footer nav {
-        margin-left: 0;
 
-        .footer-nav__item {
-          font-size: 1rem;
-          margin: 1rem 0rem;
-
-          a {
-            margin: 0;
-            padding: 0.3rem;
-          }
-        }
-      }
-    }
-
-    .footer__logo {
-      a  {
-        margin: 0;
-
-      }
-    }
-
-  }
 </style>
 

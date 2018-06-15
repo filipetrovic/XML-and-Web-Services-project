@@ -193,6 +193,7 @@ public class FacilityController {
 	public ResponseEntity<Boolean> editStarRating(@RequestBody StarRating starRating){
 		RestTemplate restTemplate = new RestTemplate();
 		HttpEntity<StarRating> entity = new HttpEntity<>(starRating);
+		System.out.println("stiglo: " + starRating.getName());
 		
         try {
             ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8080/api/encoded/editStarRating", 
@@ -247,7 +248,7 @@ public class FacilityController {
 	public ResponseEntity<Boolean> addFacility(@RequestParam("name") String  facilityName){
 		RestTemplate restTemplate = new RestTemplate();
 		MultiValueMap<String, String> parametersMap = new LinkedMultiValueMap<String, String>();
-		parametersMap.add("name", "Sauna");
+		parametersMap.add("name", facilityName);
 		
 		try {
 			Boolean response = restTemplate.postForObject("http://localhost:8080/api/encoded/addFacility", parametersMap, Boolean.class);
