@@ -34,6 +34,14 @@ public class Accommodation {
 	@Column
 	private String name;
 	
+	@Column String pictures;
+	
+	@Column
+	private String description;
+	
+	@Column
+	private float pricePerPerson;
+	
 	@Size(min = 1, max = 50)
 	@Column(length = 50, unique = true, nullable = false)
 	private String inputAddress;
