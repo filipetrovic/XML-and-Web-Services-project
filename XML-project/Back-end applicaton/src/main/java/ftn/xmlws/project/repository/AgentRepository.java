@@ -9,4 +9,5 @@ import ftn.xmlws.project.beans.Agent;
 @Repository
 public interface AgentRepository extends JpaRepository<Agent, Long> {
 
+	Agent findOneById(Long id);
 }

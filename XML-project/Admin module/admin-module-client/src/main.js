@@ -4,6 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import VueResource from 'vue-resource';
 import VueRouter from 'vue-router';
+import VeeValidate from 'vee-validate';
+
+
+
 
 import './assets/scss/globals/index.scss';
 import {routes} from './routes';
@@ -24,7 +28,7 @@ router.beforeEach(function (to, from, next) {
 Vue.config.productionTip = false
 Vue.use(VueResource);
 Vue.use(VueRouter);
-
+Vue.use(VeeValidate);
 
 new Vue({
   el: '#app',

@@ -30,7 +30,7 @@ import ftn.xmlws.adminmodule.beans.StarRating;
 
 @RestController
 @CrossOrigin
-public class FacilityController {
+public class EncodedEntitiesController {
 	
 	//============================================================== Accommodation type ===================================================================
 	

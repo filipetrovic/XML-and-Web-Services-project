@@ -1,57 +1,59 @@
 @mixin defaultTable {
 
-    width: 90%;
-    margin: 1rem auto;
-    border-collapse: collapse;
+      width: 90%;
+      margin: 1rem auto;
+      border-collapse: collapse;
 
-    .header-row {
-      box-sizing: border-box;
-      background: $default-color;
-      color: white;
-      text-transform: uppercase;
+      .header-row {
+        box-sizing: border-box;
+        background: $default-color;
+        color: white;
+        text-transform: uppercase;
 
-      th {
+        th:first-of-type{
+          width: 50px;
+        }
+        th {
+          padding: 0.5rem;
+          border-left: 1px solid white;
+        }
+
+        .header-operations {
+          width: 100px;
+        }
+
+      }
+      tr:not(:first-of-type) {
+      border-bottom: 1px solid $default-color;
+
+      &:hover,
+      &:active {
+        background: lighten($default-color,30%);
+      }
+
+
+      td {
         padding: 0.5rem;
-        border-left: 2px solid white;
       }
 
-      .header-operations {
-        width: 100px;
+      td:first-of-type {
+        font-weight: bold;
       }
 
-    }
-    tr {
-    border-bottom: 1px solid $default-color;
+      .operations {
+        display: flex;
+        justify-content: space-around;
 
-    &:hover,
-    &:active {
-      background: lighten($default-color,30%);
-    }
-
-
-    td {
-      padding: 0.5rem;
-    }
-
-    td:first-of-type {
-      font-weight: bold;
-    }
-
-    .operations {
-      display: flex;
-      justify-content: space-around;
-
-        i {
-          cursor: pointer;
-          @include linkTransition;
-          &:hover,
-          &:active {
+          i {
+            cursor: pointer;
             @include linkTransition;
-            color: darken($default-text-color,15%)
+            &:hover,
+            &:active {
+              @include linkTransition;
+              color: darken($default-text-color,15%)
+            }
           }
         }
       }
-    }
-
-  }
+}
 
