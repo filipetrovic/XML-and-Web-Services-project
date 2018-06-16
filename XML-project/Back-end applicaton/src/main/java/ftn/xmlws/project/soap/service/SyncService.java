@@ -1,12 +1,11 @@
 package ftn.xmlws.project.soap.service;
 
 
-import ftn.xmlws.project.service.EncodedEntitiesService;
-import ftn.xmlws.project.soap.service.mapper.EntityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import ftn.xmlws.project.service.EncodedEntitiesService;
+import ftn.xmlws.project.soap.service.mapper.EntityMapper;
 
 /**
  * Service providing buissness logic
@@ -20,17 +19,17 @@ public class SyncService {
 
     @Autowired
     private EntityMapper entityMapper;
-
-    public List<com.xmlws.ftn.soap_core.EncodedAccommodationType> getTypesAsXML() {
-        return entityMapper.transformListEncodedAccommodationTypesEntityToXML(encodedEntitiesService.getAllAccommodationTypes());
-    }
-
-    public List<com.xmlws.ftn.soap_core.EncodedFacility> getFacilitysAsXML() {
-        return entityMapper.transformListEncodedFacilityToXML(encodedEntitiesService.getAllFacilities());
-    }
-
-    public List<com.xmlws.ftn.soap_core.EncodedStarRating> getStarRatingAsXML() {
-        return entityMapper.transformListEncodedStarRatingToXML(encodedEntitiesService.getAllStarRatings());
-    }
+//
+//    public List<com.xmlws.ftn.soap.EncodedAccommodationType> getTypesAsXML() {
+//        return entityMapper.transformListEncodedAccommodationTypesEntityToXML(encodedEntitiesService.getAllAccommodationTypes());
+//    }
+//
+//    public List<com.xmlws.ftn.soap.EncodedFacility> getFacilitysAsXML() {
+//        return entityMapper.transformListEncodedFacilityToXML(encodedEntitiesService.getAllFacilities());
+//    }
+//
+//    public List<com.xmlws.ftn.soap.EncodedStarRating> getStarRatingAsXML() {
+//        return entityMapper.transformListEncodedStarRatingToXML(encodedEntitiesService.getAllStarRatings());
+//    }
 
 }
