@@ -3,7 +3,7 @@
     
     <h1> Accomodations available </h1> 
 
-    <table class="table">
+    <table class="table table-bordered">
         <thead class="thead-dark">
             <tr>
             <th scope="col">#</th>
@@ -13,15 +13,19 @@
             <th scope="col">Type</th>
             <th scope="col">Category</th>
             <th scope="col">Additional facilities</th>
+            <th scope="col"> </th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="(accommodation, index) in listOfAccommodations">
             <th scope="row">{{index + 1}}</th>
+            <td>{{accommodation.name}}</td>
             <td>{{accommodation.inputAddress}}</td>
-            <td>{{accommodation.startDateAvailable}}</td>
-            <td>{{accommodation.endDateAvailable}}</td>
-            <td>{{accommodation.additionalFacilities}}</td>
+            <td>{{accommodation.numberOfPeople}}</td>
+            <td>{{accommodation.typeOfAccommodation}}</td>
+            <td>{{accommodation.category}}</td>
+            <td> <p v-for="fac in accommodation.additionalFacilities"> {{fac.name}} </p></td>
+            <td> <button class="btn btn-primary"> Reserve </button> </td>
             </tr>
         </tbody>
     </table>

@@ -1,0 +1,56 @@
+########## Filling accommodation with bound facilities ##########
+
+
+		EncodedFacility ef = new EncodedFacility();
+		ef.setName("WiFi");
+		
+		EncodedFacility ef1= new EncodedFacility();
+		ef1.setName("TV");
+		
+		EncodedFacility ef2 = new EncodedFacility();
+		ef2.setName("Restroom");
+		
+		EncodedFacility ef3 = new EncodedFacility();
+		ef3.setName("Board");
+		
+		
+		encodedFacilityRepository.save(ef);
+		encodedFacilityRepository.save(ef1);
+		encodedFacilityRepository.save(ef2);
+		encodedFacilityRepository.save(ef3);
+		
+		Set<EncodedFacility> additionalFacilities = new HashSet<>();
+		additionalFacilities.add(encodedFacilityRepository.findOneById((long)1));
+		additionalFacilities.add(encodedFacilityRepository.findOneById((long)2));
+		
+		Accommodation ac = new Accommodation(
+				new Date(0),
+				new Date(1),
+				"Apartmani Jancic",
+				"Smederevo",
+				4,
+				"appartment",
+				"5 stars",
+				additionalFacilities);
+		
+		accommodationRepository.save(ac);
+		
+		Set<EncodedFacility> additionalFacilities1 = new HashSet<>();
+		additionalFacilities1.add(encodedFacilityRepository.findOneById((long)3));
+		additionalFacilities1.add(encodedFacilityRepository.findOneById((long)4));
+		
+		
+		
+		Accommodation ac1 = new Accommodation(
+				new Date(0),
+				new Date(1),
+				"Hotel Baosici",
+				"Crna Gora",
+				2,
+				"hotel",
+				"3 stars",
+				additionalFacilities1);
+		
+		accommodationRepository.save(ac1);
+		
+########## Filling accommodation with bound facilities ##########
