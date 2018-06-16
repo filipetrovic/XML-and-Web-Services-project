@@ -55,6 +55,9 @@ public class User implements Serializable {
 	@Column(length = 100, unique = true)
 	private String email;
 	
+	@NotNull
+	private boolean banned;
+	
 	@ManyToMany
     @JoinTable(
             name = "User_authority",
@@ -66,6 +69,14 @@ public class User implements Serializable {
 	
 	public User() {
 		
+	}
+
+	public boolean isBanned() {
+		return banned;
+	}
+
+	public void setBanned(boolean banned) {
+		this.banned = banned;
 	}
 
 	public Long getId() {
@@ -127,7 +138,8 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", email=" + email + ", authorities=" + authorities + "]";
+				+ ", lastName=" + lastName + ", email=" + email + ", banned=" + banned + ", authorities=" + authorities
+				+ "]";
 	}
-	
+
 }
