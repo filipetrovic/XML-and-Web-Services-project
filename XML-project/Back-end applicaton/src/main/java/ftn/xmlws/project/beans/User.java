@@ -55,7 +55,7 @@ public class User implements Serializable {
 	@Column(length = 100, unique = true)
 	private String email;
 	
-	@NotNull
+	@Column
 	private boolean banned;
 	
 	@ManyToMany

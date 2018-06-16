@@ -18,6 +18,8 @@ public class AccommodationServiceImpl implements AccommodationService {
 	@Override
 	public ArrayList<Accommodation> getAllAccommodations() {
 		
+	
+		
 		return accommodationRepository.findAll();
 	}
 
