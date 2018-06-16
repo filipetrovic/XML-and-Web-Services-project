@@ -8,12 +8,14 @@
 <script>
 import HelloWorld from './components/HelloWorld'
 import Home from './components/Home'
+import Registration from './components/Registration'
 
 export default {
   name: 'App',
   components: {
     HelloWorld,
-    Home
+    Home,
+    Registration
   }
 }
 </script>

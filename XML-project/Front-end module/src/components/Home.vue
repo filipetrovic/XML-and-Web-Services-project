@@ -227,21 +227,33 @@ export default {
       },
 
       searchClicked: function() {
-          console.log(JSON.stringify(this.searchData));
+        
+        console.log(JSON.stringify(this.searchData));
+
+        let headers = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
          
 
-          this.$http.post('http://localhost:8080/api/client/search', JSON.stringify(this.searchData))
-	        .then(response =>  {
-			console.log(response)
-		    }, error => {
-			console.log(error)
-			});
+        //   this.$http.post('https://us-central1-booking-rating-system-c35da.cloudfunctions.net/addComment',
+        //    JSON.stringify(this.searchData))
+	    //     .then(response =>  {
+		// 	console.log(response)
+		//     }, error => {
+		// 	console.log(error)
+		// 	});
 
-    //     this.$http.get('http://localhost:8080/api/client/search1')
-	// .then(response => {
-	// 	const data = response.json();
-	// 	console.log(data);
-	// });
+        this.$http
+                    .post('http://localhost:8080/api/client/search',
+                    JSON.stringify(this.searchData),
+                    headers)
+
+                    .then(response => {
+                        const data = response.json();
+                        console.log(data);
+                    });
       }
   }
 }

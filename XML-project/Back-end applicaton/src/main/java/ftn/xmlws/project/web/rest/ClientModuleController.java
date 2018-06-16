@@ -8,17 +8,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin
+import ftn.xmlws.project.web.dto.AccomodationSearchParamsDTO;
+
 @RestController
 @RequestMapping(value = "/api/client")
 public class ClientModuleController {
 	
-	@RequestMapping(value = "/search", method = RequestMethod.POST, consumes="application/json")
-	public ResponseEntity search(@RequestBody Object object) {
+	@RequestMapping(value = "/search", method = RequestMethod.POST, consumes="application/json", produces="application/json")
+	public ResponseEntity search(@RequestBody AccomodationSearchParamsDTO accomodationSearchParamsDTO) {
 		
-		System.out.println(object  + " ovo je search dobijen DTO");
+		System.out.println(accomodationSearchParamsDTO  + " ovo je search dobijen DTO");
 
-		return new ResponseEntity(HttpStatus.OK);
+		return new ResponseEntity(accomodationSearchParamsDTO, HttpStatus.OK);
 		
 		
 	}
