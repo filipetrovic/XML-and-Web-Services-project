@@ -21,15 +21,15 @@ public class SyncService {
     @Autowired
     private EntityMapper entityMapper;
 
-    public List<com.xmlws.ftn.soap_core.EncodedAccommodationType> getTypesAsXML() {
+    public List<com.xmlws.ftn.soap.EncodedAccommodationType> getTypesAsXML() {
         return entityMapper.transformListEncodedAccommodationTypesEntityToXML(encodedEntitiesService.getAllAccommodationTypes());
     }
 
-    public List<com.xmlws.ftn.soap_core.EncodedFacility> getFacilitysAsXML() {
+    public List<com.xmlws.ftn.soap.EncodedFacility> getFacilitysAsXML() {
         return entityMapper.transformListEncodedFacilityToXML(encodedEntitiesService.getAllFacilities());
     }
 
-    public List<com.xmlws.ftn.soap_core.EncodedStarRating> getStarRatingAsXML() {
+    public List<com.xmlws.ftn.soap.EncodedStarRating> getStarRatingAsXML() {
         return entityMapper.transformListEncodedStarRatingToXML(encodedEntitiesService.getAllStarRatings());
     }
 
