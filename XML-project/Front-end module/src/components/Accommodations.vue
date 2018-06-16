@@ -23,7 +23,7 @@
             <td>{{accommodation.name}}</td>
             <td>{{accommodation.description}}</td>
             <td>{{accommodation.inputAddress}}</td>
-            <td>{{accommodation.numberOfPeople}}</td>
+            <td>{{numberOfPeople / accommodation.numberOfPeople}}</td>
             <td>{{accommodation.typeOfAccommodation}}</td>
             <td>{{accommodation.category}}</td>
             <td>{{accommodation.pricePerPerson * numberOfPeople}}</td>
@@ -33,6 +33,19 @@
             </tr>
         </tbody>
     </table>
+
+    <div class="form-group row">
+
+            <label for="sort" class="col-md-1 col-form-label"> <b> Sort by: </b> </label>
+            <div class="col-md-2">
+                <select id="sort" class="form-control" v-model="sortType" @click="sorted">
+                    <option value="Price" >Price</option>
+                    <option value="Rating">Rating</option>
+                    <option value="Category">Category</option>
+                </select>
+            </div>
+
+    </div>
 
 
   </div>
@@ -44,7 +57,49 @@ export default {
   data () {
     return {
       listOfAccommodations : [],
-      numberOfPeople: Number = 0
+      numberOfPeople: Number = 0,
+      sortType: '',
+      sort: [
+          {price:2000, name:'app1'},
+          {price:6000, name:'app2'},
+          {price:4000, name:'app3'}
+      ]
+    }
+  },
+  watch: {
+      sortType: function(val) {
+        console.log(val);
+
+
+        
+        
+
+
+  
+        
+
+      },
+  },
+  methods: {
+
+    sorted: function() {
+
+        
+
+        var niz = [];
+
+        for(let item in this.listOfAccommodations)
+            niz.push(item);
+            
+
+        console.log(niz);
+
+        this.sort.sort( ( a, b) => {
+                return (a.price - b.price);
+            });
+
+        console.log(this.sort);
+        console.log("Usao");
     }
   },
   created() {

@@ -6,7 +6,7 @@
 //
 
 
-package com.xmlws.ftn.soap_core;
+
 
 import java.util.ArrayList;
 import java.util.List;
