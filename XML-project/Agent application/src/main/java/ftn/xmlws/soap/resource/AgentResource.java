@@ -2,6 +2,7 @@ package ftn.xmlws.soap.resource;
 
 import com.xmlws.ftn.soap.GetAgentResponse;
 import com.xmlws.ftn.soap.GetAgentRequest;
+import com.xmlws.ftn.soap.Reservation;
 import ftn.xmlws.soap.config.ApplicationConstants;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -15,6 +16,9 @@ public class AgentResource {
     @ResponsePayload
     public GetAgentResponse getAgentResponse(@RequestPayload GetAgentRequest request) {
         GetAgentResponse response = new GetAgentResponse();
+        Reservation reser = new Reservation();
+        reser.setUsername(request.getUsername());
+        response.setReservation(reser);
         return response;
     }
 }
