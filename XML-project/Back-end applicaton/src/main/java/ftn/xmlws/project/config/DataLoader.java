@@ -10,9 +10,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import ftn.xmlws.project.beans.Accommodation;
-import ftn.xmlws.project.beans.EncodedFacility;
 import ftn.xmlws.project.repository.AccommodationRepository;
-import ftn.xmlws.project.repository.EncodedFacilityRepository;
 
 @Component
 @SuppressWarnings("unused")
