@@ -15,6 +15,7 @@ import ftn.xmlws.project.repository.AccommodationRepository;
 import ftn.xmlws.project.repository.EncodedFacilityRepository;
 
 @Component
+@SuppressWarnings("unused")
 public class DataLoader implements ApplicationRunner {
 
 	@Autowired
@@ -26,8 +27,9 @@ public class DataLoader implements ApplicationRunner {
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		
-		insertIntoAccommodations();
+		//insertIntoAccommodations();
 	}
+	
 	
 	private void insertIntoAccommodations() {
 		
