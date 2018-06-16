@@ -9,13 +9,15 @@
 import HelloWorld from './components/HelloWorld'
 import Home from './components/Home'
 import Registration from './components/Registration'
+import Accommodations from './components/Accommodations'
 
 export default {
   name: 'App',
   components: {
     HelloWorld,
     Home,
-    Registration
+    Registration,
+    Accommodations
   }
 }
 </script>

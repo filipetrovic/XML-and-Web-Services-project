@@ -253,6 +253,12 @@ export default {
                     .then(response => {
                         const data = response.json();
                         console.log(data);
+
+                        this.$store.state.ListOfAccommodations = data;
+
+                        //this.$store.dispatch('imeMutacije');
+
+                        this.$router.push('Accommodations'); 
                     });
       }
   }
