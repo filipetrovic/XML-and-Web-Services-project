@@ -157,10 +157,35 @@ public class Accommodation {
 		this.name = name;
 	}
 
+	public String getPictures() {
+		return pictures;
+	}
+
+	public void setPictures(String pictures) {
+		this.pictures = pictures;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public float getPricePerPerson() {
+		return pricePerPerson;
+	}
+
+	public void setPricePerPerson(float pricePerPerson) {
+		this.pricePerPerson = pricePerPerson;
+	}
+
 	@Override
 	public String toString() {
 		return "Accommodation [id=" + id + ", startDateAvailable=" + startDateAvailable + ", endDateAvailable="
-				+ endDateAvailable + ", name=" + name + ", inputAddress=" + inputAddress + ", numberOfPeople="
+				+ endDateAvailable + ", name=" + name + ", pictures=" + pictures + ", description=" + description
+				+ ", pricePerPerson=" + pricePerPerson + ", inputAddress=" + inputAddress + ", numberOfPeople="
 				+ numberOfPeople + ", typeOfAccommodation=" + typeOfAccommodation + ", category=" + category
 				+ ", additionalFacilities=" + additionalFacilities + "]";
 	}

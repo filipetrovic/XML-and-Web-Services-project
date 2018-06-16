@@ -255,6 +255,7 @@ export default {
                         console.log(data);
 
                         this.$store.state.ListOfAccommodations = data;
+                        this.$store.state.numberOfPeople = this.searchData.numberOfPeople;
 
                         //this.$store.dispatch('imeMutacije');
 
