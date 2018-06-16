@@ -15,14 +15,14 @@ import ftn.xmlws.project.web.dto.RegistrationUserDTO;
 @RequestMapping(value = "/api/client/auth")
 public class ClientModuleLoginController {
 
-	@RequestMapping(value = "/registration", method = RequestMethod.POST, consumes="application/json")
-	public ResponseEntity search(@RequestBody RegistrationUserDTO registrationUserDTO) {
-		
-		System.out.println(registrationUserDTO  + " ovo je search dobijen DTO");
-
-		return new ResponseEntity(HttpStatus.OK);
-		
-		
-	}
+//	@RequestMapping(value = "/registration", method = RequestMethod.POST, consumes="application/json")
+//	public ResponseEntity search(@RequestBody RegistrationUserDTO registrationUserDTO) {
+//		
+//		System.out.println(registrationUserDTO  + " ovo je search dobijen DTO");
+//
+//		return new ResponseEntity(HttpStatus.OK);
+//		
+//		
+//	}
 	
 }

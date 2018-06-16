@@ -89,7 +89,7 @@
         </div>
 
         <div class="form-group row" v-if="advancedSearchChecked">
-            <label class="col-md-12 col-form-label"> <b>Additional services:</b> </label>
+            <label class="col-md-12 col-form-label"> <b>Additional facilities:</b> </label>
 
         </div>
 
@@ -251,7 +251,7 @@ export default {
                     headers)
 
                     .then(response => {
-                        const data = response.json();
+                        const data = response.body;
                         console.log(data);
 
                         this.$store.state.ListOfAccommodations = data;

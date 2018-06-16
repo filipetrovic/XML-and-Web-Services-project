@@ -41,7 +41,7 @@
           <th> Bussiness Number</th>
 
         </tr>
-        <!-- v-for="registry in listOfSelectedRegistries" -->
+
         <tr  class="table-row"  v-for="a in listOfAgents" >
           <td>{{a.id}}</td>
           <td>{{a.name}}</td>
@@ -77,7 +77,7 @@ export default {
   methods: {
     addNewAgent() {
       var f = this.validateForm();
-      console.log(f);
+
       if (!f){
       } else {
       var params = {  'name' : this.agent.name,
@@ -89,7 +89,6 @@ export default {
         .then(response => {
           this.$http.get("http://localhost:8090/getAllAgents")
             .then(list => {
-              console.log(list);
               this.listOfAgents = list.body;
             })
           if (!response.body){
@@ -121,7 +120,7 @@ export default {
     this.$http.get("http://localhost:8090/getAllAgents")
       .then(response => {
         this.listOfAgents = response.body;
-        console.log(JSON.stringify(this.listOfAgents))
+
       })
   }
 
