@@ -16,14 +16,14 @@ import java.util.stream.Collectors;
 public class EntityMapper {
 
 
-    public com.xmlws.ftn.soap_core.EncodedAccommodationType transformEncodedAccommodationTypesEntityToXML(EncodedAccommodationType encodedAccommodationType) {
-        com.xmlws.ftn.soap_core.EncodedAccommodationType object = new com.xmlws.ftn.soap_core.EncodedAccommodationType();
+    public com.xmlws.ftn.soap.EncodedAccommodationType transformEncodedAccommodationTypesEntityToXML(EncodedAccommodationType encodedAccommodationType) {
+        com.xmlws.ftn.soap.EncodedAccommodationType object = new com.xmlws.ftn.soap.EncodedAccommodationType();
         object.setId(encodedAccommodationType.getId());
         object.setName(encodedAccommodationType.getName());
         return object;
     }
 
-    public List<com.xmlws.ftn.soap_core.EncodedAccommodationType> transformListEncodedAccommodationTypesEntityToXML(List<EncodedAccommodationType> encodedAccommodationType) {
+    public List<com.xmlws.ftn.soap.EncodedAccommodationType> transformListEncodedAccommodationTypesEntityToXML(List<EncodedAccommodationType> encodedAccommodationType) {
         return encodedAccommodationType
                 .stream()
                 .map( object -> {
@@ -32,14 +32,14 @@ public class EntityMapper {
                 .collect(Collectors.toList());
     }
 
-    public com.xmlws.ftn.soap_core.EncodedFacility transformEncodedFacilityToXML(EncodedFacility encodedFacility) {
-        com.xmlws.ftn.soap_core.EncodedFacility object = new com.xmlws.ftn.soap_core.EncodedFacility();
+    public com.xmlws.ftn.soap.EncodedFacility transformEncodedFacilityToXML(EncodedFacility encodedFacility) {
+        com.xmlws.ftn.soap.EncodedFacility object = new com.xmlws.ftn.soap.EncodedFacility();
         object.setId(encodedFacility.getId());
         object.setName(encodedFacility.getName());
         return object;
     }
 
-    public List<com.xmlws.ftn.soap_core.EncodedFacility> transformListEncodedFacilityToXML(List<EncodedFacility> encodedFacilities) {
+    public List<com.xmlws.ftn.soap.EncodedFacility> transformListEncodedFacilityToXML(List<EncodedFacility> encodedFacilities) {
         return encodedFacilities.stream()
                 .map( object -> {
                     return transformEncodedFacilityToXML(object);
@@ -47,14 +47,14 @@ public class EntityMapper {
                 .collect(Collectors.toList());
     }
 
-    public com.xmlws.ftn.soap_core.EncodedStarRating transformEncodedRatingStarToXML(EncodedStarRating encodedStarRating) {
-        com.xmlws.ftn.soap_core.EncodedStarRating object = new com.xmlws.ftn.soap_core.EncodedStarRating();
+    public com.xmlws.ftn.soap.EncodedStarRating transformEncodedRatingStarToXML(EncodedStarRating encodedStarRating) {
+        com.xmlws.ftn.soap.EncodedStarRating object = new com.xmlws.ftn.soap.EncodedStarRating();
         object.setId(encodedStarRating.getId());
         object.setName(encodedStarRating.getName());
         return object;
     }
 
-    public List<com.xmlws.ftn.soap_core.EncodedStarRating> transformListEncodedStarRatingToXML(List<EncodedStarRating> encodedStarRating) {
+    public List<com.xmlws.ftn.soap.EncodedStarRating> transformListEncodedStarRatingToXML(List<EncodedStarRating> encodedStarRating) {
         return encodedStarRating.stream()
                 .map( object -> {
                     return transformEncodedRatingStarToXML(object);

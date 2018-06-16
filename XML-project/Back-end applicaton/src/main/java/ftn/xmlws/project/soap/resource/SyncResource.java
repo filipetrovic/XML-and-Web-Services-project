@@ -1,8 +1,8 @@
 package ftn.xmlws.project.soap.resource;
 
 import ftn.xmlws.project.config.ApplicationConstants;
-import com.xmlws.ftn.soap_core.GetSyncResponse;
-import com.xmlws.ftn.soap_core.GetSyncRequest;
+import com.xmlws.ftn.soap.GetSyncResponse;
+import com.xmlws.ftn.soap.GetSyncRequest;
 import ftn.xmlws.project.soap.service.SyncService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -27,9 +27,6 @@ public class SyncResource {
         syncService.getTypesAsXML().stream().forEach( dao -> response.getEncodedAccommodationType().add(dao));
         syncService.getFacilitysAsXML().stream().forEach( dao -> response.getEncodedFacility().add(dao));
         syncService.getStarRatingAsXML().stream().forEach( dao -> response.getEncodedStarRating().add(dao));
-//        response.getEncodedAccommodationType().add(syncService.getTypesAsXML());
-//        response.getEncodedFacility().add(syncService.getFacilitysAsXML());
-//        response.getEncodedStarRating().add(syncService.getStarRatingAsXML());
         return response;
     }
 
