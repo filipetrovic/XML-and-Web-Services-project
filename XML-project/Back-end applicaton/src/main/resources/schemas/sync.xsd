@@ -1,0 +1,45 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://ftn.xmlws.com/soap"
+           targetNamespace="http://ftn.xmlws.com/soap"
+           elementFormDefault="qualified">
+
+    <xs:element name="getSyncRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="agentId" type="xs:string" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getSyncResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="encodedAccommodationType" type="tns:encodedAccommodationType" maxOccurs="unbounded" />
+                <xs:element name="encodedFacility" type="tns:encodedFacility" maxOccurs="unbounded" />
+                <xs:element name="encodedStarRating" type="tns:encodedStarRating" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="encodedAccommodationType">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="encodedFacility">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="encodedStarRating">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
