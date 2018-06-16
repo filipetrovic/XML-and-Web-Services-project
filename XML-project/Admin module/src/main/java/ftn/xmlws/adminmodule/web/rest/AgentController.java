@@ -74,11 +74,10 @@ public class AgentController {
 		
 		Agent agent = new Agent(name,surname,address,bussinessNumber);
 		RestTemplate restTemplate = new RestTemplate();
-		System.out.println(agent.getName());
+		
 		try {
 			Boolean response = restTemplate.postForObject("http://localhost:8080/api/agent/addAgent", agent, Boolean.class);
-			System.out.println("Usao ovde");
-			System.out.println(agent.getName());
+			
 			return new ResponseEntity<Boolean>(response, HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println("An error occurred while trying to access back-end-module/addAgent");
