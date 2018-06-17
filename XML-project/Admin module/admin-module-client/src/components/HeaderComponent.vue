@@ -10,14 +10,18 @@
             <ul class="main-nav__items">
 
                 <li class="main-nav__item ">
-                    <a class="uppercase" href="start-hosting/index.html">About us</a>
+                    <a class="uppercase" href="start-hosting/index.html">Codes</a>
                 </li>
                 <li class="main-nav__item ">
-                    <a class="uppercase" href="start-hosting/index.html">Contact</a>
+                    <a class="uppercase" href="start-hosting/index.html">Comments</a>
                 </li>
-                <li class="main-nav__item main-nav__item--cta ">
-                  <a href="#">{{phoneNumber}}</a>
+                <li class="main-nav__item ">
+                    <a class="uppercase" href="start-hosting/index.html">Users</a>
                 </li>
+                <li class="main-nav__item ">
+                    <a class="uppercase" href="start-hosting/index.html">Agents</a>
+                </li>
+
             </ul>
         </nav>
     </section>
@@ -67,6 +71,8 @@ export default {
         justify-content: space-between;
         z-index: 2;
         background-color: white;
+        overflow: hidden;
+
     }
 
     .main-header__brand {
@@ -97,12 +103,19 @@ export default {
         }
     }
 
+    .main-nav {
+      margin-right: 2rem;
+      overflow: hidden;
+
+    }
+
     .main-nav__items {
-        margin-right: 0.5rem;
+
         padding: 0;
 
+
         .main-nav__item {
-            padding: 0.2rem 0.7rem;
+            padding: 0.2rem 0.4rem;
             font-weight: normal;
 
             a {
@@ -141,36 +154,6 @@ export default {
         }
 
 
-    }
-
-    @media only screen and (max-width:768px) {
-        .main-header {
-            padding-left: 0;
-        }
-
-        .main-header__name {
-            padding-left: 0.5rem;
-
-            .main-header__brand p {
-                font-size: .8rem;
-
-
-                span {
-                    display: block;
-                    font-weight: bold;
-                    font-size: 1.2rem;
-                    color: black;
-                }
-            }
-
-            .main-header__brand img {
-                height: 2.43rem;
-            }
-        }
-
-        .main-nav__items {
-            display: none;
-        }
     }
 
 

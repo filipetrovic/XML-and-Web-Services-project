@@ -293,6 +293,7 @@ export default {
   @import '../../../assets/scss/mixins/buttons/_default.scss';
   @import '../../../assets/scss/mixins/forms/_forms.scss';
   @import '../../../assets/scss/mixins/pageParts/_pageParts.scss';
+  @import '../../../assets/scss/mixins/tables/_defaultTable.scss';
 
   .welcome-message {
     @include welcomeMessage
@@ -326,62 +327,23 @@ export default {
     }
 
     table {
-      width: 90%;
-      margin: 1rem auto;
-      border-collapse: collapse;
+      @include defaultTable;
 
-      .header-row {
-        box-sizing: border-box;
-        background: $default-color;
-        color: white;
-        text-transform: uppercase;
-
-        th:first-of-type{
-          width: 50px;
-        }
-        th {
-          padding: 0.5rem;
-          border-left: 2px solid white;
-        }
-
-        .header-operations {
-          width: 100px;
-        }
-
-      }
-      tr:not(:first-of-type) {
-      border-bottom: 1px solid $default-color;
-
-      &:hover,
-      &:active {
-        background: lighten($default-color,30%);
-      }
-
-
-      td {
-        padding: 0.5rem;
-      }
-
-      td:first-of-type {
-        font-weight: bold;
-      }
-
-      .operations {
-        display: flex;
-        justify-content: space-around;
-
+      tr {
+        .operations {
           i {
-            cursor: pointer;
             @include linkTransition;
+
             &:hover,
             &:active {
+              transform: scaleX(1.2) scaleY(1.2);
               @include linkTransition;
-              color: darken($default-text-color,15%)
             }
           }
         }
       }
-    }}
+    }
+  }
 
   .addNewCode {
       @include simpleForm;

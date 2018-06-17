@@ -41,17 +41,21 @@
         font-weight: bold;
       }
 
+
+
       .operations {
         display: flex;
         justify-content: space-around;
 
+
           i {
+
             cursor: pointer;
             @include linkTransition;
             &:hover,
             &:active {
               @include linkTransition;
-              color: darken($default-text-color,15%)
+              color: lighten($default-text-color,25%)
             }
           }
         }

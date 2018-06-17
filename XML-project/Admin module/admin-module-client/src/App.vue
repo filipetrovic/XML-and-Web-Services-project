@@ -32,6 +32,7 @@ export default {
   background: linear-gradient($default-color,lighten($default-color,80%));
   position:relative;
   z-index: -1;
+  overflow: hidden;
 
   &:before {
     content: '';
@@ -52,6 +53,7 @@ export default {
   position: relative;
   top: 100%;
   z-index: 2;
+
 }
 
 body {
@@ -70,11 +72,13 @@ body {
 
 .header-container {
   height : 129px;
+
 }
 
 .header{
   position: fixed;
   z-index: 1;
+
 }
 
 h1, h2 {
