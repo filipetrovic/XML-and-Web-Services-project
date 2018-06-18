@@ -10,5 +10,6 @@ import ftn.xmlws.project.beans.Accommodation;
 public interface AccommodationService {
 
 	ArrayList<Accommodation> getAllAccommodations();
+	ArrayList<Accommodation> getAccommodationsBasedOnSearchParams(Accommodation a);
 	
 }
