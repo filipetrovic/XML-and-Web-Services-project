@@ -2,9 +2,13 @@ package ftn.xmlws.project.web.rest;
 
 import java.util.List;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,6 +51,7 @@ public class UserController {
 	}
 	
 	@PutMapping("/banUser")
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public ResponseEntity<Boolean> banUser(@RequestBody User user ) {
 		try {
 			
@@ -61,6 +66,7 @@ public class UserController {
 	}
 	
 	@PutMapping("/unbanUser")
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public ResponseEntity<Boolean> unbanUser(@RequestBody User user ) {
 		try {
 			
@@ -74,6 +80,7 @@ public class UserController {
 	}
 	
 	@DeleteMapping("/deleteUser")
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public ResponseEntity<Boolean> deleteUser(@RequestBody User user ) {
 		try {
 			

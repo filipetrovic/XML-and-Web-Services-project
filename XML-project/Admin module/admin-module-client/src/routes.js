@@ -3,6 +3,7 @@ import UpdateCodesComponent from './components/pages/providedServices/UpdateCode
 import ApproveCommentsComponent from './components/pages/providedServices/ApproveCommentsComponent.vue'
 import ActivateUsersComponent from './components/pages/providedServices/ActivateUsersComponent.vue'
 import AddAgentsComponent from './components/pages/providedServices/AddAgentsComponent.vue'
+import LoginComponent from './components/pages/providedServices/LoginComponent.vue'
 
 export const routes = [
     {path: '*', redirect: '/home'},
@@ -11,5 +12,6 @@ export const routes = [
     {path: '/approveComments', component: ApproveCommentsComponent},
     {path: '/activateUsers', component: ActivateUsersComponent},
     {path: '/addAgents', component: AddAgentsComponent},
+    {path: '/login', component: LoginComponent},
 
 ]

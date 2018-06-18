@@ -17,12 +17,17 @@
           <th> </th>
         </tr>
 <!--  -->
-        <tr  class="table-row" v-for="user in listOfUsers"  >
+        <tr  class="table-row" v-for="(user,index) in listOfUsers"  >
           <td>{{user.username}}</td>
           <td>{{user.email}}</td>
           <td> {{user.firstName}} {{user.lastName}} </td>
-          <td>
-            <span v-if="user.deleted"> Deleted</span>
+          <td  v-bind:class="{'animated': activeIndex === index}">
+            <span v-if="user.deleted" >
+              <span v-if="activeIndex === index" v-bind:class="{'animated': activeIndex === index}">
+                Deleted
+              </span>
+              <span v-else> Deleted</span>
+            </span>
             <span v-else>
               <span v-if="user.banned">Banned</span>
               <span v-else> Regular user</span>
@@ -31,15 +36,26 @@
 
           </td>
           <td class="operations">
-            <i class="material-icons" @click="banUser(user)">
-              block
-            </i>
-            <i class="material-icons" @click="unbanUser(user)">
-              check_circle_outline
-            </i>
-            <i class="material-icons" @click="deleteUser(user)">
-              delete
-            </i>
+            <span>
+              <i class="material-icons" @click="banUser(user,index)">
+                block
+              </i>
+              <span class="tooltiptext">Ban</span>
+            </span>
+            <span>
+               <i class="material-icons" @click="unbanUser(user,index)">
+                check_circle_outline
+              </i>
+              <span class="tooltiptext">Unban</span>
+            </span>
+            <span>
+              <i class="material-icons" @click="deleteUser(user,index)">
+                delete
+              </i>
+              <span class="tooltiptext">Delete</span>
+            </span>
+
+
           </td>
         </tr>
 
@@ -53,51 +69,86 @@
 export default {
   data() {
     return {
-      listOfUsers : []
+      listOfUsers : [],
+      activeIndex: -1
     }
   },
   methods: {
-    banUser(user){
+    banUser(user,index){
+      if(user.deleted){
+        this.activeIndex = index;
+        setTimeout(() =>{
+          this.activeIndex= -1;
+        },650)
+      } else {
       var body = user;
       this.$http.put("http://localhost:8090/banUser", body)
       .then(response => {
-        if(response.body){
+        this.$http.get("http://localhost:8090/getAllUsers")
+        .then(list => {
+                this.listOfUsers = list.body;
+              })
+        },
+        (err) => {
+          alert('This user\'s status has  been edited meanwhile.');
           this.$http.get("http://localhost:8090/getAllUsers")
           .then(response => {
             this.listOfUsers = response.body;
-          })
-        } else {
-          alert("Error occurred");
-        }
-      })
+
+          });
+        })
+      }
     },
-    unbanUser(user) {
+
+    unbanUser(user,index) {
+      if(user.deleted){
+        this.activeIndex = index;
+        setTimeout(() =>{
+          this.activeIndex= -1;
+        },650)
+      } else {
       var body = user;
       this.$http.put("http://localhost:8090/unbanUser", body)
       .then(response => {
-        if(response.body){
+        this.$http.get("http://localhost:8090/getAllUsers")
+        .then(list => {
+                this.listOfUsers = list.body;
+              })
+        },
+        (err) => {
+          alert('This user\'s status has  been edited meanwhile.');
           this.$http.get("http://localhost:8090/getAllUsers")
           .then(response => {
             this.listOfUsers = response.body;
-          })
-        } else {
-          alert("Error occurred");
-        }
-      })
+
+          });
+        })
+      }
     },
-    deleteUser(user) {
-      var body = user;
-      this.$http.delete("http://localhost:8090/deleteUser",{body: body} )
-      .then(response => {
-        if(response.body){
+    deleteUser(user,index) {
+      if(user.deleted){
+        this.activeIndex = index;
+        setTimeout(() =>{
+          this.activeIndex= -1;
+        },650)
+      } else {
+        var body = user;
+        this.$http.delete("http://localhost:8090/deleteUser", {body:body})
+        .then(response => {
           this.$http.get("http://localhost:8090/getAllUsers")
-          .then(response => {
-            this.listOfUsers = response.body;
+          .then(list => {
+                  this.listOfUsers = list.body;
+                })
+          },
+          (err) => {
+            alert('This user\'s status has  been edited meanwhile.');
+            this.$http.get("http://localhost:8090/getAllUsers")
+            .then(response => {
+              this.listOfUsers = response.body;
+
+            });
           })
-        } else {
-          alert("Error occurred");
         }
-      })
     }
   },
   created(){
@@ -116,6 +167,7 @@ export default {
   @import '../../../assets/scss/mixins/forms/_forms.scss';
   @import '../../../assets/scss/mixins/pageParts/_pageParts.scss';
   @import '../../../assets/scss/mixins/tables/_defaultTable.scss';
+  @import '../../../assets/scss/mixins/tooltips/_tooltip.scss';
 
   .welcome-message {
     @include welcomeMessage;
@@ -141,7 +193,10 @@ export default {
 
       tr {
         .operations {
-           i{
+          span {
+            @include tooltipContainer;
+
+           i {
             font-size:1.7rem;
             transition: transform 0.2s ease-out;
 
@@ -152,7 +207,39 @@ export default {
             }
            }
 
+           span {
+             @include tooltip;
+           }
+        }
         }
       }
-  }}
+    }
+  }
+
+  .animated {
+    animation: wiggle 0.3s 2 running ;
+  }
+
+
+
+
+
+  @keyframes wiggle {
+    0% {
+      transform: none;
+      font-weight: normal;
+    }
+    1% {
+      transform: rotateZ(5deg);
+      font-weight: bold;
+    }
+    50% {
+      transform: rotateZ(-10deg);
+      font-weight: bold;
+    }
+    100% {
+      transform: rotateX(5deg);
+      font-weight: bold;
+    }
+  }
 </style>

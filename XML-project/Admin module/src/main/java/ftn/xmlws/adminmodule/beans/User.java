@@ -14,6 +14,7 @@ public class User {
 	private boolean banned;
 	private boolean deleted;
     private Set<Authority> authorities = new HashSet<>();
+    private int version;
 	
 	public User() {
 		
@@ -25,6 +26,14 @@ public class User {
 
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	public boolean isBanned() {

@@ -27,8 +27,8 @@
           </label>
 
           <div class="buttons">
-            <a> <i class="material-icons"> check_circle_outline  </i></a>
-            <a><i class="material-icons"> highlight_off  </i></a>
+            <a> <i class="material-icons"> check_circle_outline  </i> <span class="tooltiptext">Approve</span></a>
+            <a><i class="material-icons"> highlight_off  </i> <span class="tooltiptext">Delete</span></a>
           </div>
         </li>
       </ul>
@@ -55,7 +55,7 @@ export default {
 
   @import '../../../assets/scss/variables/vars.scss';
   @import '../../../assets/scss/mixins/pageParts/_pageParts.scss';
-
+  @import '../../../assets/scss/mixins/tooltips/tooltip.scss';
   main {
     min-width: 700px;
   }
@@ -133,6 +133,8 @@ export default {
           }
 
           a:first-of-type {
+            @include tooltipContainer;
+
             i{
               color: darken($default-color, 10%);
               transition: transform 0.2s ease-out;
@@ -143,10 +145,15 @@ export default {
                 transition: transform 0.2s ease-out ;
               }
             }
+
+            span {
+              @include tooltip;
+            }
           }
 
           a:last-of-type {
-           i{
+           @include tooltipContainer;
+            i {
               color: $text-color;
               transition: transform 0.2s ease-out;
 
@@ -155,6 +162,10 @@ export default {
                 transform: scaleX(1.2) scaleY(1.2);
                 transition: transform 0.2s ease-out ;
               }
+            }
+
+            span {
+              @include tooltip;
             }
           }
 
@@ -186,6 +197,8 @@ export default {
           }
 
           a:first-of-type {
+            @include tooltipContainer;
+
             i{
               color: darken($default-color, 10%);
               transition: transform 0.2s ease-out;
@@ -196,9 +209,27 @@ export default {
                 transition: transform 0.2s ease-out ;
               }
             }
+
+            span {
+              @include tooltip;
+              right:110%;
+              bottom: 85%;
+
+              &:before {
+                border-top: 0.5rem solid $text-color;
+                border-bottom: none;
+                border-left: 0.5rem solid transparent;
+                border-right: none;
+                content: '';
+                position: absolute;
+                left: 70%;
+                top:  90%;;
+              }
+            }
           }
 
           a:last-of-type {
+            @include tooltipContainer;
            i{
               color: $text-color;
               transition: transform 0.2s ease-out;
@@ -207,6 +238,23 @@ export default {
               &:active {
                 transform: scaleX(1.2) scaleY(1.2);
                 transition: transform 0.2s ease-out ;
+              }
+            }
+
+            span {
+              @include tooltip;
+              right:110%;
+              bottom: 85%;
+
+              &:before {
+                border-top: 0.5rem solid $text-color;
+                border-bottom: none;
+                border-left: 0.5rem solid transparent;
+                border-right: none;
+                content: '';
+                position: absolute;
+                left: 70%;
+                top:  90%;;
               }
             }
           }

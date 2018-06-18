@@ -4,19 +4,19 @@
     <nav class="footer-nav">
       <ul class="footer-nav__items">
         <li class="footer-nav__item ">
-            <a  href="#">About us</a>
+            <router-link to="/home" tag="a"  >Home</router-link>
         </li>
         <li class="footer-nav__item ">
-            <a  href="#">Contact</a>
+            <router-link to="/home" tag="a">Login</router-link>
         </li>
       </ul>
     </nav>
 
     <div class="footer__logo">
 
-      <a disabled href="" class="footer__logo--image">
+      <p >
          <img src="../assets/images/admin_logo.png" alt="uHost"/>
-      </a>
+      </p>
     </div>
   </section>
 </footer>
@@ -70,7 +70,7 @@
     display:flex;
     align-items: center;
 
-    a  {
+    p  {
       text-decoration: none;
       margin-right : 6.25rem;
       margin-left: 0.8rem;

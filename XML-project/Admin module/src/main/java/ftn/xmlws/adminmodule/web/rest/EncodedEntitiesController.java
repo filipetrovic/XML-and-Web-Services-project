@@ -77,6 +77,12 @@ public class EncodedEntitiesController {
 		MultiValueMap<String, String> parametersMap = new LinkedMultiValueMap<String, String>();
 		parametersMap.add("name", typeName);
 		
+		if(typeName.equals("")) {
+			System.out.println("Name can't be empty");
+			return new ResponseEntity<Boolean>(false,HttpStatus.BAD_REQUEST);
+		}
+		
+		
 		try {
 			Boolean response = restTemplate.postForObject("http://localhost:8080/api/encoded/addAccommodationType", parametersMap, Boolean.class);
 			return new ResponseEntity<Boolean>(response, HttpStatus.OK);
@@ -107,6 +113,11 @@ public class EncodedEntitiesController {
 	public ResponseEntity<Boolean> editAccommodationType(@RequestBody AccommodationType accommodationType){
 		RestTemplate restTemplate = new RestTemplate();
 		HttpEntity<AccommodationType> entity = new HttpEntity<>(accommodationType);
+		
+		if(accommodationType.getName().equals("")) {
+			System.out.println("Name can't be empty");
+			return new ResponseEntity<Boolean>(false,HttpStatus.BAD_REQUEST);
+		}
 		
         try {
             ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8080/api/encoded/editAccommodationType", 
@@ -162,6 +173,10 @@ public class EncodedEntitiesController {
 		RestTemplate restTemplate = new RestTemplate();
 		MultiValueMap<String, String> parametersMap = new LinkedMultiValueMap<String, String>();
 		parametersMap.add("name", ratingName);
+		if(ratingName.equals("")) {
+			System.out.println("Name can't be empty");
+			return new ResponseEntity<Boolean>(false,HttpStatus.BAD_REQUEST);
+		}
 		
 		try {
 			Boolean response = restTemplate.postForObject("http://localhost:8080/api/encoded/addStarRating", parametersMap, Boolean.class);
@@ -193,7 +208,10 @@ public class EncodedEntitiesController {
 	public ResponseEntity<Boolean> editStarRating(@RequestBody StarRating starRating){
 		RestTemplate restTemplate = new RestTemplate();
 		HttpEntity<StarRating> entity = new HttpEntity<>(starRating);
-		System.out.println("stiglo: " + starRating.getName());
+		if(starRating.getName().equals("")) {
+			System.out.println("Name can't be empty");
+			return new ResponseEntity<Boolean>(false,HttpStatus.BAD_REQUEST);
+		}
 		
         try {
             ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8080/api/encoded/editStarRating", 
@@ -249,6 +267,10 @@ public class EncodedEntitiesController {
 		RestTemplate restTemplate = new RestTemplate();
 		MultiValueMap<String, String> parametersMap = new LinkedMultiValueMap<String, String>();
 		parametersMap.add("name", facilityName);
+		if(facilityName.equals("")) {
+			System.out.println("Name can't be empty");
+			return new ResponseEntity<Boolean>(false,HttpStatus.BAD_REQUEST);
+		}
 		
 		try {
 			Boolean response = restTemplate.postForObject("http://localhost:8080/api/encoded/addFacility", parametersMap, Boolean.class);
@@ -280,6 +302,10 @@ public class EncodedEntitiesController {
 	public ResponseEntity<Boolean> editFacility(@RequestBody Facility facility){
 		RestTemplate restTemplate = new RestTemplate();
 		HttpEntity<Facility> entity = new HttpEntity<>(facility);
+		if(facility.getName().equals("")) {
+			System.out.println("Name can't be empty");
+			return new ResponseEntity<Boolean>(false,HttpStatus.BAD_REQUEST);
+		}
 		
         try {
             ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8080/api/encoded/editFacility", 
