@@ -32,12 +32,21 @@
           <td>{{registry.id}}</td>
           <td>{{registry.name}}</td>
           <td class="operations">
-            <i class="material-icons" @click="deleteRegistryCode(registry)">
+            <span>
+              <i class="material-icons" @click="editRegistryCode(registry)">
+                edit
+              </i>
+              <span class="tooltiptext">Edit</span>
+            </span>
+
+            <span>
+              <i class="material-icons" @click="deleteRegistryCode(registry)">
               delete
-            </i>
-            <i class="material-icons" @click="editRegistryCode(registry)">
-              edit
-            </i>
+              </i>
+              <span class="tooltiptext">Delete</span>
+            </span>
+
+
           </td>
         </tr>
 
@@ -45,26 +54,29 @@
     </section>
 
     <section class="addNewCode" >
-      <h4 @click="formActivated = true" v-if="!formActivated">
+      <h4 @click="formActivated = true; validAddForm=true" v-if="!formActivated">
           <i class="material-icons"> add </i> New code
       </h4>
 
-      <form class="form" v-if="formActivated">
+      <div class="form" v-if="formActivated">
         <label >Enter code name </label>
-        <input type="text"  placeholder="Enter code name here..." v-model="newRegistryCode" v-on:keyup.enter="formActivated = false; addRegistryCode()">
+        <input type="text"  placeholder="If empty click add to cancel..." v-model="newRegistryCode"
+        v-on:keyup.enter="formActivated = false; addRegistryCode()"
+
+        >
         <button type="button" @click="formActivated = false; addRegistryCode()"> Add </button>
-      </form>
+      </div>
     </section>
 
     <section class="edit-popup" v-bind:class="{popupActive: popupActivated}">
       <h4>
           Edit code
       </h4>
-      <form class="form-popup" >
+      <div class="form-popup" >
         <label >Enter new code name </label>
-        <input type="text"   v-model.once="codeForEditing.name">
-        <button type="button" @click="submitEditRegistryCode()" > Edit </button>
-      </form>
+        <input type="text" @input="validateForm()" v-bind:class="{ 'has-error': !validForm }"  v-model.once="codeForEditing.name" v-on:keyup.enter="popupActivated=false; submitEditRegistryCode()">
+        <button type="button" @click="popupActivated=false;submitEditRegistryCode()" > Edit </button>
+      </div>
     </section>
   </main>
 </template>
@@ -78,7 +90,8 @@ export default {
       formActivated: false,
       newRegistryCode: "",
       codeForEditing: { 'id' : '0', 'name' : ''},
-      popupActivated: false
+      popupActivated: false,
+      validForm : true
     }
   },
   methods: {
@@ -105,7 +118,7 @@ export default {
       }
     },
     addRegistryCode() {
-      if (this.newRegistryCode === ""){
+      if (this.newRegistryCode === ''){
         //napisi pored dugmeta, polje je prazno, klikni opet da cancel
       } else {
         var params = { 'name' : this.newRegistryCode };
@@ -118,9 +131,10 @@ export default {
                 this.$http.get("http://localhost:8090/getAllAccommodationTypes")
                 .then(list => {
                   this.listOfSelectedRegistries = list.body;
+                  this.newRegistryCode = '';
                 })
               } else {
-                alert ("Error occurred!");
+                alert ("Error occurred! Can't enter same " + this.selectedRegistry);
               }
             })
             break;
@@ -131,9 +145,10 @@ export default {
                 this.$http.get("http://localhost:8090/getAllStarRatings")
                 .then(list => {
                   this.listOfSelectedRegistries = list.body;
+                  this.newRegistryCode = '';
                 })
               } else {
-                alert ("Error occurred!");
+                alert ("Error occurred! Can't enter same " + this.selectedRegistry);
               }
             })
             break;
@@ -144,9 +159,10 @@ export default {
                 this.$http.get("http://localhost:8090/getAllFacilities")
                 .then(list => {
                   this.listOfSelectedRegistries = list.body;
+                  this.newRegistryCode = '';
                 })
               } else {
-                alert ("Error occurred!");
+                alert ("Error occurred! Can't enter same " + this.selectedRegistry);
               }
             })
         }
@@ -224,55 +240,83 @@ export default {
 
     },
     submitEditRegistryCode(){
-      var body = this.codeForEditing;
+      if( !this.validateForm()){
 
-      switch (this.selectedRegistry){
-          case 'Accommodation type':
-            this.$http.put("http://localhost:8090/editAccommodationType", body )
-            .then(response => {
-              if (response.body) {
+      } else {
+
+
+        var body = this.codeForEditing;
+        switch (this.selectedRegistry){
+            case 'Accommodation type':
+              this.$http.put("http://localhost:8090/editAccommodationType", body )
+              .then(response => {
+                  this.$http.get("http://localhost:8090/getAllAccommodationTypes")
+                  .then(list => {
+                    this.listOfSelectedRegistries = list.body;
+
+                  })
+              },
+              (err) => {
+                alert('This ' + this.selectedRegistry + ' has already been edited or you entered ' + this.selectedRegistry + ' already exists ');
                 this.$http.get("http://localhost:8090/getAllAccommodationTypes")
-                .then(list => {
-                  this.listOfSelectedRegistries = list.body;
-                  this.popupActivated = false;
-                })
-              } else {
-                alert ("Error occurred!");
-              }
-            })
-            break;
-          case 'Star rating':
-            this.$http.put("http://localhost:8090/editStarRating", body )
-            .then(response => {
-              if (response.body) {
+                .then(response => {
+                  this.listOfSelectedRegistries = response.body;
+
+                });
+              })
+              break;
+            case 'Star rating':
+              this.$http.put("http://localhost:8090/editStarRating", body )
+              .then(response => {
+                  this.$http.get("http://localhost:8090/getAllStarRatings")
+                  .then(list => {
+                    this.listOfSelectedRegistries = list.body;
+                    this.popupActivated = false;
+                  })
+              },
+              (err) => {
+                alert('This ' + this.selectedRegistry + ' has already been edited or you entered ' + this.selectedRegistry + ' already exists ');
                 this.$http.get("http://localhost:8090/getAllStarRatings")
-                .then(list => {
-                  this.listOfSelectedRegistries = list.body;
-                  this.popupActivated = false;
-                })
-              } else {
-                alert ("Error occurred!");
-              }
-            })
-            break;
-          case 'Facility':
-            this.$http.put("http://localhost:8090/editFacility", body)
-            .then(response => {
-              if (response.body) {
+                .then(response => {
+                  this.listOfSelectedRegistries = response.body;
+
+                });
+              })
+              break;
+            case 'Facility':
+              this.$http.put("http://localhost:8090/editFacility", body )
+              .then(response => {
+                  this.$http.get("http://localhost:8090/getAllFacilities")
+                  .then(list => {
+                    this.listOfSelectedRegistries = list.body;
+                    this.popupActivated = false;
+                  })
+              },
+              (err) => {
+                alert('This ' + this.selectedRegistry + ' has already been edited or you entered ' + this.selectedRegistry + ' already exists ');
                 this.$http.get("http://localhost:8090/getAllFacilities")
-                .then(list => {
-                  this.listOfSelectedRegistries = list.body;
+                .then(response => {
+                  this.listOfSelectedRegistries = response.body;
                   this.popupActivated = false;
-                })
-              } else {
-                alert ("Error occurred!");
-              }
-            })
+                });
+              })
+              break;
+        }
+     }
+    },
+    validateForm(){
+      if(this.codeForEditing.name ==='' ){
+        this.validForm = false;
+        return false;
+      } else {
+        this.validForm = true;
+        return true;
       }
     }
 
   },
   created() {
+    console.log("createdS")
       this.$http.get("http://localhost:8090/getAllAccommodationTypes")
           .then(response => {
             this.listOfSelectedRegistries = response.body;
@@ -294,6 +338,7 @@ export default {
   @import '../../../assets/scss/mixins/forms/_forms.scss';
   @import '../../../assets/scss/mixins/pageParts/_pageParts.scss';
   @import '../../../assets/scss/mixins/tables/_defaultTable.scss';
+  @import '../../../assets/scss/mixins/tooltips/_tooltip.scss';
 
   .welcome-message {
     @include welcomeMessage
@@ -331,15 +376,23 @@ export default {
 
       tr {
         .operations {
-          i {
-            @include linkTransition;
-
-            &:hover,
-            &:active {
-              transform: scaleX(1.2) scaleY(1.2);
+          span {
+            @include tooltipContainer;
+            i {
               @include linkTransition;
+
+              &:hover,
+              &:active {
+                transform: scaleX(1.2) scaleY(1.2);
+                @include linkTransition;
+              }
+            }
+
+            span {
+              @include tooltip;
             }
           }
+
         }
       }
     }
@@ -380,7 +433,7 @@ export default {
         }
       }
 
-      form {
+      div {
 
 
         input {
@@ -406,10 +459,12 @@ export default {
       height: 100vh;
       z-index: 5;
       background: transparentize($backdrop-color,0.7);
-
-
     }
 
+.has-error {
+      border:2px solid $form-error-color !important;
+      background: lighten($form-error-color, 15%) !important;
+    }
 
 
 

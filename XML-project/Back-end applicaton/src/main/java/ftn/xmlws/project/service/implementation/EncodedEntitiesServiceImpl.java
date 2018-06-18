@@ -2,6 +2,8 @@ package ftn.xmlws.project.service.implementation;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +40,7 @@ public class EncodedEntitiesServiceImpl implements EncodedEntitiesService {
 			accommodationTypeRepository.delete(type);
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("Error occurred while deleting AccomodationType from database");
 			return false;
 		}
@@ -46,11 +49,13 @@ public class EncodedEntitiesServiceImpl implements EncodedEntitiesService {
 	}
 
 	@Override
+	@Transactional()
 	public Boolean editAccommodationType(EncodedAccommodationType type) {
 		try { 
 			accommodationTypeRepository.saveAndFlush(type);
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("Error occurred while updating AccomodationType in database");
 			return false;
 		}
@@ -95,17 +100,20 @@ public class EncodedEntitiesServiceImpl implements EncodedEntitiesService {
 			starRatingRepository.delete(rating);
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("Error occurred while deleting StarRating from database");
 			return false;
 		}
 	}
 
 	@Override
+	@Transactional()
 	public Boolean editStarRating(EncodedStarRating rating) {
 		try { 
 			starRatingRepository.saveAndFlush(rating);
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("Error occurred while updating StarRating in database");
 			return false;
 		}
@@ -128,6 +136,7 @@ public class EncodedEntitiesServiceImpl implements EncodedEntitiesService {
 			facilityRepository.saveAndFlush(facility);
 			return true;
 		} catch( Exception e) {
+			e.printStackTrace();
 			System.out.println("Error occurred while writing Facility to database");
 			return false;
 		}
@@ -139,17 +148,20 @@ public class EncodedEntitiesServiceImpl implements EncodedEntitiesService {
 			facilityRepository.delete(facility);
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("Error occurred while deleting Facility from database");
 			return false;
 		}
 	}
 
 	@Override
+	@Transactional()
 	public Boolean editFacility(EncodedFacility facility) {
 		try { 
 			facilityRepository.saveAndFlush(facility);
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("Error occurred while updating Facility in database");
 			return false;
 		}

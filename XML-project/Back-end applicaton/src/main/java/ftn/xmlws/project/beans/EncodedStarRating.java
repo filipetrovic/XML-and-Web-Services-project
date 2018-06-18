@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
 
@@ -27,6 +28,21 @@ public class EncodedStarRating implements Serializable {
 	@Column(unique=true)
 	private String name;
 	
+	@Version
+	private int version;
+	
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public EncodedStarRating() {}
 	
 	public Long getId() {

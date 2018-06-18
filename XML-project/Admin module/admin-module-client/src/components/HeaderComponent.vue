@@ -10,16 +10,19 @@
             <ul class="main-nav__items">
 
                 <li class="main-nav__item ">
-                    <a class="uppercase" href="start-hosting/index.html">Codes</a>
+                    <router-link to="/updateCodes" tag="a"  >Codes</router-link>
                 </li>
                 <li class="main-nav__item ">
-                    <a class="uppercase" href="start-hosting/index.html">Comments</a>
+                    <router-link  to="/approveComments" tag="a"  >Comments</router-link>
                 </li>
                 <li class="main-nav__item ">
-                    <a class="uppercase" href="start-hosting/index.html">Users</a>
+                    <router-link  to="/activateUsers" tag="a" >Users</router-link>
                 </li>
                 <li class="main-nav__item ">
-                    <a class="uppercase" href="start-hosting/index.html">Agents</a>
+                    <router-link  to="/addAgents" tag="a" >Agents</router-link>
+                </li>
+                <li class="main-nav__item--cta">
+                    <router-link  to="/home" tag="a" >Log in</router-link>
                 </li>
 
             </ul>
@@ -132,29 +135,35 @@ export default {
                 }
             }
         }
+
+        .main-nav__item--cta {
+          padding: 0;
+          padding-right: 0.4rem;
+          a {
+              padding: 0.5rem 1rem;
+              padding-left: 0;
+              color:  $default-color !important;
+              font-weight: bolder;
+              text-transform: uppercase;
+              text-decoration: none;
+              transition: color 0.2s ease-out;
+
+              &:hover,
+              &:active {
+              cursor: pointer;
+              color: darken($default-color, 20%) !important;
+              transition: color 0.2s ease-out;
+
+          }
+        }
+
+
     }
 
 
-    .main-nav__item--cta {
-        padding: 0;
-        padding-right: 0.4rem;
-        border-bottom: 2px solid transparent;
-
-        &:hover,
-        &:active {
-            cursor: pointer;
-            border-bottom: 2px solid $default-color;
-        }
-
-        a {
-            padding: 0.5rem 1rem;
-            padding-left: 0;
-            color:  $default-color !important;
-            font-weight: bolder;
-        }
-
-
     }
+
+
 
 
 
