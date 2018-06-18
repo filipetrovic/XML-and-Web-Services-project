@@ -10,6 +10,8 @@ import HelloWorld from './components/HelloWorld'
 import Home from './components/Home'
 import Registration from './components/Registration'
 import Accommodations from './components/Accommodations'
+import Login from './components/Login'
+import Profile from './components/Profile'
 
 export default {
   name: 'App',
@@ -17,7 +19,9 @@ export default {
     HelloWorld,
     Home,
     Registration,
-    Accommodations
+    Accommodations,
+    Login,
+    Profile
   }
 }
 </script>

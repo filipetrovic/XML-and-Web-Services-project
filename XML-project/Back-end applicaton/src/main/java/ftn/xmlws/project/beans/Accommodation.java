@@ -84,6 +84,24 @@ public class Accommodation {
 		this.additionalFacilities = additionalFacilities;
 	}
 
+	public Accommodation(Date startDateAvailable, Date endDateAvailable, String name, String pictures,
+			String description, float pricePerPerson, @Size(min = 1, max = 50) String inputAddress, int numberOfPeople,
+			@Size(min = 1, max = 50) String typeOfAccommodation, @Size(min = 1, max = 50) String category,
+			Set<EncodedFacility> additionalFacilities) {
+		super();
+		this.startDateAvailable = startDateAvailable;
+		this.endDateAvailable = endDateAvailable;
+		this.name = name;
+		this.pictures = pictures;
+		this.description = description;
+		this.pricePerPerson = pricePerPerson;
+		this.inputAddress = inputAddress;
+		this.numberOfPeople = numberOfPeople;
+		this.typeOfAccommodation = typeOfAccommodation;
+		this.category = category;
+		this.additionalFacilities = additionalFacilities;
+	}
+
 	public Date getStartDateAvailable() {
 		return startDateAvailable;
 	}

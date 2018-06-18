@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ftn.xmlws.project.beans.Accommodation;
 import ftn.xmlws.project.service.AccommodationService;
 import ftn.xmlws.project.web.dto.AccomodationSearchParamsDTO;
+import ftn.xmlws.project.web.dto.ConverterDTO;
 
 @RestController
 @RequestMapping(value = "/api/client")
@@ -28,9 +29,14 @@ public class ClientModuleController {
 
 		System.out.println(accommodationService.getAllAccommodations());
 		
+		if(accommodationService
+				.getAccommodationsBasedOnSearchParams(ConverterDTO
+				.convertToAccommodation(accomodationSearchParamsDTO)) == null)
+				return new ResponseEntity<ArrayList<Accommodation>>(new ArrayList<Accommodation>(), HttpStatus.NOT_FOUND);
 		
-		
-		return new ResponseEntity<ArrayList<Accommodation>>(accommodationService.getAllAccommodations(), HttpStatus.OK);
+		return new ResponseEntity<ArrayList<Accommodation>>(accommodationService
+				.getAccommodationsBasedOnSearchParams(ConverterDTO
+				.convertToAccommodation(accomodationSearchParamsDTO)), HttpStatus.OK);
 		
 	}
 	
