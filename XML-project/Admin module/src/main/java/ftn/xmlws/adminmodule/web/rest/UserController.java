@@ -70,6 +70,8 @@ public class UserController {
 		RestTemplate restTemplate = new RestTemplate();
 		HttpEntity<User> entity = new HttpEntity<>(user);
 		
+		System.out.println(user.toString());
+		
         try {
             ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8080/api/users/banUser", 
             														HttpMethod.PUT, entity, Boolean.class);

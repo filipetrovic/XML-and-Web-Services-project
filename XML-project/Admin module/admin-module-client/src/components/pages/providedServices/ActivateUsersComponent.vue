@@ -12,7 +12,7 @@
 
           <th> Username </th>
           <th> e-mail</th>
-          <th> Password</th>
+          <th> Full name</th>
           <th> Status</th>
           <th> </th>
         </tr>
@@ -20,16 +20,24 @@
         <tr  class="table-row" v-for="user in listOfUsers"  >
           <td>{{user.username}}</td>
           <td>{{user.email}}</td>
-          <td> {{user.password}} </td>
-          <td> {{user.banned}}</td>
+          <td> {{user.firstName}} {{user.lastName}} </td>
+          <td>
+            <span v-if="user.deleted"> Deleted</span>
+            <span v-else>
+              <span v-if="user.banned">Banned</span>
+              <span v-else> Regular user</span>
+            </span>
+
+
+          </td>
           <td class="operations">
-            <i class="material-icons" @click="deleteRegistryCode(registry)">
+            <i class="material-icons" @click="banUser(user)">
               block
             </i>
-            <i class="material-icons" @click="editRegistryCode(registry)">
+            <i class="material-icons" @click="unbanUser(user)">
               check_circle_outline
             </i>
-            <i class="material-icons" @click="deleteRegistryCode(registry)">
+            <i class="material-icons" @click="deleteUser(user)">
               delete
             </i>
           </td>
@@ -46,6 +54,50 @@ export default {
   data() {
     return {
       listOfUsers : []
+    }
+  },
+  methods: {
+    banUser(user){
+      var body = user;
+      this.$http.put("http://localhost:8090/banUser", body)
+      .then(response => {
+        if(response.body){
+          this.$http.get("http://localhost:8090/getAllUsers")
+          .then(response => {
+            this.listOfUsers = response.body;
+          })
+        } else {
+          alert("Error occurred");
+        }
+      })
+    },
+    unbanUser(user) {
+      var body = user;
+      this.$http.put("http://localhost:8090/unbanUser", body)
+      .then(response => {
+        if(response.body){
+          this.$http.get("http://localhost:8090/getAllUsers")
+          .then(response => {
+            this.listOfUsers = response.body;
+          })
+        } else {
+          alert("Error occurred");
+        }
+      })
+    },
+    deleteUser(user) {
+      var body = user;
+      this.$http.delete("http://localhost:8090/deleteUser",{body: body} )
+      .then(response => {
+        if(response.body){
+          this.$http.get("http://localhost:8090/getAllUsers")
+          .then(response => {
+            this.listOfUsers = response.body;
+          })
+        } else {
+          alert("Error occurred");
+        }
+      })
     }
   },
   created(){
@@ -85,6 +137,22 @@ export default {
         th:first-of-type{
           width: auto;
         }
-    }
+      }
+
+      tr {
+        .operations {
+           i{
+            font-size:1.7rem;
+            transition: transform 0.2s ease-out;
+
+            &:hover,
+            &:active {
+              transform: scaleX(1.2) scaleY(1.2);
+              transition: transform 0.2s ease-out ;
+            }
+           }
+
+        }
+      }
   }}
 </style>
