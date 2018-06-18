@@ -7,7 +7,7 @@ import ftn.xmlws.project.beans.User;
 @Service
 public interface UserService {
 
-	boolean login(User user);
+	User login(User user);
 
 	boolean registration(User user);
 	

@@ -7,7 +7,8 @@ export const store = new Vuex.Store({
     plugins: [],
     state: {
         ListOfAccommodations : [],
-        numberOfPeople: ''
+        numberOfPeople: '',
+        loggedUser: ''
     },
     getters: {}, // moze da modifikuje state kad ga vraca primer sa cenom koja je na akciji
     mutations: {}, // f-je kojima kada hocu da promenim tu listu, push itd onda njima radim jer sa njima mogu akcije da radim

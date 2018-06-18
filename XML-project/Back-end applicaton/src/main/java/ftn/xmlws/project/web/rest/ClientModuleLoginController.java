@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import ftn.xmlws.project.beans.User;
 import ftn.xmlws.project.service.UserService;
 import ftn.xmlws.project.web.dto.ConverterDTO;
 import ftn.xmlws.project.web.dto.RegistrationUserDTO;
@@ -35,13 +36,14 @@ public class ClientModuleLoginController {
 	}
 	
 	@RequestMapping(value = "", method = RequestMethod.POST, consumes="application/json")
-	public ResponseEntity login(@RequestBody RegistrationUserDTO registrationUserDTO) {
+	public ResponseEntity<User> login(@RequestBody RegistrationUserDTO registrationUserDTO) {
 
-		if(userService.login(ConverterDTO.convertToUser(registrationUserDTO)))
-			return new ResponseEntity(HttpStatus.OK);
+		if(userService.login(ConverterDTO.convertToUser(registrationUserDTO)) != null)
+			return new ResponseEntity<User>(
+					userService.login(ConverterDTO.convertToUser(registrationUserDTO)), HttpStatus.OK);
 		
 		
-		return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+		return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 		
 		
 	}

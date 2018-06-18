@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
 	private AuthorityRepository authorityRepository;
 	
 	@Override
-	public boolean login(User user) {
+	public User login(User user) {
 		
 		try {
 			User u = userRepository.findOneByUsername(user.getUsername()).get();
@@ -37,15 +37,15 @@ public class UserServiceImpl implements UserService {
 				if(decodedString.equals(user.getPassword()))
 				{
 					System.out.println("Passwords match! " + decodedString + " == " + user.getPassword());
-					return true;
+					return u;
 				}
 			}
 			
-			return false;
+			return null;
 			
 		} catch(NoSuchElementException exc)
 		{
-			return false;
+			return null;
 		}
 		
 	}
