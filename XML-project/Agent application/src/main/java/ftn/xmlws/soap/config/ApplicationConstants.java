@@ -6,7 +6,7 @@ package ftn.xmlws.soap.config;
  */
 public interface ApplicationConstants {
 
-    public static String ENDPOINT_AGENT = "http://ftn.xmlws.com/soap";
+    public static String ENDPOINT_AGENT = "http://ftn.xmlws.com/agent-soap";
     public static String LOCAL_PART_AGENT = "getAgentRequest";
 
     public static String CONFIG_LOCATION_URI = "/soapWS";

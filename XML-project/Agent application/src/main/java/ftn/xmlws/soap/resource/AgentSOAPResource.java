@@ -1,8 +1,8 @@
 package ftn.xmlws.soap.resource;
 
-import com.xmlws.ftn.soap.GetAgentResponse;
-import com.xmlws.ftn.soap.GetAgentRequest;
-import com.xmlws.ftn.soap.Reservation;
+import com.xmlws.ftn.agent_soap.GetAgentResponse;
+import com.xmlws.ftn.agent_soap.GetAgentRequest;
+import com.xmlws.ftn.agent_soap.Reservation;
 import ftn.xmlws.soap.config.ApplicationConstants;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -10,7 +10,7 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 @Endpoint
-public class AgentResource {
+public class AgentSOAPResource {
 
     @PayloadRoot(namespace = ApplicationConstants.ENDPOINT_AGENT, localPart = ApplicationConstants.LOCAL_PART_AGENT)
     @ResponsePayload

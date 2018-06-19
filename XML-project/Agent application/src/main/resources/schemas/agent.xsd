@@ -1,6 +1,6 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:tns="http://ftn.xmlws.com/soap"
-           targetNamespace="http://ftn.xmlws.com/soap"
+           xmlns:tns="http://ftn.xmlws.com/agent-soap"
+           targetNamespace="http://ftn.xmlws.com/agent-soap"
            elementFormDefault="qualified">
 
     <xs:element name="getAgentRequest">

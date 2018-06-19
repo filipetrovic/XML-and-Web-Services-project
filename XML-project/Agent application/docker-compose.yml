@@ -36,7 +36,7 @@ services:
     environment:
       - INSTANCE_NO=1
       - INSTANCE_DATABASE=agent-1-mysql
-    command: mvn clean spring-boot:run
+    command: mvn clean install -Dmaven.clean.failOnError=false spring-boot:run
     depends_on:
       - agent-1-mysql
 
@@ -53,7 +53,7 @@ services:
     environment:
       - INSTANCE_NO=2
       - INSTANCE_DATABASE=agent-2-mysql
-    command: mvn clean spring-boot:run
+    command: mvn clean install -Dmaven.clean.failOnError=false spring-boot:run
     depends_on:
       - agent-2-mysql
 
