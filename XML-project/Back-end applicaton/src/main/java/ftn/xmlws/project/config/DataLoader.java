@@ -1,6 +1,7 @@
 package ftn.xmlws.project.config;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.Base64;
 import java.util.HashSet;
 import java.util.Set;
@@ -61,9 +62,6 @@ public class DataLoader implements ApplicationRunner {
 		insertIntoAccommodations();
 		insertIntoUsers();
 		insertIntoReservations();
-		
-		
-
 	}
 	
 	private void insertIntoEncodedEntities() {
@@ -79,14 +77,7 @@ public class DataLoader implements ApplicationRunner {
 		d.setName("Guest house");
 		e.setName("Homestay");
 		f.setName("Bed and breakfast");
-		
-		accommodationTypeRepository.save(a);
-		accommodationTypeRepository.save(b);
-		accommodationTypeRepository.save(c);
-		accommodationTypeRepository.save(d);
-		accommodationTypeRepository.save(e);
-		accommodationTypeRepository.save(f);
-		
+
 		EncodedStarRating aa = new EncodedStarRating();
 		EncodedStarRating bb = new EncodedStarRating();
 		EncodedStarRating cc = new EncodedStarRating();
@@ -99,23 +90,37 @@ public class DataLoader implements ApplicationRunner {
 		dd.setName("3 stars");
 		ee.setName("4 stars");
 		ff.setName("5 stars");
-		
-		starRatingRepository.save(aa);
-		starRatingRepository.save(bb);
-		starRatingRepository.save(cc);
-		starRatingRepository.save(dd);
-		starRatingRepository.save(ee);
-		starRatingRepository.save(ff);
+
+		try {
+			accommodationTypeRepository.save(a);
+			accommodationTypeRepository.save(b);
+			accommodationTypeRepository.save(c);
+			accommodationTypeRepository.save(d);
+			accommodationTypeRepository.save(e);
+			accommodationTypeRepository.save(f);
+			starRatingRepository.save(aa);
+			starRatingRepository.save(bb);
+			starRatingRepository.save(cc);
+			starRatingRepository.save(dd);
+			starRatingRepository.save(ee);
+			starRatingRepository.save(ff);
+ 		} catch (Exception ex1) {
+
+		}
 	}
 	
 	private void insertIntoAgents() {
 		Agent a = new Agent("Ivan","Jancic","Lukijana Musickog 75, Smederevo", "AppJancic");
 		Agent b = new Agent("Nemanja","Mudri","Djurdja Brankovica 4, Novi Sad", "Auto skola Volan");
 		Agent c = new Agent("Filip","Petrovic","Dimitrija Dimovica 20, Zrenjanin", "Krilca");
-		
-		agentRepository.save(a);
-		agentRepository.save(b);
-		agentRepository.save(c);
+
+		try {
+			agentRepository.save(a);
+			agentRepository.save(b);
+			agentRepository.save(c);
+		} catch (Exception e) {
+
+		}
 	}
 	
 	private void insertIntoUsers() {
@@ -125,8 +130,7 @@ public class DataLoader implements ApplicationRunner {
 		Authority b = new Authority();
 		b.setName("ADMIN");
 		
-		authorityRepository.save(a);
-		authorityRepository.save(b);
+
 		
 		User u = new User();
 		
@@ -138,17 +142,12 @@ public class DataLoader implements ApplicationRunner {
 		Set<Authority> s = new HashSet<Authority>();
 		s.add(a);
 		
-		
-		
 		u.setAuthorities(s);
 		
 		String originalInput = "123";
 		String encodedString = Base64.getEncoder().encodeToString(originalInput.getBytes());
 		
 		u.setPassword(encodedString);
-		
-		userRepository.save(u);
-		
 
 		User u1 = new User();
 		
@@ -162,8 +161,6 @@ public class DataLoader implements ApplicationRunner {
 		
 		
 		u1.setPassword(encodedString);
-		
-		userRepository.save(u1);
 		
 		User u2 = new User();
 		String encodedString2 = Base64.getEncoder().encodeToString("qweasd".getBytes());
@@ -179,9 +176,16 @@ public class DataLoader implements ApplicationRunner {
 		
 		
 		u2.setPassword(encodedString2);
-		
-		userRepository.save(u2);
-		
+		try {
+			authorityRepository.save(a);
+			authorityRepository.save(b);
+
+			userRepository.save(u);
+			userRepository.save(u1);
+			userRepository.save(u2);
+		} catch(Exception e) {
+
+		}
 		
 	}
 	
@@ -199,11 +203,14 @@ public class DataLoader implements ApplicationRunner {
 		EncodedFacility ef3 = new EncodedFacility();
 		ef3.setName("Board");
 		
-		
-		encodedFacilityRepository.save(ef);
-		encodedFacilityRepository.save(ef1);
-		encodedFacilityRepository.save(ef2);
-		encodedFacilityRepository.save(ef3);
+		try {
+			encodedFacilityRepository.save(ef);
+			encodedFacilityRepository.save(ef1);
+			encodedFacilityRepository.save(ef2);
+			encodedFacilityRepository.save(ef3);
+		} catch(Exception ex) {
+
+		}
 	}
 	
 	private void insertIntoReservations() {
@@ -216,8 +223,6 @@ public class DataLoader implements ApplicationRunner {
 		r.setCheckOutDate(new Date(11000011));
 		r.setAccommodation(accommodationRepository.findById((long)1).get());
 		
-		reservationRepository.save(r);
-		
 		Reservation r1 = new Reservation();
 		
 		r1.setPriceOfReservation(10000);
@@ -225,21 +230,25 @@ public class DataLoader implements ApplicationRunner {
 		r1.setCheckInDate(new Date(200000));
 		r1.setCheckOutDate(new Date(2000002));
 		r1.setAccommodation(accommodationRepository.findById((long)2).get());
-		
-		reservationRepository.save(r1);
-		
+
+		try {
+			reservationRepository.save(r);
+			reservationRepository.save(r1);
+		} catch (Exception ex) {
+
+		}
 		
 	}	
 	
 	@SuppressWarnings("deprecation")
 	private void insertIntoAccommodations() {
-		
+
 		Set<EncodedFacility> additionalFacilities = new HashSet<>();
-		additionalFacilities.add(encodedFacilityRepository.findOneById((long)1));
-		additionalFacilities.add(encodedFacilityRepository.findOneById((long)2));
-		
+		additionalFacilities.add(encodedFacilityRepository.findOneById((long) 1));
+		additionalFacilities.add(encodedFacilityRepository.findOneById((long) 2));
+
 		// year month day
-		
+
 		Accommodation ac = new Accommodation(
 				new Date(2018, 6, 18),
 				new Date(2018, 8, 18),
@@ -252,15 +261,14 @@ public class DataLoader implements ApplicationRunner {
 				"appartment",
 				"5 stars",
 				additionalFacilities);
-		
-		accommodationRepository.save(ac);
-		
+
+
+
 		Set<EncodedFacility> additionalFacilities1 = new HashSet<>();
-		additionalFacilities1.add(encodedFacilityRepository.findOneById((long)3));
-		additionalFacilities1.add(encodedFacilityRepository.findOneById((long)4));
-		
-		
-		
+		additionalFacilities1.add(encodedFacilityRepository.findOneById((long) 3));
+		additionalFacilities1.add(encodedFacilityRepository.findOneById((long) 4));
+
+
 		Accommodation ac1 = new Accommodation(
 				new Date(2018, 6, 14),
 				new Date(2018, 8, 14),
@@ -273,8 +281,12 @@ public class DataLoader implements ApplicationRunner {
 				"hotel",
 				"2 star",
 				additionalFacilities1);
-		
-		accommodationRepository.save(ac1);
+		try {
+			accommodationRepository.save(ac);
+			accommodationRepository.save(ac1);
+		} catch (Exception ex) {
+
+		}
 	}
 
 }
