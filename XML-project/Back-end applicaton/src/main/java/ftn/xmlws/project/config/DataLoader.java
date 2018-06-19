@@ -39,12 +39,18 @@ public class DataLoader implements ApplicationRunner {
 	public void run(ApplicationArguments args) throws Exception {
 		
 		//insertIntoAccommodations();
-		//insertIntoUsers();
+		insertIntoUsers();
 	}
 	
 	private void insertIntoUsers() {
 		
-		//password is 123
+		Authority a = new Authority();
+		a.setName("REGISTERED_USER");
+		Authority b = new Authority();
+		b.setName("ADMIN");
+		
+		authorityRepository.save(a);
+		authorityRepository.save(b);
 		
 		User u = new User();
 		
@@ -53,14 +59,10 @@ public class DataLoader implements ApplicationRunner {
 		u.setEmail("ivan@gmail.com");
 		u.setUsername("ivan@gmail.com");
 		
-		Authority a = new Authority();
-		a.setName("REGISTERED_USER");
-		
-		authorityRepository.save(a);
-		
-		
 		Set<Authority> s = new HashSet<Authority>();
 		s.add(a);
+		
+		
 		
 		u.setAuthorities(s);
 		
@@ -74,6 +76,7 @@ public class DataLoader implements ApplicationRunner {
 
 		User u1 = new User();
 		
+		
 		u1.setFirstName("Marko");
 		u1.setLastName("Markovic");
 		u1.setEmail("marko@gmail.com");
@@ -85,6 +88,23 @@ public class DataLoader implements ApplicationRunner {
 		u1.setPassword(encodedString);
 		
 		userRepository.save(u1);
+		
+		User u2 = new User();
+		String encodedString2 = Base64.getEncoder().encodeToString("qweasd".getBytes());
+		Set<Authority> ba = new HashSet<Authority>();
+		ba.add(a);
+		ba.add(b);
+		u2.setFirstName("Filip");
+		u2.setLastName("Petrovic");
+		u2.setEmail("fpetrovic@ymail.com");
+		u2.setUsername("fika");
+		
+		u2.setAuthorities(ba);
+		
+		
+		u2.setPassword(encodedString2);
+		
+		userRepository.save(u2);
 		
 		
 	}

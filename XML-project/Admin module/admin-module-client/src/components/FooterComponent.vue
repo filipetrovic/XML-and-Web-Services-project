@@ -7,7 +7,7 @@
             <router-link to="/home" tag="a"  >Home</router-link>
         </li>
         <li class="footer-nav__item ">
-            <router-link to="/home" tag="a">Login</router-link>
+            <router-link to="/login" tag="a">Login</router-link>
         </li>
       </ul>
     </nav>

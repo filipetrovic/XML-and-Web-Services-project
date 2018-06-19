@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import ftn.xmlws.adminmodule.beans.Authority;
+import ftn.xmlws.adminmodule.beans.RegistrationUserDTO;
 import ftn.xmlws.adminmodule.beans.User;
 
 
@@ -25,6 +28,27 @@ import ftn.xmlws.adminmodule.beans.User;
 @RestController
 @CrossOrigin
 public class UserController {
+	
+	@PostMapping("/login")
+	public ResponseEntity<User> login(@RequestBody RegistrationUserDTO user){
+		
+		RestTemplate restTemplate = new RestTemplate();
+		
+		
+		try {
+			User response = restTemplate.postForObject("http://localhost:8080/api/client/login", user,  User.class);
+			for (Authority a : response.getAuthorities()) {
+				if ( a.getName().equals("ADMIN")) {
+					return new ResponseEntity<User>(response, HttpStatus.OK);
+				}
+			}
+			return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
+		} catch (Exception e) {
+			System.out.println("An error occurred while trying to access back-end-module/addAccommodationType");
+			return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
+		}
+			
+	}
 
 	
 	@GetMapping("/getAllUsers")

@@ -22,7 +22,7 @@
                     <router-link  to="/addAgents" tag="a" >Agents</router-link>
                 </li>
                 <li class="main-nav__item--cta">
-                    <router-link  to="/home" tag="a" >Log in</router-link>
+                    <router-link  to="/login" tag="a" >Login</router-link>
                 </li>
 
             </ul>

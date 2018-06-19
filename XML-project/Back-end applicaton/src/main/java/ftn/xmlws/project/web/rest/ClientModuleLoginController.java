@@ -39,8 +39,7 @@ public class ClientModuleLoginController {
 	public ResponseEntity<User> login(@RequestBody RegistrationUserDTO registrationUserDTO) {
 
 		if(userService.login(ConverterDTO.convertToUser(registrationUserDTO)) != null)
-			return new ResponseEntity<User>(
-					userService.login(ConverterDTO.convertToUser(registrationUserDTO)), HttpStatus.OK);
+			return new ResponseEntity<User>(userService.login(ConverterDTO.convertToUser(registrationUserDTO)), HttpStatus.OK);
 		
 		
 		return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);

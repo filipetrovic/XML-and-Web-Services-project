@@ -5,9 +5,11 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     plugins: [],
-    state: {},
+    state: {
+      loggedUser: null
+    },
     getters: {},
     mutations: {},
     actions: {}
-    
+
 })
