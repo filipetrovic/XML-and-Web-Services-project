@@ -161,8 +161,31 @@ export default {
       },
       submitRating: function() {
 
-          console.log(this.ratingComment + ' ' + this.ratingValue);
-          console.log(this.reservationForRating);
+        console.log(this.ratingComment + ' ' + this.ratingValue);
+        console.log(this.reservationForRating);
+
+        var rating = {
+            comment: this.ratingComment,
+            value: this.ratingValue,
+            reservationId: this.reservationForRating.id,
+            accommodationId: this.reservationForRating.accommodation.id
+        };
+
+        let headers = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+        console.log(rating);
+
+        this.$http
+                .post('http://localhost:8010/cloud-demo/us-central1/addRating',
+                JSON.stringify(rating))
+
+                .then(response => {
+                    console.log(response.body);
+                });
 
       }
   },
