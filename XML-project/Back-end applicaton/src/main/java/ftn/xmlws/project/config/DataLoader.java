@@ -13,10 +13,12 @@ import org.springframework.stereotype.Component;
 import ftn.xmlws.project.beans.Accommodation;
 import ftn.xmlws.project.beans.Authority;
 import ftn.xmlws.project.beans.EncodedFacility;
+import ftn.xmlws.project.beans.Reservation;
 import ftn.xmlws.project.beans.User;
 import ftn.xmlws.project.repository.AccommodationRepository;
 import ftn.xmlws.project.repository.AuthorityRepository;
 import ftn.xmlws.project.repository.EncodedFacilityRepository;
+import ftn.xmlws.project.repository.ReservationRepository;
 import ftn.xmlws.project.repository.UserRepository;
 
 @Component
@@ -35,11 +37,16 @@ public class DataLoader implements ApplicationRunner {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private ReservationRepository reservationRepository;
+	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		
 		//insertIntoAccommodations();
+		//insertIntoEncodedFacility();
 		//insertIntoUsers();
+		//insertIntoReservations();
 	}
 	
 	private void insertIntoUsers() {
@@ -89,26 +96,54 @@ public class DataLoader implements ApplicationRunner {
 		
 	}
 	
+	private void insertIntoEncodedFacility() {
+		
+		EncodedFacility ef = new EncodedFacility();
+		ef.setName("WiFi");
+		
+		EncodedFacility ef1= new EncodedFacility();
+		ef1.setName("TV");
+		
+		EncodedFacility ef2 = new EncodedFacility();
+		ef2.setName("Restroom");
+		
+		EncodedFacility ef3 = new EncodedFacility();
+		ef3.setName("Board");
+		
+		
+		encodedFacilityRepository.save(ef);
+		encodedFacilityRepository.save(ef1);
+		encodedFacilityRepository.save(ef2);
+		encodedFacilityRepository.save(ef3);
+	}
+	
+	private void insertIntoReservations() {
+	
+		Reservation r = new Reservation();
+		
+		r.setPriceOfReservation(5000);
+		r.setUser(userRepository.findOneByUsername("ivan@gmail.com").get());
+		r.setCheckInDate(new Date(110000));
+		r.setCheckOutDate(new Date(11000011));
+		r.setAccommodation(accommodationRepository.findById((long)1).get());
+		
+		reservationRepository.save(r);
+		
+		Reservation r1 = new Reservation();
+		
+		r1.setPriceOfReservation(10000);
+		r1.setUser(userRepository.findOneByUsername("ivan@gmail.com").get());
+		r1.setCheckInDate(new Date(200000));
+		r1.setCheckOutDate(new Date(2000002));
+		r1.setAccommodation(accommodationRepository.findById((long)2).get());
+		
+		reservationRepository.save(r1);
+		
+		
+	}	
+	
 	@SuppressWarnings("deprecation")
 	private void insertIntoAccommodations() {
-		
-//		EncodedFacility ef = new EncodedFacility();
-//		ef.setName("WiFi");
-//		
-//		EncodedFacility ef1= new EncodedFacility();
-//		ef1.setName("TV");
-//		
-//		EncodedFacility ef2 = new EncodedFacility();
-//		ef2.setName("Restroom");
-//		
-//		EncodedFacility ef3 = new EncodedFacility();
-//		ef3.setName("Board");
-//		
-//		
-//		encodedFacilityRepository.save(ef);
-//		encodedFacilityRepository.save(ef1);
-//		encodedFacilityRepository.save(ef2);
-//		encodedFacilityRepository.save(ef3);
 		
 		Set<EncodedFacility> additionalFacilities = new HashSet<>();
 		additionalFacilities.add(encodedFacilityRepository.findOneById((long)1));
@@ -117,16 +152,16 @@ public class DataLoader implements ApplicationRunner {
 		// year month day
 		
 		Accommodation ac = new Accommodation(
-				new Date(2018, 6, 6),
-				new Date(2018, 8, 8),
-				"Apartmani Pavlovic",
+				new Date(2018, 6, 18),
+				new Date(2018, 8, 18),
+				"Apartmani Pekic",
 				"",
-				"neki apartmani",
-				3000,
-				"Smederevo, Salinac",
-				4,
+				"neki novi apartmani",
+				1750,
+				"Smederevo, Carina",
+				5,
 				"appartment",
-				"4 stars",
+				"5 stars",
 				additionalFacilities);
 		
 		accommodationRepository.save(ac);
@@ -138,16 +173,16 @@ public class DataLoader implements ApplicationRunner {
 		
 		
 		Accommodation ac1 = new Accommodation(
-				new Date(2018, 3, 10),
-				new Date(2018, 3, 25),
-				"Hotel Car",
+				new Date(2018, 6, 14),
+				new Date(2018, 8, 14),
+				"Hotel Viking",
 				"",
-				"veliki hotel",
-				800,
-				"Smederevo, Goricka 30",
-				3,
+				"veliki hotel vikinga",
+				4000,
+				"Smederevo, Kneza Milosa 35",
+				4,
 				"hotel",
-				"1 star",
+				"2 star",
 				additionalFacilities1);
 		
 		accommodationRepository.save(ac1);

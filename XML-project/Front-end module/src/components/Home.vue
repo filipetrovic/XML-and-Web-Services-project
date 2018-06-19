@@ -8,8 +8,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-            <a class="nav-item nav-link active" style="width:500px;" href="/home">Home <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="/login">Sign in/Sign up</a>
+            <router-link tag="a" class="nav-item nav-link active" style="width:500px;" to="/home">Home <span class="sr-only">(current)</span></router-link>
+            <router-link tag="a" class="nav-item nav-link" to="/login" v-if="!userLogged">Sign in/Sign up</router-link>
+            <router-link tag="a" class="nav-item nav-link" to="/profile" v-if="userLogged">My Profile</router-link>
             </div>
         </div>
     </nav>
@@ -235,7 +236,9 @@ export default {
         category: '',
         additionalServices: []
       },
-      advancedSearchChecked: false
+      advancedSearchChecked: false,
+      userLogged: false,
+      user: ''
     }
   },
   methods : {
@@ -272,12 +275,33 @@ export default {
 
                         this.$store.state.ListOfAccommodations = data;
                         this.$store.state.numberOfPeople = this.searchData.numberOfPeople;
+                        this.$store.state.dates = {
+                            checkInDate: this.searchData.checkInDate,
+                            checkOutDate: this.searchData.checkOutDate
+                        };
 
                         //this.$store.dispatch('imeMutacije');
 
                         this.$router.push('Accommodations'); 
                     });
       }
+  },
+  created() {
+
+        this.user = this.$store.state.loggedUser;
+
+        console.log(this.user);
+
+        if(this.$store.state.loggedUser == '')
+        {
+            console.log('User is not logged: ' + this.$store.state.loggedUser);
+            this.userLogged = false;
+        }
+        else
+        {
+            console.log('User is logged: ' + this.$store.state.loggedUser);
+            this.userLogged = true;
+        }
   }
 }
 </script>

@@ -1,13 +1,17 @@
 package ftn.xmlws.project.web.dto;
 
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import ftn.xmlws.project.beans.Accommodation;
 import ftn.xmlws.project.beans.EncodedFacility;
+import ftn.xmlws.project.beans.Reservation;
 import ftn.xmlws.project.beans.User;
 
 public class ConverterDTO {
+	
+	
 
 	public static final Accommodation convertToAccommodation(AccomodationSearchParamsDTO asp) {
 		
@@ -44,5 +48,17 @@ public class ConverterDTO {
 		u.setUsername(ru.getUsername());
 		
 		return u;
+	}
+	
+	public static final Reservation convertToReservation(ReservationDTO r) {
+		
+		Reservation res = new Reservation();
+		
+		res.setPriceOfReservation(r.getPriceOfReservation());
+		res.setCheckInDate(r.getCheckInDate());
+		res.setCheckOutDate(r.getCheckOutDate());
+		
+		return res;
+		
 	}
 }

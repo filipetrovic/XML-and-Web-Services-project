@@ -1,6 +1,20 @@
 <template>
   <div class="container">
-        <h1> My Profile </h1>
+
+<nav class="navbar  navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Booking client</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+            <router-link tag="a" class="nav-item nav-link active" style="width:500px;" to="/home">Home <span class="sr-only">(current)</span></router-link>
+
+            </div>
+        </div>
+    </nav>
+
+        
 
     <header class="header">
         <div class="container">
@@ -30,17 +44,31 @@
         <div class="card card-block">
             <h2 class="card-title"  style="color:#009688; padding-top:15px; padding-left: 10px;" ><i class="fa fa-trophy fa-fw"></i> My Reservations </h2>
             <div style="height: 15px"></div>
+
             <table class="table table-bordered table-hover">
-            <thead class="thead-default">
-            
+
+            <thead class="thead-dark">
+
+                <tr>
+                    <th scope="col">Check in date</th>
+                    <th scope="col">Check out date</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Name</th>
+                    <th scope="col"></th>
+                </tr>
+
             </thead>
+
             <tbody >
                 <tr v-for="r in reservations">
                 
-                <td>{{r.name}}</td>
-                <td>{{r.date}}</td>
-                <td>{{r.price}}</td>
-                <td><button class="btn btn-warning" > Rate my stay </button>
+                <td>{{r.checkInDate}}</td>
+                <td>{{r.checkOutDate}}</td>
+                <td>{{r.priceOfReservation}}</td>
+                <td>{{r.accommodation.name}}</td>
+                <td>
+                    <button class="btn btn-success btn-block" v-if="r.arrivalConfirmed"> Rate my stay </button>
+                    <button class="btn btn-danger btn-block" v-if="!r.arrivalConfirmed"> Cancel reservation </button>
                 </td>
                 </tr>
                 
@@ -60,15 +88,28 @@ export default {
   data () {
     return {
         user: '',
-        reservations: [
-            {name:'Apartmani Jancic', date:Date, price: 3000 },
-            {name:'Hotel Pancic', date:Date, price: 1500}
-        ]
+        reservations: []
     }
   },
 
   created() {
        this.user = this.$store.state.loggedUser;
+
+       let params = {
+           username : this.user.username
+       }
+
+       this.$http
+                .get('http://localhost:8080/api/client/getReservations',
+                { params : params }
+                )
+
+                .then(response => {
+                    const data = response.body;
+                    this.reservations = data;
+
+                    //this.$router.push('Profile'); 
+                });
   }
 }
 </script>
