@@ -11,15 +11,21 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import ftn.xmlws.project.beans.Accommodation;
+import ftn.xmlws.project.beans.Agent;
 import ftn.xmlws.project.beans.Authority;
+import ftn.xmlws.project.beans.EncodedAccommodationType;
 import ftn.xmlws.project.beans.EncodedFacility;
+import ftn.xmlws.project.beans.EncodedStarRating;
 import ftn.xmlws.project.beans.Reservation;
 import ftn.xmlws.project.beans.User;
 import ftn.xmlws.project.repository.AccommodationRepository;
+import ftn.xmlws.project.repository.AgentRepository;
 import ftn.xmlws.project.repository.AuthorityRepository;
 import ftn.xmlws.project.repository.EncodedFacilityRepository;
+import ftn.xmlws.project.repository.EncodedStarRatingRepository;
 import ftn.xmlws.project.repository.ReservationRepository;
 import ftn.xmlws.project.repository.UserRepository;
+import ftn.xmlws.project.repository.EncodedAccommodationTypeRepository;
 
 @Component
 @SuppressWarnings("unused")
@@ -40,17 +46,76 @@ public class DataLoader implements ApplicationRunner {
 	@Autowired
 	private ReservationRepository reservationRepository;
 	
+	@Autowired
+	private EncodedStarRatingRepository starRatingRepository;
+	@Autowired
+	private EncodedAccommodationTypeRepository accommodationTypeRepository;
+	@Autowired
+	private AgentRepository agentRepository;
+	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
+		insertIntoEncodedFacility();
+		insertIntoEncodedEntities();
+		insertIntoAgents();
+		insertIntoAccommodations();
+		insertIntoUsers();
+		insertIntoReservations();
 		
-		//insertIntoAccommodations();
+		
 
-		///insertIntoUsers();
-
-		//insertIntoEncodedFacility();
-		//insertIntoUsers();
-		//insertIntoReservations();
-
+	}
+	
+	private void insertIntoEncodedEntities() {
+		EncodedAccommodationType a = new EncodedAccommodationType();
+		EncodedAccommodationType b = new EncodedAccommodationType();
+		EncodedAccommodationType c = new EncodedAccommodationType();
+		EncodedAccommodationType d = new EncodedAccommodationType();
+		EncodedAccommodationType e = new EncodedAccommodationType();
+		EncodedAccommodationType f = new EncodedAccommodationType();
+		a.setName("Hotel");
+		b.setName("Hostel");
+		c.setName("Apartments");
+		d.setName("Guest house");
+		e.setName("Homestay");
+		f.setName("Bed and breakfast");
+		
+		accommodationTypeRepository.save(a);
+		accommodationTypeRepository.save(b);
+		accommodationTypeRepository.save(c);
+		accommodationTypeRepository.save(d);
+		accommodationTypeRepository.save(e);
+		accommodationTypeRepository.save(f);
+		
+		EncodedStarRating aa = new EncodedStarRating();
+		EncodedStarRating bb = new EncodedStarRating();
+		EncodedStarRating cc = new EncodedStarRating();
+		EncodedStarRating dd = new EncodedStarRating();
+		EncodedStarRating ee = new EncodedStarRating();
+		EncodedStarRating ff = new EncodedStarRating();
+		aa.setName("Unrated");
+		bb.setName("1 star");
+		cc.setName("2 stars");
+		dd.setName("3 stars");
+		ee.setName("4 stars");
+		ff.setName("5 stars");
+		
+		starRatingRepository.save(aa);
+		starRatingRepository.save(bb);
+		starRatingRepository.save(cc);
+		starRatingRepository.save(dd);
+		starRatingRepository.save(ee);
+		starRatingRepository.save(ff);
+	}
+	
+	private void insertIntoAgents() {
+		Agent a = new Agent("Ivan","Jancic","Lukijana Musickog 75, Smederevo", "AppJancic");
+		Agent b = new Agent("Nemanja","Mudri","Djurdja Brankovica 4, Novi Sad", "Auto skola Volan");
+		Agent c = new Agent("Filip","Petrovic","Dimitrija Dimovica 20, Zrenjanin", "Krilca");
+		
+		agentRepository.save(a);
+		agentRepository.save(b);
+		agentRepository.save(c);
 	}
 	
 	private void insertIntoUsers() {
