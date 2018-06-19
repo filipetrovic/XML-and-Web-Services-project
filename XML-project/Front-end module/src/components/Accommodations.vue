@@ -8,9 +8,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-            <a class="nav-item nav-link active" style="width:500px;" href="/home">Home <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="/login">Sign in/Sign up</a>
-            </div>
+            <router-link tag="a" class="nav-item nav-link active" style="width:500px;" to="/home">Home <span class="sr-only">(current)</span></router-link>
+            <router-link tag="a" class="nav-item nav-link" to="/login" v-if="!userLogged">Sign in/Sign up</router-link>
+            <router-link tag="a" class="nav-item nav-link" to="/profile" v-if="userLogged">My Profile</router-link>
+          </div>
         </div>
     </nav>
 
@@ -19,7 +20,7 @@
     <h1> Accomodations available </h1> 
     <br/>
     <br/>
-    <table class="table table-bordered">
+    <table class="table table-bordered table-hover">
         <thead class="thead-dark">
             <tr>
             <th scope="col">Name</th>
@@ -45,7 +46,7 @@
             <td>{{accommodation.pricePerPerson * numberOfPeople}}</td>
             <td>{{accommodation.pictures}}</td>
             <td> <p v-for="fac in accommodation.additionalFacilities"> {{fac.name}} </p></td>
-            <td> <button class="btn btn-primary"> Reserve </button> </td>
+            <td> <button class="btn btn-primary" v-if="userLogged" @click="reserveAccommodation(accommodation)"> Reserve </button> </td>
             </tr>
         </tbody>
     </table>
@@ -54,7 +55,7 @@
 
             <label for="sort" class="col-md-1 col-form-label"> <b> Sort by: </b> </label>
             <div class="col-md-2">
-                <select id="sort" class="form-control" v-model="sortType" v-on:change="sorted">
+                <select id="sort" class="form-control" v-model="sortType">
                     <option value="Price" >Price</option>
                     <option value="Rating">Rating</option>
                     <option value="Category">Category</option>
@@ -74,7 +75,9 @@ export default {
     return {
       listOfAccommodations : [],
       numberOfPeople: Number = 0,
-      sortType: ''
+      sortType: '',
+      user: '',
+      loggedUser: false
     }
   },
   watch: {
@@ -88,19 +91,12 @@ export default {
         }
         else if(val === 'Category')
         {
-            //console.log('Before');
-            //console.log(this.listOfAccommodations);
-            
             for(let ac in this.listOfAccommodations)
             {
                 let c = this.listOfAccommodations[ac].category.substring(0,1);
-                //console.log('Category: ' + c);
                 this.listOfAccommodations[ac].category = c;
             }
             
-            //console.log('After');
-            //console.log(this.listOfAccommodations);
-
             this.listOfAccommodations.sort( ( a, b) => {
                 return (a.category - b.category);
             });
@@ -109,22 +105,58 @@ export default {
             {
                 this.listOfAccommodations[ac].category += ' stars';
             }
-
-
-            //console.log('Sorted');
-           // console.log(this.listOfAccommodations);
         }
       },
   },
   methods: {
+      reserveAccommodation: function(ac) {
 
+        let headers = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+        };
+
+        var reservation = {
+            checkInDate: this.$store.state.dates.checkInDate,
+            checkOutDate: this.$store.state.dates.checkOutDate,
+            priceOfReservation: ac.pricePerPerson * this.numberOfPeople,
+            username: this.user.username,
+            accommodationId: ac.id,
+        };
+
+        this.$http
+                .post('http://localhost:8080/api/client/reserve',
+                reservation,
+                headers)
+
+                .then(response => {
+                    const data = response.body;
+                    console.log(data);
+
+                    //this.$router.push('Profile'); 
+                });
+      }
   },
   created() {
       
     
     this.listOfAccommodations = this.$store.state.ListOfAccommodations;
     this.numberOfPeople = this.$store.state.numberOfPeople;
-      
+    this.user = this.$store.state.loggedUser;
+    
+    //console.log(this.user);
+
+    if(this.$store.state.loggedUser == '')
+    {
+        //console.log('User is not logged: ' + this.$store.state.loggedUser);
+        this.userLogged = false;
+    }
+    else
+    {
+        //console.log('User is logged: ' + this.$store.state.loggedUser);
+        this.userLogged = true;
+    }
   }
 }
 </script>

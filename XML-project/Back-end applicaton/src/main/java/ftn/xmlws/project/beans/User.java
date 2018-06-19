@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.Email;
@@ -19,6 +21,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.BatchSize;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "User")
@@ -64,6 +68,10 @@ public class User implements Serializable {
 	@NotNull
 	private boolean deleted;
 	
+	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+	@JsonIgnore
+    private Set<Reservation> reservations;
+	
 	@ManyToMany
     @JoinTable(
             name = "User_authority",
@@ -88,6 +96,14 @@ public class User implements Serializable {
 		
 	}
 	
+	public Set<Reservation> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(Set<Reservation> reservations) {
+		this.reservations = reservations;
+	}
+
 	public boolean isDeleted() {
 		return deleted;
 	}
@@ -160,11 +176,6 @@ public class User implements Serializable {
 		this.authorities = authorities;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", email=" + email + ", banned=" + banned + ", authorities=" + authorities
-				+ "]";
-	}
+
 
 }

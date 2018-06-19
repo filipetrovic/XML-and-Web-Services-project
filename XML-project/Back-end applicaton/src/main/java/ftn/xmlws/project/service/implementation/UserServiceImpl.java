@@ -37,7 +37,11 @@ public class UserServiceImpl implements UserService {
 				if(decodedString.equals(user.getPassword()))
 				{
 					System.out.println("Passwords match! " + decodedString + " == " + user.getPassword());
-					return u;
+					user.setEmail(u.getEmail());
+					user.setFirstName(u.getFirstName());
+					user.setLastName(u.getLastName());
+					user.setPassword("nice try mr hacker!");
+					return user;
 				}
 			}
 			

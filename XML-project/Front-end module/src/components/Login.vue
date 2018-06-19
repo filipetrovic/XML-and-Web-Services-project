@@ -8,8 +8,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-            <a class="nav-item nav-link" style="width:500px;" href="/home">Home </a>
-            <a class="nav-item nav-link active" href="/login">Sign in/Sign up <span class="sr-only">(current)</span></a>
+            <router-link tag="a" class="nav-item nav-link" style="width:500px;" to="/home">Home </router-link>
+            <router-link tag="a" class="nav-item nav-link active" to="/login">Sign in/Sign up <span class="sr-only">(current)</span></router-link>
             </div>
         </div>
     </nav>

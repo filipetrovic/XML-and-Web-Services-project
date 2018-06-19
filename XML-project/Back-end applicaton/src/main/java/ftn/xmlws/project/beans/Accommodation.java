@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,10 +13,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.BatchSize;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "accommodation")
@@ -56,6 +60,10 @@ public class Accommodation {
 	@Size(min = 1, max = 50)
 	@Column(length = 50, nullable = false)
 	private String category;
+	
+	@OneToMany(mappedBy="accommodation", cascade = CascadeType.ALL)
+	@JsonIgnore
+    private Set<Reservation> reservations;
 	
 	@ManyToMany
     @JoinTable(
@@ -114,6 +122,13 @@ public class Accommodation {
 		return endDateAvailable;
 	}
 
+	public Set<Reservation> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(Set<Reservation> reservations) {
+		this.reservations = reservations;
+	}
 
 	public void setEndDateAvailable(Date endDateAvailable) {
 		this.endDateAvailable = endDateAvailable;
@@ -205,7 +220,7 @@ public class Accommodation {
 				+ endDateAvailable + ", name=" + name + ", pictures=" + pictures + ", description=" + description
 				+ ", pricePerPerson=" + pricePerPerson + ", inputAddress=" + inputAddress + ", numberOfPeople="
 				+ numberOfPeople + ", typeOfAccommodation=" + typeOfAccommodation + ", category=" + category
-				+ ", additionalFacilities=" + additionalFacilities + "]";
+				+ ", reservations=" + reservations + ", additionalFacilities=" + additionalFacilities + "]";
 	}
 
 }
