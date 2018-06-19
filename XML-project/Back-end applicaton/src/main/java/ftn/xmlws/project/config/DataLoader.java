@@ -55,12 +55,12 @@ public class DataLoader implements ApplicationRunner {
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		insertIntoEncodedFacility();
-		insertIntoEncodedEntities();
-		insertIntoAgents();
-		insertIntoAccommodations();
-		insertIntoUsers();
-		insertIntoReservations();
+//		insertIntoEncodedFacility();
+//		insertIntoEncodedEntities();
+//		insertIntoAgents();
+//		insertIntoAccommodations();
+//		insertIntoUsers();
+//		insertIntoReservations();
 		
 		
 

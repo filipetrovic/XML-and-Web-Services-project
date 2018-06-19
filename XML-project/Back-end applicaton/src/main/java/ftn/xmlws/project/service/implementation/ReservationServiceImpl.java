@@ -62,6 +62,24 @@ public class ReservationServiceImpl implements ReservationService {
 		
 	}
 
+	@Override
+	public boolean cancelReservation(Long reservationId, String username) {
+
+		try {
+			reservationRepository.deleteById(reservationId);
+			return true;
+			
+		} catch(Exception e)
+		{
+			System.out.println("Usao u cancelReservation Exception!");
+			e.printStackTrace();
+			return false;
+		}
+		
+		
+		
+	}
+
 
 
 }

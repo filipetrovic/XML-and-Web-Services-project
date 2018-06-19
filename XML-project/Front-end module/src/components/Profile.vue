@@ -67,8 +67,8 @@
                 <td>{{r.priceOfReservation}}</td>
                 <td>{{r.accommodation.name}}</td>
                 <td>
-                    <button class="btn btn-success btn-block" v-if="r.arrivalConfirmed"> Rate my stay </button>
-                    <button class="btn btn-danger btn-block" v-if="!r.arrivalConfirmed"> Cancel reservation </button>
+                    <button class="btn btn-success btn-block" v-if="r.arrivalConfirmed" @click="rateStay(r)" data-toggle="modal" data-target="#exampleModal"> Rate my stay </button>
+                    <button class="btn btn-danger btn-block" v-if="!r.arrivalConfirmed" @click="cancelReservation(r.id)"> Cancel reservation </button>
                 </td>
                 </tr>
                 
@@ -79,6 +79,48 @@
     </div>
 <!-- End:Reservations -->
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Rating</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+            <div class="form-group row">
+                <label for="rating" class="col-sm-2 col-form-label">Rate your stay from 1-5</label>
+                <div class="col-sm-10">
+                <select id="rating" class="form-control" v-model="ratingValue">
+                    <option value="1" >1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="comment" class="col-sm-2 col-form-label">Describe your stay</label>
+                <div class="col-sm-10">
+                <textarea class="form-control" id="comment" rows="3" v-model="ratingComment"></textarea>
+                </div>
+            </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" @click="submitRating()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
   </div>
 </template>
 
@@ -88,11 +130,44 @@ export default {
   data () {
     return {
         user: '',
-        reservations: []
+        reservations: [],
+        reservationForRating: '',
+        ratingComment: '',
+        ratingValue: ''
     }
   },
+  methods: {
+      cancelReservation: function(id) {
+          
+        let params = {
+           reservationId : id,
+           username : this.user.username
+       };
 
+       this.$http
+                .delete('http://localhost:8080/api/client/cancelReservation',
+                { params : params }
+                )
+                .then(response => {
+                    const data = response.body;
+                    this.reservations = data;
+                });
+
+      },
+      rateStay: function(res) {
+        
+        this.reservationForRating = res;
+
+      },
+      submitRating: function() {
+
+          console.log(this.ratingComment + ' ' + this.ratingValue);
+          console.log(this.reservationForRating);
+
+      }
+  },
   created() {
+
        this.user = this.$store.state.loggedUser;
 
        let params = {
@@ -103,12 +178,9 @@ export default {
                 .get('http://localhost:8080/api/client/getReservations',
                 { params : params }
                 )
-
                 .then(response => {
                     const data = response.body;
                     this.reservations = data;
-
-                    //this.$router.push('Profile'); 
                 });
   }
 }

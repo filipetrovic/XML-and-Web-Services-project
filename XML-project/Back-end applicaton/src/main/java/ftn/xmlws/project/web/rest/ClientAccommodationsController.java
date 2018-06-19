@@ -22,7 +22,7 @@ import ftn.xmlws.project.web.dto.ReservationDTO;
 
 @RestController
 @RequestMapping(value = "/api/client")
-public class ClientModuleController {
+public class ClientAccommodationsController {
 	
 	@Autowired
 	private AccommodationService accommodationService;
@@ -50,9 +50,7 @@ public class ClientModuleController {
 
 	@RequestMapping(value = "/reserve", method = RequestMethod.POST, consumes="application/json", produces="application/json")
 	public ResponseEntity<Boolean> reserve(@RequestBody ReservationDTO r) {
-		
-		System.out.println(r  + " ovo je search dobijen DTO");
-		
+	
 		if(this.reservationService
 				.makeReservation(ConverterDTO.convertToReservation(r), r.getUsername(), r.getAccommodationId()))
 			return new ResponseEntity<Boolean>(true, HttpStatus.CREATED);
@@ -65,9 +63,18 @@ public class ClientModuleController {
 	@RequestMapping(value = "/getReservations", method = RequestMethod.GET, produces="application/json")
 	public ResponseEntity<Set<Reservation>> getReservations(@RequestParam("username") String username) {
 		
-		System.out.println(username  + " ovo je search dobijen DTO");
-		
 		return new ResponseEntity<Set<Reservation>>(this.reservationService.getReservations(username), HttpStatus.OK);
+		
+	}
+	
+	@RequestMapping(value = "/cancelReservation", method = RequestMethod.DELETE, produces="application/json")
+	public ResponseEntity<Set<Reservation>> cancelReservation(@RequestParam("reservationId") Long reservationId,
+			@RequestParam("username") String username) {
+		
+		if(this.reservationService.cancelReservation(reservationId, username))
+			return new ResponseEntity<Set<Reservation>>(this.reservationService.getReservations(username), HttpStatus.OK);
+		
+		return new ResponseEntity<Set<Reservation>>(this.reservationService.getReservations(username), HttpStatus.NO_CONTENT);
 		
 	}
 	
