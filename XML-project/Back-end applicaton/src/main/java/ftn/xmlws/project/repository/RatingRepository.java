@@ -1,10 +1,8 @@
 package ftn.xmlws.project.repository;
 
-<<<<<<< HEAD
-import java.util.List;
-=======
 
->>>>>>> 0a65c5cdda9168b370e2ca993b5d8e110b71c1f8
+import java.util.List;
+
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

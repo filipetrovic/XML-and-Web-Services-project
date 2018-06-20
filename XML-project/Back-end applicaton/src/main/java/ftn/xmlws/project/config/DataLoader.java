@@ -69,11 +69,6 @@ public class DataLoader implements ApplicationRunner {
 //		insertIntoUsers();
 //		insertIntoReservations();
 //		insertIntoRatings();
-<<<<<<< HEAD
-		
-
-=======
->>>>>>> 0a65c5cdda9168b370e2ca993b5d8e110b71c1f8
 	}
 	
 	private void insertIntoEncodedEntities() {
