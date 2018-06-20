@@ -219,7 +219,42 @@ export default {
                 .then(response => {
                     const data = response.body;
                     this.reservations = data;
+
+                this.$http
+                    .get('http://localhost:8080/api/client/getRatings',
+                    { params : params }
+                    )
+                    .then(response => {
+                        const data = response.body;
+                        var ratings = [];
+                        ratings = data;
+
+                        this.reservations.forEach((reservation, indexReservation) => {
+                            console.log('Reservation: ');
+                            console.log(reservation); 
+                            console.log(indexReservation); 
+
+                            ratings.forEach((rating, indexRating) => {
+                            console.log('Rating :'); 
+                            console.log(rating); 
+                            console.log(indexRating); 
+        
+                                if(this.reservations[indexReservation].id === rating.reservationId)
+                                {
+                                    if(this.reservations[indexReservation].approved)
+                                        this.reservations[indexReservation].comment = rating.comment;
+
+                                    this.reservations[indexReservation].value = rating.value;
+                                }
+                        });
+                        });
+                    });
+
                 });
+
+  
+
+      
   }
 }
 </script>

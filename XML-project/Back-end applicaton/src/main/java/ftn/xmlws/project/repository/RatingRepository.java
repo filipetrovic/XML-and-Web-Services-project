@@ -1,6 +1,10 @@
 package ftn.xmlws.project.repository;
 
+<<<<<<< HEAD
 import java.util.List;
+=======
+
+>>>>>>> 0a65c5cdda9168b370e2ca993b5d8e110b71c1f8
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,4 +19,6 @@ public interface RatingRepository extends JpaRepository<Rating, Long> {
 	List<Rating> getAllUnapprovedRatings();
 	Rating findOneById(Long id);
 
+
+	
 }

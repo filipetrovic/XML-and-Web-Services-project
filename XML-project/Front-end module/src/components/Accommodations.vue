@@ -30,6 +30,7 @@
             <th scope="col">Type</th>
             <th scope="col">Category(*)</th>
             <th scope="col">Price per night</th>
+            <th scope="col">Rating</th>
             <th scope="col">Pictures</th>
             <th scope="col">Additional facilities</th>
             <th scope="col"> </th>
@@ -44,6 +45,7 @@
             <td>{{accommodation.typeOfAccommodation}}</td>
             <td>{{accommodation.category}}</td>
             <td>{{accommodation.pricePerPerson * numberOfPeople}}</td>
+            <td>{{accommodation.rating}}</td>
             <td>{{accommodation.pictures}}</td>
             <td> <p v-for="fac in accommodation.additionalFacilities"> {{fac.name}} </p></td>
             <td> <button class="btn btn-primary" v-if="userLogged" @click="reserveAccommodation(accommodation)"> Reserve </button> </td>
@@ -106,6 +108,12 @@ export default {
                 this.listOfAccommodations[ac].category += ' stars';
             }
         }
+        else if(val === 'Rating')
+        {
+            this.listOfAccommodations.sort( ( a, b) => {
+                return (a.rating - b.rating);
+            });
+        }
       },
   },
   methods: {
@@ -134,7 +142,7 @@ export default {
                     const data = response.body;
                     console.log(data);
 
-                    //this.$router.push('Profile'); 
+                    this.$router.push('Profile'); 
                 });
       }
   },

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.xmlws.project.beans.Accommodation;
+import ftn.xmlws.project.beans.Rating;
 import ftn.xmlws.project.beans.Reservation;
 import ftn.xmlws.project.service.AccommodationService;
 import ftn.xmlws.project.service.ReservationService;
@@ -47,6 +48,8 @@ public class ClientAccommodationsController {
 				.convertToAccommodation(accomodationSearchParamsDTO)), HttpStatus.OK);
 		
 	}
+	
+	/************************************************************** RESERVATIONS **************************************************************/
 
 	@RequestMapping(value = "/reserve", method = RequestMethod.POST, consumes="application/json", produces="application/json")
 	public ResponseEntity<Boolean> reserve(@RequestBody ReservationDTO r) {
@@ -78,5 +81,13 @@ public class ClientAccommodationsController {
 		
 	}
 	
+	/************************************************************** RATINGS **************************************************************/
+	
+	@RequestMapping(value = "/getUserRatings", method = RequestMethod.GET, produces="application/json")
+	public ResponseEntity<Set<Rating>> getUserRatings(@RequestParam("username") String username) {
+		
+		return new ResponseEntity<Set<Rating>>(this.reservationService.getUserRatings(username), HttpStatus.OK);
+		
+	}
 	
 }

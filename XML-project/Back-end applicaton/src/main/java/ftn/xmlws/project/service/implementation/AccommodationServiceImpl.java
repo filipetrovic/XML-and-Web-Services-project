@@ -1,5 +1,6 @@
 package ftn.xmlws.project.service.implementation;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,6 +127,28 @@ public class AccommodationServiceImpl implements AccommodationService {
 
 					return d.after(min) && d.before(max);
 					*/
+					
+
+					
+					LocalDate searchStartDate = accommodation.getStartDateAvailable().toLocalDate();
+					LocalDate reservationCheckInDate = accommodation.getStartDateAvailable().toLocalDate();
+					System.out.println("Local date comparison: ");
+					System.out.println(searchStartDate.equals(reservationCheckInDate));
+					
+					LocalDate searchEndDate = accommodation.getEndDateAvailable().toLocalDate();
+					LocalDate reservationCheckOutDate = accommodation.getEndDateAvailable().toLocalDate();
+					System.out.println("Local date comparison: ");
+					System.out.println(searchEndDate.equals(reservationCheckOutDate));
+					
+	
+					if(searchStartDate.equals(reservationCheckInDate) || searchEndDate.equals(reservationCheckOutDate))
+					{
+						thereIsAReservation = true;
+						System.out.println("There is a reservation on the same date!");
+						continue;
+					}
+					
+					
 					if(!(
 							(accommodation.getStartDateAvailable().after(r.getCheckInDate()) && 
 								accommodation.getEndDateAvailable().before(r.getCheckInDate()))	&& 

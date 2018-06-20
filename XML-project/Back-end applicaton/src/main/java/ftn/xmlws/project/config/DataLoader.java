@@ -69,8 +69,11 @@ public class DataLoader implements ApplicationRunner {
 //		insertIntoUsers();
 //		insertIntoReservations();
 //		insertIntoRatings();
+<<<<<<< HEAD
 		
 
+=======
+>>>>>>> 0a65c5cdda9168b370e2ca993b5d8e110b71c1f8
 	}
 	
 	private void insertIntoEncodedEntities() {
@@ -266,13 +269,14 @@ public class DataLoader implements ApplicationRunner {
 				"",
 				"neki novi apartmani",
 				1750,
+				3,
 				"Smederevo, Carina",
 				5,
 				"appartment",
 				"5 stars",
-				additionalFacilities);
+				null, additionalFacilities);
 		
-		accommodationRepository.save(ac);
+		
 		
 		Set<EncodedFacility> additionalFacilities1 = new HashSet<>();
 		additionalFacilities1.add(encodedFacilityRepository.findOneById((long)3));
@@ -287,12 +291,13 @@ public class DataLoader implements ApplicationRunner {
 				"",
 				"veliki hotel vikinga",
 				4000,
-				"Smederevo, Kneza Milosa 35",
+				5, "Smederevo, Kneza Milosa 35",
 				4,
 				"hotel",
 				"2 star",
-				additionalFacilities1);
+				null, additionalFacilities1);
 		
+		accommodationRepository.save(ac);
 		accommodationRepository.save(ac1);
 	}
 
