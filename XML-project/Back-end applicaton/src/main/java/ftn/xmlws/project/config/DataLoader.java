@@ -68,7 +68,7 @@ public class DataLoader implements ApplicationRunner {
 //		insertIntoAccommodations();
 //		insertIntoUsers();
 //		insertIntoReservations();
-		insertIntoRatings();
+//		insertIntoRatings();
 		
 
 	}
