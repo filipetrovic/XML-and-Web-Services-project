@@ -1,2 +1,14 @@
 INSTANCE_NO: 0
 INSTANCE_DATABASE: localhost
+
+spring:
+    jpa:
+        database: MYSQL
+        hibernate:
+            ddl-auto: update
+
+    datasource:
+        url: ${DATABASE_SOURCE}
+        username: root
+        password: root
+        driver-class-name: com.mysql.jdbc.Driver

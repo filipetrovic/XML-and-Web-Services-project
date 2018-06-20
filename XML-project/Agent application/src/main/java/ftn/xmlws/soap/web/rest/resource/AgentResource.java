@@ -19,4 +19,5 @@ public class AgentResource {
         List<EncodedFacility> lists = response.getEncodedFacility();
         return lists.toString();
     }
+
 }
