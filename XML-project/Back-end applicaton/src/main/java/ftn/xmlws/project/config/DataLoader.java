@@ -16,16 +16,18 @@ import ftn.xmlws.project.beans.Authority;
 import ftn.xmlws.project.beans.EncodedAccommodationType;
 import ftn.xmlws.project.beans.EncodedFacility;
 import ftn.xmlws.project.beans.EncodedStarRating;
+import ftn.xmlws.project.beans.Rating;
 import ftn.xmlws.project.beans.Reservation;
 import ftn.xmlws.project.beans.User;
 import ftn.xmlws.project.repository.AccommodationRepository;
 import ftn.xmlws.project.repository.AgentRepository;
 import ftn.xmlws.project.repository.AuthorityRepository;
+import ftn.xmlws.project.repository.EncodedAccommodationTypeRepository;
 import ftn.xmlws.project.repository.EncodedFacilityRepository;
 import ftn.xmlws.project.repository.EncodedStarRatingRepository;
+import ftn.xmlws.project.repository.RatingRepository;
 import ftn.xmlws.project.repository.ReservationRepository;
 import ftn.xmlws.project.repository.UserRepository;
-import ftn.xmlws.project.repository.EncodedAccommodationTypeRepository;
 
 @Component
 @SuppressWarnings("unused")
@@ -48,10 +50,15 @@ public class DataLoader implements ApplicationRunner {
 	
 	@Autowired
 	private EncodedStarRatingRepository starRatingRepository;
+	
 	@Autowired
 	private EncodedAccommodationTypeRepository accommodationTypeRepository;
+	
 	@Autowired
 	private AgentRepository agentRepository;
+	
+	@Autowired
+	private RatingRepository ratingRepository;
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
@@ -61,7 +68,7 @@ public class DataLoader implements ApplicationRunner {
 //		insertIntoAccommodations();
 //		insertIntoUsers();
 //		insertIntoReservations();
-		
+		insertIntoRatings();
 		
 
 	}
@@ -109,6 +116,7 @@ public class DataLoader implements ApplicationRunner {
 	}
 	
 	private void insertIntoAgents() {
+		
 		Agent a = new Agent("Ivan","Jancic","Lukijana Musickog 75, Smederevo", "AppJancic");
 		Agent b = new Agent("Nemanja","Mudri","Djurdja Brankovica 4, Novi Sad", "Auto skola Volan");
 		Agent c = new Agent("Filip","Petrovic","Dimitrija Dimovica 20, Zrenjanin", "Krilca");
@@ -116,6 +124,17 @@ public class DataLoader implements ApplicationRunner {
 		agentRepository.save(a);
 		agentRepository.save(b);
 		agentRepository.save(c);
+	}
+	
+	private void insertIntoRatings() {
+		
+		Rating r = new Rating("Jako dobar smestaj.", 5, (long)1, (long)1, false);
+		Rating r1 = new Rating("Ocajan smestaj, sve smrdi.", 1, (long)2, (long)2, true);
+		Rating r2 = new Rating("Smestaj ima dvoriste za mog psa Mikicu. Fini domacini.", 4, (long)2, (long)2, false);
+		
+		ratingRepository.save(r);
+		ratingRepository.save(r1);
+		ratingRepository.save(r2);
 	}
 	
 	private void insertIntoUsers() {

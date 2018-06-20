@@ -25,8 +25,7 @@ exports.addRating = function(req, res) {
 	}); 
 
 });
-
-		
+	
 }
 
 exports.getRatings = function(req, res) {

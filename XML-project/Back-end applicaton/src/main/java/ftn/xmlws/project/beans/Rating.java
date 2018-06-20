@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -17,24 +16,32 @@ public class Rating {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotNull
 	@Column(nullable = false)
 	private String comment;
 	
-	@NotNull
 	@Column(nullable = false)
 	private int value;
 	
-	@NotNull
 	@Column(nullable = false)
 	private Long reservationId;
 	
-	@NotNull
 	@Column(nullable = false)
 	private Long accommodationId;
 	
+	@Column
+	private boolean approved;
+	
 	public Rating() {
 		
+	}
+	
+	public Rating(String comment, int value, Long reservationId, Long accommodationId, boolean approved) {
+		super();
+		this.comment = comment;
+		this.value = value;
+		this.reservationId = reservationId;
+		this.accommodationId = accommodationId;
+		this.approved = approved;
 	}
 
 	public Long getId() {
@@ -47,6 +54,14 @@ public class Rating {
 
 	public String getComment() {
 		return comment;
+	}
+	
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
 	}
 
 	public void setComment(String comment) {
@@ -76,7 +91,5 @@ public class Rating {
 	public void setAccommodationId(Long accommodationId) {
 		this.accommodationId = accommodationId;
 	}
-	
-	
-	
+
 }
