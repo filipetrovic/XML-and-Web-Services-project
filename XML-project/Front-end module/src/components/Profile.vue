@@ -54,6 +54,8 @@
                     <th scope="col">Check out date</th>
                     <th scope="col">Price</th>
                     <th scope="col">Name</th>
+                    <th scope="col">Rating</th>
+                    <th scope="col">Review</th>
                     <th scope="col"></th>
                 </tr>
 
@@ -66,6 +68,8 @@
                 <td>{{r.checkOutDate}}</td>
                 <td>{{r.priceOfReservation}}</td>
                 <td>{{r.accommodation.name}}</td>
+                <td>{{r.ratingValue}}</td>
+                <td>{{r.ratingComment}}</td>
                 <td>
                     <button class="btn btn-success btn-block" v-if="r.arrivalConfirmed" @click="rateStay(r)" data-toggle="modal" data-target="#exampleModal"> Rate my stay </button>
                     <button class="btn btn-danger btn-block" v-if="!r.arrivalConfirmed" @click="cancelReservation(r.id)"> Cancel reservation </button>
@@ -168,8 +172,19 @@ export default {
             comment: this.ratingComment,
             value: this.ratingValue,
             reservationId: this.reservationForRating.id,
-            accommodationId: this.reservationForRating.accommodation.id
+            accommodationId: this.reservationForRating.accommodation.id,
         };
+
+        this.reservations.forEach((item, index) => {
+            console.log(item); // 9, 2, 5
+            console.log(index); // 0, 1, 2
+
+            this.reservations[index].comment = '';
+        });
+
+        this.reservations[0].comment = this.ratingComment;
+
+        console.log(this.reservations);
 
         let headers = {
             headers: {

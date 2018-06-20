@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import ftn.xmlws.project.beans.Accommodation;
 import ftn.xmlws.project.beans.EncodedFacility;
+import ftn.xmlws.project.beans.Reservation;
 import ftn.xmlws.project.repository.AccommodationRepository;
+import ftn.xmlws.project.repository.ReservationRepository;
 import ftn.xmlws.project.service.AccommodationService;
 
 @Service
@@ -15,6 +17,9 @@ public class AccommodationServiceImpl implements AccommodationService {
 
 	@Autowired
 	private AccommodationRepository accommodationRepository;
+	
+	@Autowired
+	private ReservationRepository reservationRepository;
 	
 	@Override
 	public ArrayList<Accommodation> getAllAccommodations() {
@@ -26,8 +31,6 @@ public class AccommodationServiceImpl implements AccommodationService {
 	public ArrayList<Accommodation> getAccommodationsBasedOnSearchParams(Accommodation accommodation) {
 		
 		ArrayList<Accommodation> matchedAccommodations = new ArrayList<Accommodation>();
-		
-		System.out.println(accommodationRepository.findAll());
 		
 		for(Accommodation a:accommodationRepository.findAll())
 		{
@@ -91,10 +94,61 @@ public class AccommodationServiceImpl implements AccommodationService {
 			}		
 			
 			System.out.println("Successfully found : " + a);
-			matchedAccommodations.add(a);
+			
+			boolean thereIsAReservation = false;
+			
+			for(Reservation r:reservationRepository.findAll())
+			{
+				if(r.getAccommodation().equals(a))
+				{
+//					System.out.println(r.getAccommodation().getId());
+//					System.out.println("should be equal to acomodation searched: ");
+//					System.out.println(a);
+//					
+//					System.out.println(accommodation.getStartDateAvailable()  + " should be after " + r.getCheckInDate());
+//					System.out.println(accommodation.getEndDateAvailable()  + " should be before " + r.getCheckOutDate());
+//					
+//					System.out.println("First check");
+//					System.out.println((accommodation.getStartDateAvailable().after(r.getCheckInDate()) && 
+//							accommodation.getEndDateAvailable().before(r.getCheckInDate())));
+//					
+//					System.out.println("Second check");
+//					System.out.println((accommodation.getStartDateAvailable().after(r.getCheckOutDate()) && 
+//					accommodation.getEndDateAvailable().before(r.getCheckOutDate())));
+					
+					
+					
+					/*
+					 * algorithm used for reservations checking
+					 * 
+					Date min, max;   // assume these are set to something
+					Date d;          // the date in question
+
+					return d.after(min) && d.before(max);
+					*/
+					if(!(
+							(accommodation.getStartDateAvailable().after(r.getCheckInDate()) && 
+								accommodation.getEndDateAvailable().before(r.getCheckInDate()))	&& 
+									(accommodation.getStartDateAvailable().after(r.getCheckOutDate()) && 
+											accommodation.getEndDateAvailable().before(r.getCheckOutDate()))
+						))
+					{
+						System.out.println("This reservation does not interfere with searched dates!");
+					}
+					else
+					{
+						System.out.println("Reservation found for following dates!");
+						thereIsAReservation = true;
+					}
+				}
+			}
+			
+			System.out.println("There is a reservation?" + thereIsAReservation);
+			
+			if(!thereIsAReservation)
+				matchedAccommodations.add(a);
 				
 		}
-		
 		
 		return matchedAccommodations;
 	}
