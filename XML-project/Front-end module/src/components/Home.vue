@@ -84,133 +84,43 @@
 
             <label for="typeOfAccomodation" class="col-md-2 col-form-label"> <b> Type of accomodation: </b> </label>
             <div class="col-md-4">
-                <select id="typeOfAccomodation" class="form-control" v-model="searchData.typeOfAccomodation">
-                    <option value="hotel" >Hotel</option>
-                    <option value="bed&breakfast">Bed&breakfast</option>
-                    <option value="appartment">Apartment</option> 
+                <select id="typeOfAccomodation" class="form-control" v-model="searchData.typeOfAccomodation" >
+                    <option :value="t.name" v-for="t in accomodationTypes">{{t.name}}</option>
                 </select>
             </div>
 
              <label for="category" class="col-md-2 col-form-label"> <b>Category:</b> </label>
             <div class="col-md-4">
                 <select id="category" class="form-control" v-model="searchData.category" >
-                    <option value="Uncategorized" >Uncategorized</option>
-                    <option value="1 star" >1 star</option>
-                    <option value="2 stars">2 stars</option>
-                    <option value="3 stars">3 stars</option>
-                    <option value="4 stars">4 stars</option>
-                    <option value="5 stars">5 stars</option>
+                    <option :value="rating.name" v-for="rating in accomodationStarsRating">{{rating.name}}</option>
                 </select>
             </div>
 
         </div>
 
         <div class="form-group row" v-if="advancedSearchChecked">
-            <label class="col-md-12 col-form-label"> <b>Additional facilities:</b> </label>
+            <label class="col-md-2 col-form-label"> <b>Additional facilities:</b> </label>
 
         </div>
 
-              <div class="form-group row" v-if="advancedSearchChecked">
 
-            <div class="form-group col-md-3">
+        <div class="form-group row" v-if="advancedSearchChecked" v-for="facility in additionalFacilities">
+
+            <div class="form-group col-md-2">
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox"
-                     id="parkingSpot" value="Parking spot" v-model="searchData.additionalServices">
-                    <label class="form-check-label" for="parkingSpot">
-                        Parking spot
+                    <input class="form-check-input checkbox-inline" type="checkbox"
+                     :id="facility.name" :value="facility.name" v-model="searchData.additionalServices">
+                    <label class="form-check-label" :for="facility.name">
+                        {{facility.name}}
                     </label>
                 </div>
 
             </div>
 
-              <div class="form-group col-md-3">
-
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox"
-                     id="wifi" value="WiFi" v-model="searchData.additionalServices">
-                    <label class="form-check-label" for="wifi">
-                        WiFi
-                    </label>
-                </div>
-
-            </div>
-
-          <div class="form-group col-md-3">
-
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" 
-                    id="breakfast" value="Breakfast" v-model="searchData.additionalServices">
-                    <label class="form-check-label" for="breakfast">
-                        Breakfast
-                    </label>
-                </div>
-
-            </div>
-
-          <div class="form-group col-md-3">
-
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox"
-                     id="halfBoard" value="Half-board" v-model="searchData.additionalServices">
-                    <label class="form-check-label" for="halfBoard">
-                        Half-board
-                    </label>
-                </div>
-
-            </div>
         </div>
 
-        <div class="form-group row" v-if="advancedSearchChecked">
 
-            <div class="form-group col-md-3">
-
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox"
-                     id="board" value="Board" v-model="searchData.additionalServices">
-                    <label class="form-check-label" for="board">
-                        Board
-                    </label>
-                </div>
-
-            </div>
-
-              <div class="form-group col-md-3">
-
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox"
-                     id="tv" value="TV" v-model="searchData.additionalServices">
-                    <label class="form-check-label" for="tv">
-                        TV
-                    </label>
-                </div>
-
-            </div>
-
-          <div class="form-group col-md-3">
-
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox"
-                     id="kitchen" value="Kitchen" v-model="searchData.additionalServices">
-                    <label class="form-check-label" for="kitchen">
-                        Kitchen
-                    </label>
-                </div>
-
-            </div>
-
-          <div class="form-group col-md-3">
-
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox"
-                     id="privateBathroom"  value="Private bathroom" v-model="searchData.additionalServices">
-                    <label class="form-check-label" for="privateBathroom">
-                        Private bathroom
-                    </label>
-                </div>
-
-            </div>
-        </div>
 
         <hr  class="my-4"> 
         
@@ -238,7 +148,10 @@ export default {
       },
       advancedSearchChecked: false,
       userLogged: false,
-      user: ''
+      user: '',
+      accomodationTypes: [],
+      accomodationStarsRating: [],
+      additionalFacilities: []
     }
   },
   methods : {
@@ -254,36 +167,24 @@ export default {
                 'Content-Type': 'application/json'
             }
         };
-         
-
-        //   this.$http.post('https://us-central1-booking-rating-system-c35da.cloudfunctions.net/addComment',
-        //    JSON.stringify(this.searchData))
-	    //     .then(response =>  {
-		// 	console.log(response)
-		//     }, error => {
-		// 	console.log(error)
-		// 	});
 
         this.$http
-                    .post('http://localhost:8080/api/client/search',
-                    JSON.stringify(this.searchData),
-                    headers)
+            .post('http://localhost:8080/api/client/search',
+            JSON.stringify(this.searchData),
+            headers)
 
-                    .then(response => {
-                        const data = response.body;
-                        console.log(data);
+            .then(response => {
+                const data = response.body;
 
-                        this.$store.state.ListOfAccommodations = data;
-                        this.$store.state.numberOfPeople = this.searchData.numberOfPeople;
-                        this.$store.state.dates = {
-                            checkInDate: this.searchData.checkInDate,
-                            checkOutDate: this.searchData.checkOutDate
-                        };
-
-                        //this.$store.dispatch('imeMutacije');
-
-                        this.$router.push('Accommodations'); 
-                    });
+                this.$store.state.ListOfAccommodations = data;
+                this.$store.state.numberOfPeople = this.searchData.numberOfPeople;
+                this.$store.state.dates = {
+                    checkInDate: this.searchData.checkInDate,
+                    checkOutDate: this.searchData.checkOutDate
+                };
+                
+                this.$router.push('Accommodations'); 
+            });
       }
   },
   created() {
@@ -302,6 +203,34 @@ export default {
             console.log('User is logged: ' + this.$store.state.loggedUser);
             this.userLogged = true;
         }
+
+        this.$http
+            .get('http://localhost:8080/api/encoded/getAllAccommodationTypes')
+            .then(response => {
+                const data = response.body;
+                this.accomodationTypes = data;
+                console.log('accomodationTypes');
+                console.log(this.accomodationTypes);
+            });
+
+        this.$http
+            .get('http://localhost:8080/api/encoded/getAllStarRatings')
+            .then(response => {
+                const data = response.body;
+                this.accomodationStarsRating = data;
+                console.log('accomodationStarsRating');
+                console.log(this.accomodationStarsRating);
+            });
+
+        this.$http
+            .get('http://localhost:8080/api/encoded/getAllFacilities')
+            .then(response => {
+                const data = response.body;
+                this.additionalFacilities = data;
+                console.log('additionalFacilities');
+                console.log(this.additionalFacilities);
+            });
+
   }
 }
 </script>

@@ -6,9 +6,11 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ftn.xmlws.project.beans.Rating;
 import ftn.xmlws.project.beans.Reservation;
 import ftn.xmlws.project.beans.User;
 import ftn.xmlws.project.repository.AccommodationRepository;
+import ftn.xmlws.project.repository.RatingRepository;
 import ftn.xmlws.project.repository.ReservationRepository;
 import ftn.xmlws.project.repository.UserRepository;
 import ftn.xmlws.project.service.ReservationService;
@@ -24,6 +26,9 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Autowired
 	private AccommodationRepository accommodationRepository;
+	
+	@Autowired
+	private RatingRepository ratingRepository;
 	
 	@Override
 	public boolean makeReservation(Reservation r, String username, Long accommodationId) {
@@ -78,6 +83,12 @@ public class ReservationServiceImpl implements ReservationService {
 		
 		
 		
+	}
+
+	@Override
+	public Set<Rating> getUserRatings(String username) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

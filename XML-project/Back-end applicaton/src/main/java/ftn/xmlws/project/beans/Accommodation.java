@@ -46,6 +46,9 @@ public class Accommodation {
 	@Column
 	private float pricePerPerson;
 	
+	@Column
+	private float rating;
+	
 	@Size(min = 1, max = 50)
 	@Column(length = 50, unique = true, nullable = false)
 	private String inputAddress;
@@ -93,8 +96,9 @@ public class Accommodation {
 	}
 
 	public Accommodation(Date startDateAvailable, Date endDateAvailable, String name, String pictures,
-			String description, float pricePerPerson, @Size(min = 1, max = 50) String inputAddress, int numberOfPeople,
-			@Size(min = 1, max = 50) String typeOfAccommodation, @Size(min = 1, max = 50) String category,
+			String description, float pricePerPerson, float rating, @Size(min = 1, max = 50) String inputAddress,
+			int numberOfPeople, @Size(min = 1, max = 50) String typeOfAccommodation,
+			@Size(min = 1, max = 50) String category, Set<Reservation> reservations,
 			Set<EncodedFacility> additionalFacilities) {
 		super();
 		this.startDateAvailable = startDateAvailable;
@@ -103,10 +107,12 @@ public class Accommodation {
 		this.pictures = pictures;
 		this.description = description;
 		this.pricePerPerson = pricePerPerson;
+		this.rating = rating;
 		this.inputAddress = inputAddress;
 		this.numberOfPeople = numberOfPeople;
 		this.typeOfAccommodation = typeOfAccommodation;
 		this.category = category;
+		this.reservations = reservations;
 		this.additionalFacilities = additionalFacilities;
 	}
 
@@ -128,6 +134,14 @@ public class Accommodation {
 
 	public void setReservations(Set<Reservation> reservations) {
 		this.reservations = reservations;
+	}
+	
+	public float getRating() {
+		return rating;
+	}
+
+	public void setRating(float rating) {
+		this.rating = rating;
 	}
 
 	public void setEndDateAvailable(Date endDateAvailable) {
