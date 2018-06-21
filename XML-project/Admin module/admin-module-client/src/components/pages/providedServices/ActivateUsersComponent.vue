@@ -84,14 +84,14 @@ export default {
       var body = user;
       this.$http.put("http://localhost:8090/banUser", body)
       .then(response => {
-        this.$http.get("http://localhost:8090/getAllUsers")
+        this.$http.get("http://localhost:8090/getAllUsersThatAreNotAdmins")
         .then(list => {
                 this.listOfUsers = list.body;
               })
         },
         (err) => {
           alert('This user\'s status has  been edited meanwhile.');
-          this.$http.get("http://localhost:8090/getAllUsers")
+          this.$http.get("http://localhost:8090/getAllUsersThatAreNotAdmins")
           .then(response => {
             this.listOfUsers = response.body;
 
@@ -110,14 +110,14 @@ export default {
       var body = user;
       this.$http.put("http://localhost:8090/unbanUser", body)
       .then(response => {
-        this.$http.get("http://localhost:8090/getAllUsers")
+        this.$http.get("http://localhost:8090/getAllUsersThatAreNotAdmins")
         .then(list => {
                 this.listOfUsers = list.body;
               })
         },
         (err) => {
           alert('This user\'s status has  been edited meanwhile.');
-          this.$http.get("http://localhost:8090/getAllUsers")
+          this.$http.get("http://localhost:8090/getAllUsersThatAreNotAdmins")
           .then(response => {
             this.listOfUsers = response.body;
 
@@ -135,14 +135,14 @@ export default {
         var body = user;
         this.$http.delete("http://localhost:8090/deleteUser", {body:body})
         .then(response => {
-          this.$http.get("http://localhost:8090/getAllUsers")
+          this.$http.get("http://localhost:8090/getAllUsersThatAreNotAdmins")
           .then(list => {
                   this.listOfUsers = list.body;
                 })
           },
           (err) => {
             alert('This user\'s status has  been edited meanwhile.');
-            this.$http.get("http://localhost:8090/getAllUsers")
+            this.$http.get("http://localhost:8090/getAllUsersThatAreNotAdmins")
             .then(response => {
               this.listOfUsers = response.body;
 
@@ -152,7 +152,7 @@ export default {
     }
   },
   created(){
-    this.$http.get("http://localhost:8090/getAllUsers")
+    this.$http.get("http://localhost:8090/getAllUsersThatAreNotAdmins")
       .then(response => {
         this.listOfUsers = response.body;
       })

@@ -36,9 +36,8 @@ public class CommentController {
 	@PutMapping("/approveComment")
 	public ResponseEntity<Boolean> approveComment(@RequestBody Rating r) {
 		try {
-			Rating sent = repository.findOneById(r.getId());
-			sent.setApproved(true);
-			repository.save(sent);
+			r.setApproved(true);
+			repository.save(r);
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println("Error occured while approving comment");

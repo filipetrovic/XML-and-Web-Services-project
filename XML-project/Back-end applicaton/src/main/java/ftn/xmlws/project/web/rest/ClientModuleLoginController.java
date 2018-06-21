@@ -25,8 +25,7 @@ public class ClientModuleLoginController {
 	@RequestMapping(value = "/registration", method = RequestMethod.POST, consumes="application/json")
 	public ResponseEntity registration(@RequestBody RegistrationUserDTO registrationUserDTO) {
 		
-		System.out.println(registrationUserDTO  + " ovo je search dobijen DTO");
-
+		
 		if(userService.registration(ConverterDTO.convertToUser(registrationUserDTO)))
 			return new ResponseEntity(HttpStatus.OK);
 		
@@ -37,11 +36,9 @@ public class ClientModuleLoginController {
 	
 	@RequestMapping(value = "", method = RequestMethod.POST, consumes="application/json")
 	public ResponseEntity<User> login(@RequestBody RegistrationUserDTO registrationUserDTO) {
-
-		if(userService.login(ConverterDTO.convertToUser(registrationUserDTO)) != null)
+		if(userService.login(ConverterDTO.convertToUser(registrationUserDTO)) != null) {
 			return new ResponseEntity<User>(userService.login(ConverterDTO.convertToUser(registrationUserDTO)), HttpStatus.OK);
-		
-		
+		}
 		return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 		
 		

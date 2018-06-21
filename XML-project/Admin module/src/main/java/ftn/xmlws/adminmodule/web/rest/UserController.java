@@ -51,13 +51,13 @@ public class UserController {
 	}
 
 	
-	@GetMapping("/getAllUsers")
+	@GetMapping("/getAllUsersThatAreNotAdmins") 
 	public ResponseEntity<List<User>> getAllUsers() {
 		
 		RestTemplate restTemplate = new RestTemplate();
 		
 		try {
-			ResponseEntity<User[]> responseEntity = restTemplate.getForEntity("http://localhost:8080/api/users/getAllUsers", User[].class);
+			ResponseEntity<User[]> responseEntity = restTemplate.getForEntity("http://localhost:8080/api/users/getAllUsersThatAreNotAdmins", User[].class);
 			User[] types = responseEntity.getBody();
 			
 			return new ResponseEntity<List<User>>(Arrays.asList(types),HttpStatus.OK);

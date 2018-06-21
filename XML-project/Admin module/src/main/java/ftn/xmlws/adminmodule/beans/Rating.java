@@ -9,7 +9,10 @@ public class Rating {
 	private Long reservationId;
 	private Long accommodationId;
 	private boolean approved;
+	private int version;
 	
+	
+
 	public Rating() {
 		
 	}
@@ -21,6 +24,14 @@ public class Rating {
 		this.reservationId = reservationId;
 		this.accommodationId = accommodationId;
 		this.approved = approved;
+	}
+	
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	public Long getId() {

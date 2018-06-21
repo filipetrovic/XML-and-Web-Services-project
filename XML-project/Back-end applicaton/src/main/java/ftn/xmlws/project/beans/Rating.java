@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 
 @Entity
@@ -31,6 +32,10 @@ public class Rating {
 	@Column
 	private boolean approved;
 	
+	@Version
+	private int version;
+	
+	
 	public Rating() {
 		
 	}
@@ -43,6 +48,15 @@ public class Rating {
 		this.accommodationId = accommodationId;
 		this.approved = approved;
 	}
+	
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
 
 	public Long getId() {
 		return id;

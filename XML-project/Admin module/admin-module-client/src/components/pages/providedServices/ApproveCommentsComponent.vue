@@ -49,6 +49,7 @@ export default {
   methods: {
     approveComment(comment){
       var body = comment;
+      console.log(JSON.stringify(body));
       this.$http.put("http://localhost:8090/approveComment", body)
       .then(response => {
         this.$http.get("http://localhost:8090/getUnapprovedComments")
