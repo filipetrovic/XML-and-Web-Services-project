@@ -4,7 +4,7 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
-import ftn.xmlws.project.beans.Rating;
+import ftn.xmlws.project.beans.Message;
 import ftn.xmlws.project.beans.Reservation;
 
 @Service
@@ -16,6 +16,6 @@ public interface ReservationService {
 
 	boolean cancelReservation(Long reservationId, String username);
 
-	Set<Rating> getUserRatings(String username);
+	boolean sendMessage(Message message, Long long1);
 
 }

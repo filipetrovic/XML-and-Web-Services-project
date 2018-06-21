@@ -56,6 +56,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Rating</th>
                     <th scope="col">Review</th>
+                    <th scope="col">Messages</th>
                     <th scope="col"></th>
                 </tr>
 
@@ -68,11 +69,14 @@
                 <td>{{r.checkOutDate}}</td>
                 <td>{{r.priceOfReservation}}</td>
                 <td>{{r.accommodation.name}}</td>
-                <td>{{r.ratingValue}}</td>
-                <td>{{r.ratingComment}}</td>
+                <td>{{r.value}}</td>
+                <td>{{r.comment}}</td>
                 <td>
-                    <button class="btn btn-success btn-block" v-if="r.arrivalConfirmed" @click="rateStay(r)" data-toggle="modal" data-target="#exampleModal"> Rate my stay </button>
-                    <button class="btn btn-danger btn-block" v-if="!r.arrivalConfirmed" @click="cancelReservation(r.id)"> Cancel reservation </button>
+                   <button class="btn btn-primary btn-block" @click="selectMessages(r)" data-toggle="modal" data-target="#messagesModal"> Messages </button>
+                 
+                <td>
+                    <button class="btn btn-success btn-block" v-if="r.arrivalConfirmed" @click="rateStay(r)" data-toggle="modal" data-target="#ratingModal"> Review </button>
+                    <button class="btn btn-danger btn-block" v-if="!r.arrivalConfirmed" @click="cancelReservation(r.id)"> Cancel </button>
                 </td>
                 </tr>
                 
@@ -84,11 +88,11 @@
 <!-- End:Reservations -->
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="ratingModal" tabindex="-1" role="dialog" aria-labelledby="ratingModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Rating</h5>
+        <h5 class="modal-title" id="ratingModalLabel">Rating</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -124,6 +128,50 @@
     </div>
   </div>
 </div>
+<!-- Modal -->
+
+<!-- Modal for messages-->
+<div class="modal fade" id="messagesModal" tabindex="-1" role="dialog" aria-labelledby="messagesModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="messagesModalLabel">Messages</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div v-for="m in messages">
+            <blockquote class="blockquote text-right" v-if="selectedReservation.messages.isUserSender">
+                <p class="mb-0">{{selectedReservation.messages.message}}</p>
+                <footer class="blockquote-footer"> <cite title="Source Title">{{user.firstName}} {{user.lastName}}</cite></footer>
+            </blockquote>
+
+            <blockquote class="blockquote text-left" v-if="!selectedReservation.messages.isUserSender">
+                <p class="mb-0">{{selectedReservation.messages.message}}</p>
+                <footer class="blockquote-footer"> <cite title="Source Title">Agent</cite></footer>
+            </blockquote>
+        </div>
+        
+
+        <form>
+            <div class="form-group row">
+                <label for="message" class="col-sm-2 col-form-label">Write your message</label>
+                <div class="col-sm-10">
+                <textarea class="form-control" id="message" rows="3" v-model="messageText"></textarea>
+                </div>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" @click="sendMessage()">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal for messages-->
 
   </div>
 </template>
@@ -135,9 +183,20 @@ export default {
     return {
         user: '',
         reservations: [],
-        reservationForRating: '',
+        selectedReservation: {
+            messages : [
+               {    
+                smessage: 'sdasda',
+                isUserSender: true
+               }]
+        },
         ratingComment: '',
-        ratingValue: ''
+        ratingValue: '',
+        messages: [
+            {msg: 'Hello can I come at 21pm?', userIsSender: true},
+            {msg: 'Yes you may!', userIsSender: false}
+        ],
+        messageText: ''
     }
   },
   methods: {
@@ -158,33 +217,32 @@ export default {
                 });
 
       },
+
+      selectMessages : function(res) {
+          this.messages = res.messages;
+          this.selectedReservation = res;
+      },
+
       rateStay: function(res) {
         
-        this.reservationForRating = res;
+        this.selectedReservation = res;
 
       },
-      submitRating: function() {
 
-        console.log(this.ratingComment + ' ' + this.ratingValue);
-        console.log(this.reservationForRating);
+      submitRating: function() {
 
         var rating = {
             comment: this.ratingComment,
             value: this.ratingValue,
-            reservationId: this.reservationForRating.id,
-            accommodationId: this.reservationForRating.accommodation.id,
+            reservationId: this.selectedReservation.id,
+            accommodationId: this.selectedReservation.accommodation.id,
         };
 
         this.reservations.forEach((item, index) => {
-            console.log(item); // 9, 2, 5
-            console.log(index); // 0, 1, 2
-
             this.reservations[index].comment = '';
         });
 
         this.reservations[0].comment = this.ratingComment;
-
-        console.log(this.reservations);
 
         let headers = {
             headers: {
@@ -192,16 +250,43 @@ export default {
             }
         };
 
-        console.log(rating);
-
         this.$http
                 .post('http://localhost:8010/cloud-demo/us-central1/addRating',
                 JSON.stringify(rating))
 
                 .then(response => {
                     console.log(response.body);
+                    this.ratingComment = '';
+                    this.ratingValue = '';
                 });
 
+      },
+      sendMessage() {
+
+        let message = {
+            message: this.messageText,
+            userIsSender: true,
+            reservationId: this.selectedReservation.id
+        };
+
+        let headers = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+        this.$http
+                .post('http://localhost:8080/api/client/sendMessage',
+                JSON.stringify(message),
+                headers)
+                .then(response => {
+                    console.log('Message sent!');
+                    console.log(response.body);
+                    console.log(this.reservations);
+                    this.messageText = '';
+
+                    this.$router.push('Profile'); 
+                });
       }
   },
   created() {
@@ -220,38 +305,55 @@ export default {
                     const data = response.body;
                     this.reservations = data;
 
-                this.$http
-                    .get('http://localhost:8080/api/client/getRatings',
+                
+
+                });
+        this.$http
+                    .get('http://localhost:8080/api/client/getUserRatings',
                     { params : params }
                     )
                     .then(response => {
                         const data = response.body;
+
+                        //console.log('Ratings ::::::: ' + data);
+
                         var ratings = [];
                         ratings = data;
 
+                        // this.reservations.forEach((reservation, indexReservation) => {
+                        //     this.reservations[indexReservation].value = 5;
+                        // });
+
                         this.reservations.forEach((reservation, indexReservation) => {
-                            console.log('Reservation: ');
-                            console.log(reservation); 
-                            console.log(indexReservation); 
+                            //console.log('Reservation: ');
+                            //console.log(reservation); 
+                            //console.log(indexReservation); 
 
                             ratings.forEach((rating, indexRating) => {
-                            console.log('Rating :'); 
+                            //console.log('Rating :'); 
                             console.log(rating); 
-                            console.log(indexRating); 
+                            //console.log(indexRating); 
         
-                                if(this.reservations[indexReservation].id === rating.reservationId)
+                            console.log('Is it even?');
+                            console.log(this.reservations[indexReservation].id);
+                            console.log(rating.reservation_id);
+
+                                if(this.reservations[indexReservation].id === rating.reservation_id)
                                 {
                                     if(this.reservations[indexReservation].approved)
                                         this.reservations[indexReservation].comment = rating.comment;
 
                                     this.reservations[indexReservation].value = rating.value;
                                 }
+
+                                
+
                         });
                         });
+
+                        console.log('End: ');
+                        console.log(this.reservations);
                     });
-
-                });
-
   
 
       

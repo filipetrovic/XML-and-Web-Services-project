@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import javax.ws.rs.DefaultValue;
 
 
 @Entity
@@ -30,9 +31,11 @@ public class Rating {
 	private Long accommodationId;
 	
 	@Column
+	@DefaultValue("b'0'")
 	private boolean approved;
 	
 	@Version
+	@DefaultValue("0")
 	private int version;
 	
 	

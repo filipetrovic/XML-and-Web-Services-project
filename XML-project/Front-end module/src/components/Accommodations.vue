@@ -143,6 +143,9 @@ export default {
                     console.log(data);
 
                     this.$router.push('Profile'); 
+                },
+                (err) => {
+                    alert(err.status + " Reservation already exists!");
                 });
       }
   },

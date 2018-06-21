@@ -16,6 +16,7 @@ import ftn.xmlws.project.beans.Authority;
 import ftn.xmlws.project.beans.EncodedAccommodationType;
 import ftn.xmlws.project.beans.EncodedFacility;
 import ftn.xmlws.project.beans.EncodedStarRating;
+import ftn.xmlws.project.beans.Message;
 import ftn.xmlws.project.beans.Rating;
 import ftn.xmlws.project.beans.Reservation;
 import ftn.xmlws.project.beans.User;
@@ -25,6 +26,7 @@ import ftn.xmlws.project.repository.AuthorityRepository;
 import ftn.xmlws.project.repository.EncodedAccommodationTypeRepository;
 import ftn.xmlws.project.repository.EncodedFacilityRepository;
 import ftn.xmlws.project.repository.EncodedStarRatingRepository;
+import ftn.xmlws.project.repository.MessageRepository;
 import ftn.xmlws.project.repository.RatingRepository;
 import ftn.xmlws.project.repository.ReservationRepository;
 import ftn.xmlws.project.repository.UserRepository;
@@ -60,6 +62,9 @@ public class DataLoader implements ApplicationRunner {
 	@Autowired
 	private RatingRepository ratingRepository;
 	
+	@Autowired
+	private MessageRepository messageRepository;
+	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 //		insertIntoEncodedFacility();
@@ -69,6 +74,7 @@ public class DataLoader implements ApplicationRunner {
 //		insertIntoReservations();
 //		insertIntoRatings();
 //		insertIntoUsers();
+//		insertIntoMessages();
 		
 	}
 	
@@ -247,7 +253,23 @@ public class DataLoader implements ApplicationRunner {
 		reservationRepository.save(r1);
 		
 		
-	}	
+	}
+	
+	private void insertIntoMessages() {
+		
+		Message m = new Message();
+		m.setMessage("Can I come at 21pm?");
+		m.setReservation(reservationRepository.findById((long)1).get());
+		m.setUserSender(true);
+		
+		Message m1 = new Message();
+		m1.setMessage("Yes you may!");
+		m1.setReservation(reservationRepository.findById((long)1).get());
+		m1.setUserSender(false);
+		
+		messageRepository.save(m);
+		messageRepository.save(m1);
+	}
 	
 	@SuppressWarnings("deprecation")
 	private void insertIntoAccommodations() {

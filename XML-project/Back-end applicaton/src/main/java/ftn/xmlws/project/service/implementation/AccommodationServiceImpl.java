@@ -100,11 +100,15 @@ public class AccommodationServiceImpl implements AccommodationService {
 			
 			for(Reservation r:reservationRepository.findAll())
 			{
-				if(r.getAccommodation().equals(a))
+				System.out.println("Current reservation");
+				
+				if(r.getAccommodation().getId().equals(a.getId()))
 				{
-//					System.out.println(r.getAccommodation().getId());
-//					System.out.println("should be equal to acomodation searched: ");
-//					System.out.println(a);
+					
+					
+					System.out.println(r.getAccommodation().getId());
+					System.out.println("should be equal to acomodation searched: ");
+					System.out.println(a.getId());
 //					
 //					System.out.println(accommodation.getStartDateAvailable()  + " should be after " + r.getCheckInDate());
 //					System.out.println(accommodation.getEndDateAvailable()  + " should be before " + r.getCheckOutDate());
@@ -127,18 +131,20 @@ public class AccommodationServiceImpl implements AccommodationService {
 
 					return d.after(min) && d.before(max);
 					*/
-					
+					thereIsAReservation = false;
 
 					
 					LocalDate searchStartDate = accommodation.getStartDateAvailable().toLocalDate();
-					LocalDate reservationCheckInDate = accommodation.getStartDateAvailable().toLocalDate();
+					LocalDate reservationCheckInDate = r.getCheckInDate().toLocalDate();
 					System.out.println("Local date comparison: ");
-					System.out.println(searchStartDate.equals(reservationCheckInDate));
+					System.out.println(searchStartDate + " reservationCheckInDate: " + reservationCheckInDate);
+					//System.out.println(searchStartDate.equals(reservationCheckInDate));
 					
 					LocalDate searchEndDate = accommodation.getEndDateAvailable().toLocalDate();
-					LocalDate reservationCheckOutDate = accommodation.getEndDateAvailable().toLocalDate();
+					LocalDate reservationCheckOutDate = r.getCheckOutDate().toLocalDate();
 					System.out.println("Local date comparison: ");
-					System.out.println(searchEndDate.equals(reservationCheckOutDate));
+					System.out.println(searchEndDate + " reservationCheckOutDate: " + reservationCheckOutDate);
+					//System.out.println(searchEndDate.equals(reservationCheckOutDate));
 					
 	
 					if(searchStartDate.equals(reservationCheckInDate) || searchEndDate.equals(reservationCheckOutDate))
@@ -164,6 +170,8 @@ public class AccommodationServiceImpl implements AccommodationService {
 						thereIsAReservation = true;
 					}
 				}
+				
+				System.out.println("\n");
 			}
 			
 			System.out.println("There is a reservation?" + thereIsAReservation);
