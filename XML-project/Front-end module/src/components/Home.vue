@@ -209,8 +209,6 @@ export default {
             .then(response => {
                 const data = response.body;
                 this.accomodationTypes = data;
-                console.log('accomodationTypes');
-                console.log(this.accomodationTypes);
             });
 
         this.$http
@@ -218,8 +216,6 @@ export default {
             .then(response => {
                 const data = response.body;
                 this.accomodationStarsRating = data;
-                console.log('accomodationStarsRating');
-                console.log(this.accomodationStarsRating);
             });
 
         this.$http
@@ -227,8 +223,6 @@ export default {
             .then(response => {
                 const data = response.body;
                 this.additionalFacilities = data;
-                console.log('additionalFacilities');
-                console.log(this.additionalFacilities);
             });
 
   }

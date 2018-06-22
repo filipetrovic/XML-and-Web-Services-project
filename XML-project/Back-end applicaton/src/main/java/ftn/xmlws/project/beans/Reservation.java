@@ -2,7 +2,6 @@ package ftn.xmlws.project.beans;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -47,12 +46,12 @@ public class Reservation implements Serializable {
 	private float priceOfReservation;
 	
 	@OneToMany(mappedBy="reservation", cascade = CascadeType.ALL)
-	@JsonIgnore
     private Set<Message> messages;
 	
     @ManyToOne(optional = false)
     @JoinColumn(name="user_id")
     @NotNull
+    @JsonIgnore
     private User user;
     
     @ManyToOne(optional = false)

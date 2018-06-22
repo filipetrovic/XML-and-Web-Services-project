@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "Message") 
 public class Message implements Serializable{
@@ -35,6 +37,7 @@ public class Message implements Serializable{
 	
     @ManyToOne(optional = false)
     @JoinColumn(name="reservation_id", nullable=false)
+    @JsonIgnore
     private Reservation reservation;
 	
 	public Message() {
