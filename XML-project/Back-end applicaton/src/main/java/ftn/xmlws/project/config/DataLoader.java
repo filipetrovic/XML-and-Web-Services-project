@@ -70,14 +70,13 @@ public class DataLoader implements ApplicationRunner {
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-//		insertIntoEncodedFacility();
-//		insertIntoEncodedEntities();
-//		insertIntoAgents();
-//		insertIntoAccommodations();
-//		insertIntoMessages();
-//		insertIntoReservations();
-//		insertIntoRatings();
-//		insertIntoUsers();
+		
+		insertIntoEncodedEntities();
+		insertIntoAgents();
+		insertIntoUsers();
+		insertIntoAccommodations();
+		insertIntoReservations();
+		insertIntoRatings();
 		
 	}
 	
@@ -255,48 +254,64 @@ public class DataLoader implements ApplicationRunner {
 		encodedFacilityRepository.save(ef3);
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void insertIntoReservations() {
 	
-		Reservation r = reservationRepository.findById((long)22).get();
+		Reservation r = new Reservation();
 		
-		
-//		r.setPriceOfReservation(5000);
-//		r.setUser(userRepository.findOneByUsername("ivan@gmail.com").get());
-//		r.setCheckInDate(new Date(110000));
-//		r.setCheckOutDate(new Date(11000011));
-//		r.setAccommodation(accommodationRepository.findById((long)1).get());
+		r.setPriceOfReservation(5000);
+		r.setUser(userRepository.findOneByUsername("ivan@gmail.com").get());
+		r.setCheckInDate(Date.valueOf("2018-06-27"));
+		r.setCheckOutDate(Date.valueOf("2018-06-30"));
+		r.setAccommodation(accommodationRepository.findById((long)1).get());
 		
 		Set<Message> messages = new HashSet<Message>();
 		
-		for(Message m:messageRepository.findAll())
-			if(m.getReservation().getId() == (long)22)
-				messages.add(m);
-				
+		Message m = new Message();
+		m.setMessage("Can I come at 21pm?");
+		m.setUserSender(true);
+		m.setReservation(r);
+		messages.add(m);
+		
+		Message m1 = new Message();
+		m1.setMessage("Yes you may!");
+		m1.setUserSender(false);
+		m1.setReservation(r);
+		messages.add(m1);		
+		
 		r.setMessages(messages);
 		reservationRepository.save(r);
-//		r.setMessages(messages);
-//		
-//		reservationRepository.save(r);
-//		
-//		Reservation r1 = new Reservation();
-//		
-//		r1.setPriceOfReservation(10000);
-//		r1.setUser(userRepository.findOneByUsername("ivan@gmail.com").get());
-//		r1.setCheckInDate(new Date(200000));
-//		r1.setCheckOutDate(new Date(2000002));
-//		r1.setAccommodation(accommodationRepository.findById((long)2).get());
-//		
-//		Set<Message> messages1 = new HashSet<Message>();
-//		
-//		for(Message m:messageRepository.findAll())
-//			if(m.getReservation().getId() == 2)
-//				messages1.add(m);
-//				
-//		
-//		r.setMessages(messages1);
-//		
-//		reservationRepository.save(r1);
+		
+		
+		
+		
+		
+		
+		
+		Reservation r1 = new Reservation();
+		
+		r1.setPriceOfReservation(10000);
+		r1.setUser(userRepository.findOneByUsername("ivan@gmail.com").get());
+		r1.setCheckInDate(Date.valueOf("2018-06-27"));
+		r1.setCheckOutDate(Date.valueOf("2018-06-28"));
+		r1.setAccommodation(accommodationRepository.findById((long)2).get());
+		
+		Set<Message> messages2 = new HashSet<Message>();
+		
+		Message m3 = new Message();
+		m3.setMessage("Hello do you accept dogs?");
+		m3.setUserSender(true);
+		m3.setReservation(r1);
+		messages2.add(m3);
+		
+		Message m4 = new Message();
+		m4.setMessage("Yes we love big fluffy dogs!");
+		m4.setUserSender(false);
+		m4.setReservation(r1);
+		messages2.add(m4);	
+		
+		r1.setMessages(messages2);
+		
+		reservationRepository.save(r1);
 		
 		
 	}
@@ -317,33 +332,15 @@ public class DataLoader implements ApplicationRunner {
 		messageRepository.save(m1);
 	}
 	
-	@SuppressWarnings("deprecation")
 	private void insertIntoAccommodations() {
 		
 		Set<EncodedFacility> additionalFacilities = new HashSet<>();
 		additionalFacilities.add(encodedFacilityRepository.findOneById((long)1));
 		additionalFacilities.add(encodedFacilityRepository.findOneById((long)2));
 			
-		SimpleDateFormat sdf = new SimpleDateFormat("23/06/2018");
-		java.util.Date parsed = null;
-		
-		SimpleDateFormat sdfEnd = new SimpleDateFormat("23/08/2018");
-		java.util.Date parsedEnd = null;
-		
-		try {
-			parsed = sdf.parse("23/06/2018");
-			parsedEnd = sdfEnd.parse("23/08/2018");
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
-		Date startDate = new Date(parsed.getTime());
-		Date endDate = new Date(parsedEnd.getTime());
-		
-		
 		Accommodation ac = new Accommodation(
-				startDate,
-				endDate,
+				java.sql.Date.valueOf("2018-06-24"),
+				java.sql.Date.valueOf("2018-08-24"),
 				"Apartmani Pekic",
 				"",
 				"neki novi apartmani",
@@ -361,26 +358,10 @@ public class DataLoader implements ApplicationRunner {
 		additionalFacilities1.add(encodedFacilityRepository.findOneById((long)3));
 		additionalFacilities1.add(encodedFacilityRepository.findOneById((long)4));
 		
-		
-		SimpleDateFormat sdfStat1 = new SimpleDateFormat("24/06/2018");
-		java.util.Date sdfParsed1 = null;
-		
-		SimpleDateFormat sdfEnd1 = new SimpleDateFormat("28/06/2018");
-		java.util.Date parsedEnd1 = null;
-		
-		try {
-			sdfParsed1 = sdfStat1.parse("24/06/2018");
-			parsedEnd1 = sdfEnd1.parse("28/06/2018");
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
-		Date startDate1 = new Date(sdfParsed1.getTime());
-		Date endDate1 = new Date(parsedEnd1.getTime());
-		
+		// yy mm dd
 		Accommodation ac1 = new Accommodation(
-				startDate1,
-				endDate1,
+				Date.valueOf("2018-06-26"),
+				Date.valueOf("2018-06-29"),
 				"Hotel Viking",
 				"",
 				"veliki hotel vikinga",
@@ -397,8 +378,6 @@ public class DataLoader implements ApplicationRunner {
 		accommodationRepository.save(ac);
 		accommodationRepository.save(ac1);
 		
-		System.out.println("Successfully inserted into DB: ");
-		System.out.println(accommodationRepository.findAll());
 	}
 
 }
