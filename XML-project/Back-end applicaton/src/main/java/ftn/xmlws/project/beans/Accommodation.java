@@ -66,11 +66,11 @@ public class Accommodation {
     @JoinColumn(name="encoded_star_rating_id")
 	private EncodedStarRating category;
 	
-	@OneToMany(mappedBy="accommodation", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="accommodation", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
     private Set<Reservation> reservations;
 	
-	@ManyToMany
+	@ManyToMany( fetch = FetchType.EAGER)
     @JoinTable(
             name = "accommodation_encoded_facilities",
             joinColumns = {@JoinColumn(name = "accommodation_id", referencedColumnName = "id")},

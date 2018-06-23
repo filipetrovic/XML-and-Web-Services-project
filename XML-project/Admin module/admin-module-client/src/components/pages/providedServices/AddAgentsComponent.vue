@@ -85,9 +85,9 @@ export default {
                       'address' : this.agent.address,
                       'bussinessNumber' : this.agent.bussinessNumber };
 
-      this.$http.post("http://localhost:8090/addAgent", null, {params: params})
+      this.$http.post("http://localhost:8084/addAgent", null, {params: params})
         .then(response => {
-          this.$http.get("http://localhost:8090/getAllAgents")
+          this.$http.get("http://localhost:8084/getAllAgents")
             .then(list => {
               this.listOfAgents = list.body;
             })
@@ -117,7 +117,7 @@ export default {
     }
   },
   created() {
-    this.$http.get("http://localhost:8090/getAllAgents")
+    this.$http.get("http://localhost:8084/getAllAgents")
       .then(response => {
         this.listOfAgents = response.body;
 

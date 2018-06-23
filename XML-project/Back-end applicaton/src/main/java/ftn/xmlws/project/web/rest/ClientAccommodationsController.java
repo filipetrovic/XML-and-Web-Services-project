@@ -92,7 +92,7 @@ public class ClientAccommodationsController {
 	/************************************************************** RATINGS **************************************************************/
 	
 	@RequestMapping(value = "/getUserRatings", method = RequestMethod.GET, produces="application/json")
-	public ResponseEntity<List<JsonRating>> getUserRatings(@RequestParam("username") String username) {
+	public ResponseEntity<List<JsonRating>> getUserRatings() {
 			
 			RestTemplate restTemplate = new RestTemplate();
 			System.out.println("pogodjeno getUserRatings");

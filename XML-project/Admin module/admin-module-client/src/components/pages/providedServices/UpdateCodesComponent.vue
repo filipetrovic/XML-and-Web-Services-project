@@ -99,19 +99,19 @@ export default {
       this.selectedRegistry = registry;
       switch (this.selectedRegistry){
         case 'Accommodation type':
-          this.$http.get("http://localhost:8090/getAllAccommodationTypes")
+          this.$http.get("http://localhost:8084/getAllAccommodationTypes")
           .then(response => {
             this.listOfSelectedRegistries = response.body;
           })
           break;
         case 'Star rating':
-          this.$http.get("http://localhost:8090/getAllStarRatings")
+          this.$http.get("http://localhost:8084/getAllStarRatings")
           .then(response => {
             this.listOfSelectedRegistries = response.body;
           })
           break;
         case 'Facility':
-          this.$http.get("http://localhost:8090/getAllFacilities")
+          this.$http.get("http://localhost:8084/getAllFacilities")
           .then(response => {
             this.listOfSelectedRegistries = response.body;
           })
@@ -125,10 +125,10 @@ export default {
 
         switch (this.selectedRegistry){
           case 'Accommodation type':
-            this.$http.post("http://localhost:8090/addAccommodationType", null, {params: params} )
+            this.$http.post("http://localhost:8084/addAccommodationType", null, {params: params} )
             .then(response => {
               if (response.body) {
-                this.$http.get("http://localhost:8090/getAllAccommodationTypes")
+                this.$http.get("http://localhost:8084/getAllAccommodationTypes")
                 .then(list => {
                   this.listOfSelectedRegistries = list.body;
                   this.newRegistryCode = '';
@@ -139,10 +139,10 @@ export default {
             })
             break;
           case 'Star rating':
-            this.$http.post("http://localhost:8090/addStarRating", null, {params: params} )
+            this.$http.post("http://localhost:8084/addStarRating", null, {params: params} )
             .then(response => {
               if (response.body) {
-                this.$http.get("http://localhost:8090/getAllStarRatings")
+                this.$http.get("http://localhost:8084/getAllStarRatings")
                 .then(list => {
                   this.listOfSelectedRegistries = list.body;
                   this.newRegistryCode = '';
@@ -153,10 +153,10 @@ export default {
             })
             break;
           case 'Facility':
-            this.$http.post("http://localhost:8090/addFacility", null, {params: params} )
+            this.$http.post("http://localhost:8084/addFacility", null, {params: params} )
             .then(response => {
               if (response.body) {
-                this.$http.get("http://localhost:8090/getAllFacilities")
+                this.$http.get("http://localhost:8084/getAllFacilities")
                 .then(list => {
                   this.listOfSelectedRegistries = list.body;
                   this.newRegistryCode = '';
@@ -174,10 +174,10 @@ export default {
       var body = reg;
       switch (this.selectedRegistry){
           case 'Accommodation type':
-            this.$http.delete("http://localhost:8090/deleteAccommodationType", {body : body} )
+            this.$http.delete("http://localhost:8084/deleteAccommodationType", {body : body} )
             .then(response => {
               if (response.body) {
-                this.$http.get("http://localhost:8090/getAllAccommodationTypes")
+                this.$http.get("http://localhost:8084/getAllAccommodationTypes")
                 .then(list => {
                   this.listOfSelectedRegistries = list.body;
                 })
@@ -187,10 +187,10 @@ export default {
             })
             break;
           case 'Star rating':
-            this.$http.delete("http://localhost:8090/deleteStarRating", {body : body} )
+            this.$http.delete("http://localhost:8084/deleteStarRating", {body : body} )
             .then(response => {
               if (response.body) {
-                this.$http.get("http://localhost:8090/getAllStarRatings")
+                this.$http.get("http://localhost:8084/getAllStarRatings")
                 .then(list => {
                   this.listOfSelectedRegistries = list.body;
                 })
@@ -200,10 +200,10 @@ export default {
             })
             break;
           case 'Facility':
-            this.$http.delete("http://localhost:8090/deleteFacility", {body : body})
+            this.$http.delete("http://localhost:8084/deleteFacility", {body : body})
             .then(response => {
               if (response.body) {
-                this.$http.get("http://localhost:8090/getAllFacilities")
+                this.$http.get("http://localhost:8084/getAllFacilities")
                 .then(list => {
                   this.listOfSelectedRegistries = list.body;
                 })
@@ -219,20 +219,20 @@ export default {
 
       switch (this.selectedRegistry){
           case 'Accommodation type':
-            this.$http.get("http://localhost:8090/getAccommodationType", {params: params} )
+            this.$http.get("http://localhost:8084/getAccommodationType", {params: params} )
             .then(response => {
               this.codeForEditing = response.body;
             })
             break;
           case 'Star rating':
-            this.$http.get("http://localhost:8090/getStarRating", {params: params} )
+            this.$http.get("http://localhost:8084/getStarRating", {params: params} )
             .then(response => {
               this.codeForEditing = response.body;
 
             })
             break;
           case 'Facility':
-            this.$http.get("http://localhost:8090/getFacility", {params: params})
+            this.$http.get("http://localhost:8084/getFacility", {params: params})
             .then(response => {
               this.codeForEditing = response.body;
             })
@@ -248,9 +248,9 @@ export default {
         var body = this.codeForEditing;
         switch (this.selectedRegistry){
             case 'Accommodation type':
-              this.$http.put("http://localhost:8090/editAccommodationType", body )
+              this.$http.put("http://localhost:8084/editAccommodationType", body )
               .then(response => {
-                  this.$http.get("http://localhost:8090/getAllAccommodationTypes")
+                  this.$http.get("http://localhost:8084/getAllAccommodationTypes")
                   .then(list => {
                     this.listOfSelectedRegistries = list.body;
 
@@ -258,7 +258,7 @@ export default {
               },
               (err) => {
                 alert('This ' + this.selectedRegistry + ' has already been edited or you entered ' + this.selectedRegistry + ' already exists ');
-                this.$http.get("http://localhost:8090/getAllAccommodationTypes")
+                this.$http.get("http://localhost:8084/getAllAccommodationTypes")
                 .then(response => {
                   this.listOfSelectedRegistries = response.body;
 
@@ -266,9 +266,9 @@ export default {
               })
               break;
             case 'Star rating':
-              this.$http.put("http://localhost:8090/editStarRating", body )
+              this.$http.put("http://localhost:8084/editStarRating", body )
               .then(response => {
-                  this.$http.get("http://localhost:8090/getAllStarRatings")
+                  this.$http.get("http://localhost:8084/getAllStarRatings")
                   .then(list => {
                     this.listOfSelectedRegistries = list.body;
                     this.popupActivated = false;
@@ -276,7 +276,7 @@ export default {
               },
               (err) => {
                 alert('This ' + this.selectedRegistry + ' has already been edited or you entered ' + this.selectedRegistry + ' already exists ');
-                this.$http.get("http://localhost:8090/getAllStarRatings")
+                this.$http.get("http://localhost:8084/getAllStarRatings")
                 .then(response => {
                   this.listOfSelectedRegistries = response.body;
 
@@ -284,9 +284,9 @@ export default {
               })
               break;
             case 'Facility':
-              this.$http.put("http://localhost:8090/editFacility", body )
+              this.$http.put("http://localhost:8084/editFacility", body )
               .then(response => {
-                  this.$http.get("http://localhost:8090/getAllFacilities")
+                  this.$http.get("http://localhost:8084/getAllFacilities")
                   .then(list => {
                     this.listOfSelectedRegistries = list.body;
                     this.popupActivated = false;
@@ -294,7 +294,7 @@ export default {
               },
               (err) => {
                 alert('This ' + this.selectedRegistry + ' has already been edited or you entered ' + this.selectedRegistry + ' already exists ');
-                this.$http.get("http://localhost:8090/getAllFacilities")
+                this.$http.get("http://localhost:8084/getAllFacilities")
                 .then(response => {
                   this.listOfSelectedRegistries = response.body;
                   this.popupActivated = false;
@@ -317,7 +317,7 @@ export default {
   },
   created() {
     console.log("createdS")
-      this.$http.get("http://localhost:8090/getAllAccommodationTypes")
+      this.$http.get("http://localhost:8084/getAllAccommodationTypes")
           .then(response => {
             this.listOfSelectedRegistries = response.body;
           },
