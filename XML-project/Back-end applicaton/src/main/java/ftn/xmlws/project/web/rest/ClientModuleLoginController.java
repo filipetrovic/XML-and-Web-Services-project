@@ -23,25 +23,22 @@ public class ClientModuleLoginController {
 	private UserService userService;
 	
 	@RequestMapping(value = "/registration", method = RequestMethod.POST, consumes="application/json")
-	public ResponseEntity registration(@RequestBody RegistrationUserDTO registrationUserDTO) {
+	public ResponseEntity<Boolean> registration(@RequestBody RegistrationUserDTO registrationUserDTO) {
 		
-		System.out.println(registrationUserDTO  + " ovo je search dobijen DTO");
-
+		
 		if(userService.registration(ConverterDTO.convertToUser(registrationUserDTO)))
-			return new ResponseEntity(HttpStatus.OK);
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		
-		return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
 		
 		
 	}
 	
 	@RequestMapping(value = "", method = RequestMethod.POST, consumes="application/json")
 	public ResponseEntity<User> login(@RequestBody RegistrationUserDTO registrationUserDTO) {
-
-		if(userService.login(ConverterDTO.convertToUser(registrationUserDTO)) != null)
+		if(userService.login(ConverterDTO.convertToUser(registrationUserDTO)) != null) {
 			return new ResponseEntity<User>(userService.login(ConverterDTO.convertToUser(registrationUserDTO)), HttpStatus.OK);
-		
-		
+		}
 		return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 		
 		

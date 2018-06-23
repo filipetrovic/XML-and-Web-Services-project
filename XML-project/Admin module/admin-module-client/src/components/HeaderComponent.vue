@@ -22,8 +22,10 @@
                     <router-link  to="/addAgents" tag="a" >Agents</router-link>
                 </li>
                 <li class="main-nav__item--cta">
-                    <router-link  to="/login" tag="a" >Login</router-link>
+                    <router-link v-if="!loggedIn"  to="/login" tag="a" >Login</router-link>
+                    <span v-if="loggedIn" @click="logout()"><a> Logout</a> </span>
                 </li>
+
 
             </ul>
         </nav>
@@ -36,25 +38,21 @@
 export default {
     data() {
         return {
-            phoneNumber: '07123 456 890',
-            clicked: false
         }
     },
     methods: {
-        activate() {
-            this.$store.commit('changeIsActivated');
-            if (this.clicked === false){
-                this.clicked = true;
-            }
-        },
-        deactivate() {
-            console.log('deactivated');
-            this.$store.commit('changeIsActivated');
+        logout() {
+          this.$store.commit('logout');
+          this.$router.push('/login');
         }
     },
     computed: {
-        isActivated() {
-            return this.$store.getters.getIsActivated;
+        loggedIn() {
+          if (this.$store.state.loggedUser !== null){
+            return true;
+          } else {
+            return false;
+          }
         }
     }
 

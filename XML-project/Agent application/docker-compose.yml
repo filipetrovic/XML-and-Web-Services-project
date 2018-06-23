@@ -37,6 +37,9 @@ services:
       - INSTANCE_NO=1
       - INSTANCE_DATABASE=agent-1-mysql
       - DATABASE_SOURCE=jdbc:mysql://agent-1-mysql:3306/xml_db
+      - ENV_INSTANCE_AGENT_USERNAME=agentOne
+      - ENV_INSTANCE_AGENT_PASSWORD=agentOne
+      - ENV_INSTANCE_URL="localhost:8080"
     command: mvn clean install -Dmaven.clean.failOnError=false -Dmaven.test.skip=true spring-boot:run
     depends_on:
       - agent-1-mysql
@@ -50,11 +53,14 @@ services:
       - .:/app
       - ~/.m2:/root/.m2
     ports:
-      - "8081:8081"
+      - "8081:8080"
     environment:
       - INSTANCE_NO=2
       - INSTANCE_DATABASE=agent-2-mysql
       - DATABASE_SOURCE=jdbc:mysql://agent-2-mysql:3306/xml_db
+      - ENV_INSTANCE_AGENT_USERNAME=agentTwo
+      - ENV_INSTANCE_AGENT_PASSWORD=agentTwo
+      - ENV_INSTANCE_URL="localhost:8081"
     command: mvn clean install -Dmaven.clean.failOnError=false -Dmaven.test.skip=true spring-boot:run
     depends_on:
       - agent-2-mysql

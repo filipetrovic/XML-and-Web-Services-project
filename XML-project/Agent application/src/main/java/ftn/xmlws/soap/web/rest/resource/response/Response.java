@@ -3,15 +3,15 @@ package ftn.xmlws.soap.web.rest.resource.response;
 public class Response {
 
     private String message;
-    private Object objectDTO;
+    private Object payload;
 
     public Response() {
 
     }
 
-    public Response(String message, Object objectDTO) {
+    public Response(String message, Object payload) {
         this.message = message;
-        this.objectDTO = objectDTO;
+        this.payload = payload;
     }
 
     public String getMessage() {
@@ -22,19 +22,19 @@ public class Response {
         this.message = message;
     }
 
-    public Object getObjectDTO() {
-        return objectDTO;
+    public Object getPayload() {
+        return payload;
     }
 
-    public void setObjectDTO(Object objectDTO) {
-        this.objectDTO = objectDTO;
+    public void setPayload(Object payload) {
+        this.payload = payload;
     }
 
     @Override
     public String toString() {
         return "Response{" +
                 "message='" + message + '\'' +
-                ", objectDTO=" + objectDTO +
+                ", objectDTO=" + payload +
                 '}';
     }
 }

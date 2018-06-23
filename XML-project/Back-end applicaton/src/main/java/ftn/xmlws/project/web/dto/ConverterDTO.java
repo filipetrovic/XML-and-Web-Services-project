@@ -1,11 +1,11 @@
 package ftn.xmlws.project.web.dto;
 
-import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import ftn.xmlws.project.beans.Accommodation;
 import ftn.xmlws.project.beans.EncodedFacility;
+import ftn.xmlws.project.beans.Message;
 import ftn.xmlws.project.beans.Reservation;
 import ftn.xmlws.project.beans.User;
 
@@ -36,6 +36,15 @@ public class ConverterDTO {
 		a.setTypeOfAccommodation(asp.getTypeOfAccomodation());
 		
 		return a;
+	}
+	
+	public static final Message convertToMessage(MessageDTO mdto) {
+		
+		Message m = new Message();
+		m.setMessage(mdto.getMessage());
+		m.setUserSender(mdto.isUserIsSender());
+		
+		return m;
 	}
 	
 	public static final User convertToUser(RegistrationUserDTO ru) {

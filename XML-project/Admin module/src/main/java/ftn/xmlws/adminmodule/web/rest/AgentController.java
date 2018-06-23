@@ -24,7 +24,7 @@ public class AgentController {
 	public ResponseEntity<Agent> getAgent(@RequestParam("id") Long id){
 		RestTemplate restTemplate = new RestTemplate();
 		
-		URI targetUrl= UriComponentsBuilder.fromUriString("http://localhost:8080")  
+		URI targetUrl= UriComponentsBuilder.fromUriString("http://localhost:8083")
 		    .path("/api/agent/getAgent")                           
 		    .queryParam("id", id)                               
 		    .build()                                                 
@@ -46,7 +46,7 @@ public class AgentController {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		try {
-			ResponseEntity<Agent[]> responseEntity = restTemplate.getForEntity("http://localhost:8080/api/agent/getAllAgents", Agent[].class);
+			ResponseEntity<Agent[]> responseEntity = restTemplate.getForEntity("http://localhost:8083/api/agent/getAllAgents", Agent[].class);
 			Agent[] types = responseEntity.getBody();
 			
 			return new ResponseEntity<List<Agent>>(Arrays.asList(types),HttpStatus.OK);
@@ -76,7 +76,7 @@ public class AgentController {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		try {
-			Boolean response = restTemplate.postForObject("http://localhost:8080/api/agent/addAgent", agent, Boolean.class);
+			Boolean response = restTemplate.postForObject("http://localhost:8083/api/agent/addAgent", agent, Boolean.class);
 			
 			return new ResponseEntity<Boolean>(response, HttpStatus.OK);
 		} catch (Exception e) {

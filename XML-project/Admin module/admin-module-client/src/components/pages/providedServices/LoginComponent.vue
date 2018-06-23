@@ -45,23 +45,16 @@ export default {
   },
   methods: {
     login() {
-      var body = JSON.stringify(this.user);
+      var body = this.user;
       this.$http.post("http://localhost:8090/login", body)
       .then(response => {
         this.$store.state.loggedUser = response.body;
-        console.log(JSON.stringify(response.body.authorities));
         this.$router.push("/home");
     }, err => {
       this.loginError = true;
-      
     })
     }
   }
-
-
-
-
-
 }
 </script>
 
@@ -97,7 +90,7 @@ export default {
     width: 390px;
     min-height: 480px;
     max-height: 520px;
-    
+
     background: linear-gradient(rgba(115, 68, 177,0.95), rgba(100, 2, 100,0.95));
     border-radius:20px;
     position:relative;

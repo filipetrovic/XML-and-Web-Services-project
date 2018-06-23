@@ -30,6 +30,7 @@
             <th scope="col">Type</th>
             <th scope="col">Category(*)</th>
             <th scope="col">Price per night</th>
+            <th scope="col">Rating</th>
             <th scope="col">Pictures</th>
             <th scope="col">Additional facilities</th>
             <th scope="col"> </th>
@@ -41,9 +42,10 @@
             <td>{{accommodation.description}}</td>
             <td>{{accommodation.inputAddress}}</td>
             <td>{{numberOfPeople + '/' + accommodation.numberOfPeople}}</td>
-            <td>{{accommodation.typeOfAccommodation}}</td>
-            <td>{{accommodation.category}}</td>
+            <td>{{accommodation.typeOfAccommodation.name}}</td>
+            <td>{{accommodation.category.name}}</td>
             <td>{{accommodation.pricePerPerson * numberOfPeople}}</td>
+            <td>{{accommodation.rating}}</td>
             <td>{{accommodation.pictures}}</td>
             <td> <p v-for="fac in accommodation.additionalFacilities"> {{fac.name}} </p></td>
             <td> <button class="btn btn-primary" v-if="userLogged" @click="reserveAccommodation(accommodation)"> Reserve </button> </td>
@@ -93,18 +95,24 @@ export default {
         {
             for(let ac in this.listOfAccommodations)
             {
-                let c = this.listOfAccommodations[ac].category.substring(0,1);
-                this.listOfAccommodations[ac].category = c;
+                let c = this.listOfAccommodations[ac].category.name.substring(0,1);
+                this.listOfAccommodations[ac].category.name = c;
             }
             
             this.listOfAccommodations.sort( ( a, b) => {
-                return (a.category - b.category);
+                return (a.category.name - b.category.name);
             });
 
             for(let ac in this.listOfAccommodations)
             {
-                this.listOfAccommodations[ac].category += ' stars';
+                this.listOfAccommodations[ac].category.name += ' stars';
             }
+        }
+        else if(val === 'Rating')
+        {
+            this.listOfAccommodations.sort( ( a, b) => {
+                return (a.rating - b.rating);
+            });
         }
       },
   },
@@ -134,7 +142,10 @@ export default {
                     const data = response.body;
                     console.log(data);
 
-                    //this.$router.push('Profile'); 
+                    this.$router.push('Profile'); 
+                },
+                (err) => {
+                    alert(err.status + " Reservation already exists!");
                 });
       }
   },

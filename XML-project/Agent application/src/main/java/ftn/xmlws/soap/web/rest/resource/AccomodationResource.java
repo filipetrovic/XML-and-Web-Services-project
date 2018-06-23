@@ -1,9 +1,11 @@
 package ftn.xmlws.soap.web.rest.resource;
 
 import ftn.xmlws.soap.domain.Accomodation;
+import ftn.xmlws.soap.domain.PriceForPeriod;
 import ftn.xmlws.soap.service.AccomodationService;
 import ftn.xmlws.soap.service.StorageService;
 import ftn.xmlws.soap.service.dto.AccomodationDTO;
+import ftn.xmlws.soap.service.dto.PriceDTO;
 import ftn.xmlws.soap.web.rest.resource.response.ListWrapper;
 import ftn.xmlws.soap.web.rest.resource.response.Response;
 import org.slf4j.Logger;
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/accomodations")
 public class AccomodationResource {
 
-    private static final Logger logger = LoggerFactory.getLogger(StorageService .class);
+    private static final Logger logger = LoggerFactory.getLogger(AccomodationResource.class);
 
     @Autowired
     private AccomodationService accomodationService;
@@ -36,7 +38,7 @@ public class AccomodationResource {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Response> getSingleAccomodation(@RequestBody Long id) {
+    public ResponseEntity<Response> getSingleAccomodation(@PathVariable("id") Long id) {
         Accomodation retVal = accomodationService.getAccomodation(id);
         if(retVal == null)
             return new ResponseEntity<>(new Response("Not found object with provided id", null),HttpStatus.BAD_REQUEST);
@@ -44,7 +46,7 @@ public class AccomodationResource {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Response> deleteAccomodation(@RequestBody Long id) {
+    public ResponseEntity<Response> deleteAccomodation(@PathVariable("id") Long id) {
         try {
             accomodationService.deleteAccomodation(id);
         } catch (Exception e) {
@@ -52,4 +54,15 @@ public class AccomodationResource {
         }
         return  new ResponseEntity<>(new Response("Deleted object", null), HttpStatus.OK);
     }
+
+    @PutMapping("/{id}/set-price")
+    public ResponseEntity<Response> setPriceForInterval(@PathVariable("id") Long id, @RequestBody PriceDTO priceDTO) {
+        return new ResponseEntity<>(new Response("Added price for period", accomodationService.setPriceForInterval(id,priceDTO)),HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/set-price")
+    public ResponseEntity<Response> setPriceForInterval(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(new Response("Added price for period", accomodationService.getPriceForAccomodian(id)),HttpStatus.OK);
+    }
+
 }

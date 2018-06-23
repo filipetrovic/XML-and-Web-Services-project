@@ -1,5 +1,6 @@
 package ftn.xmlws.project.web.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ftn.xmlws.project.beans.Authority;
 import ftn.xmlws.project.beans.User;
 import ftn.xmlws.project.repository.UserRepository;
 
@@ -39,6 +41,32 @@ public class UserController {
 			return new ResponseEntity<List<User>>(HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	@GetMapping("/getAllUsersThatAreNotAdmins")
+	public ResponseEntity<List<User>> getAllUsersThatAreNotAdmins() {
+		try {
+			List<User> users = repository.findAll();
+			List<User> toRemove = new ArrayList<User>();
+			for(User u: users){
+				for(Authority a : u.getAuthorities()) {
+				    if(a.getName().equals("ADMIN")){
+				        toRemove.add(u);
+				        break;
+				    }
+				}
+			}
+			System.out.println(toRemove.size());
+			users.removeAll(toRemove);
+			System.out.println(users.size());
+			return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			System.out.println("An error occurred while reading Users from database");
+			return new ResponseEntity<List<User>>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	
 	
 	@GetMapping("/getUser")
 	public ResponseEntity<User> getUser(@RequestParam("username") String username ) {

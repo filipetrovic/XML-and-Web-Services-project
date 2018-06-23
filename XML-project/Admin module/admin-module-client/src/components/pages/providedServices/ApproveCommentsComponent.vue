@@ -16,19 +16,19 @@
 
           <p>
             <i class="material-icons"> format_quote</i>
-             {{comment.text}}
+             {{comment.comment}}
             <i class="material-icons"> format_quote</i>
 
           </p>
           <label>
-            <span> {{comment.author}}</span>
+            <span> Some user</span>
             on
-            <span> {{comment.parent}}</span>
+            <span> Some accommodation</span>
           </label>
 
           <div class="buttons">
-            <a> <i class="material-icons"> check_circle_outline  </i> <span class="tooltiptext">Approve</span></a>
-            <a><i class="material-icons"> highlight_off  </i> <span class="tooltiptext">Delete</span></a>
+            <a> <i class="material-icons" @click="approveComment(comment)"> check_circle_outline  </i> <span class="tooltiptext">Approve</span></a>
+            <a><i class="material-icons" @click="deleteComment(comment)"> highlight_off  </i> <span class="tooltiptext">Delete</span></a>
           </div>
         </li>
       </ul>
@@ -39,12 +39,57 @@
 </template>
 
 <script>
-import { Comments } from '../../../dummyData.js'
+
 export default {
   data() {
     return {
-      comments : Comments
+      comments: []
     }
+  },
+  methods: {
+    approveComment(comment){
+      var body = comment;
+      console.log(JSON.stringify(body));
+      this.$http.put("http://localhost:8090/approveComment", body)
+      .then(response => {
+        this.$http.get("http://localhost:8090/getUnapprovedComments")
+        .then(list => {
+                this.comments = list.body;
+              })
+        },
+        (err) => {
+          alert('This comments\'s status has  been edited meanwhile.');
+          this.$http.get("http://localhost:8090/getUnapprovedComments")
+          .then(response => {
+            this.comments = response.body;
+
+          });
+        })
+      },
+      deleteComment(comment){
+        var body = comment;
+        this.$http.delete("http://localhost:8090/deleteComment", {body: body})
+        .then(response => {
+          this.$http.get("http://localhost:8090/getUnapprovedComments")
+          .then(list => {
+                  this.comments = list.body;
+                })
+          },
+          (err) => {
+            alert('This comments\'s status has  been edited meanwhile.');
+            this.$http.get("http://localhost:8090/getUnapprovedComments")
+            .then(response => {
+              this.comments = response.body;
+
+            });
+        })
+      }
+  },
+  created() {
+    this.$http.get("http://localhost:8090/getUnapprovedComments")
+      .then(response =>{
+        this.comments = response.body;
+      })
   }
 
 }

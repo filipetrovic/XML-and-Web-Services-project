@@ -2,7 +2,9 @@ package ftn.xmlws.project.beans;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,12 +12,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "Reservation")
+@Table(name = "Reservation", 
+	   uniqueConstraints={@UniqueConstraint(columnNames = {"check_in_date", "check_out_date", "accommodation_id"})})
 public class Reservation implements Serializable {
 
 	/**
@@ -39,9 +45,13 @@ public class Reservation implements Serializable {
 	@Column
 	private float priceOfReservation;
 	
+	@OneToMany(mappedBy="reservation", cascade = CascadeType.ALL)
+    private Set<Message> messages;
+	
     @ManyToOne(optional = false)
     @JoinColumn(name="user_id")
     @NotNull
+    @JsonIgnore
     private User user;
     
     @ManyToOne(optional = false)
@@ -60,6 +70,14 @@ public class Reservation implements Serializable {
 		this.id = id;
 	}
 	
+	public Set<Message> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(Set<Message> messages) {
+		this.messages = messages;
+	}
+
 	public Accommodation getAccommodation() {
 		return accommodation;
 	}
@@ -107,5 +125,5 @@ public class Reservation implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
 }

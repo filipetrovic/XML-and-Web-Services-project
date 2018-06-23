@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserService {
 		
 		try {
 			User u = userRepository.findOneByUsername(user.getUsername()).get();
+			System.out.println(u.getAuthorities().size());
 			
 			if(u != null)
 			{
@@ -41,6 +42,7 @@ public class UserServiceImpl implements UserService {
 					user.setFirstName(u.getFirstName());
 					user.setLastName(u.getLastName());
 					user.setPassword("nice try mr hacker!");
+					user.setAuthorities(u.getAuthorities());
 					return user;
 				}
 			}

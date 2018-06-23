@@ -19,10 +19,32 @@ const router = new VueRouter({
 })
 
 router.beforeEach(function (to, from, next) {
-  setTimeout(() => {
-      window.scrollTo(0, 0);
-  }, 100);
-  next();
+  if (to.matched.some(record => record.meta.mustBeLoggedIn)) {
+
+    if (store.state.loggedUser === null){
+      alert("You must log in to access this service!")
+      next('/login');
+    } else {
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        next();
+      }, 100);
+    }
+  } else {
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        next();
+      }, 100);
+  }
+  // if( this.$store.state.loggedUser === null){
+  //   console.log("You must be logged in to access this service");
+  //   next();
+  // } else {
+  //   setTimeout(() => {
+  //     window.scrollTo(0, 0);
+  //     next();
+  //   }, 100);
+  // }
 });
 
 Vue.config.productionTip = false

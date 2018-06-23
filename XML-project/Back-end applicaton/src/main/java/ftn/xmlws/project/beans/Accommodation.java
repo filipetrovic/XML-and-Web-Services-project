@@ -7,12 +7,14 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
@@ -46,6 +48,9 @@ public class Accommodation {
 	@Column
 	private float pricePerPerson;
 	
+	@Column
+	private float rating;
+	
 	@Size(min = 1, max = 50)
 	@Column(length = 50, unique = true, nullable = false)
 	private String inputAddress;
@@ -53,13 +58,13 @@ public class Accommodation {
 	@Column(nullable = false)
 	private int numberOfPeople;
 	
-	@Size(min = 1, max = 50)
-	@Column(length = 50, nullable = false)
-	private String typeOfAccommodation;
+	@ManyToOne(optional = false)
+    @JoinColumn(name="encoded_accomodation_types_id")
+	private EncodedAccommodationType typeOfAccommodation;
 	
-	@Size(min = 1, max = 50)
-	@Column(length = 50, nullable = false)
-	private String category;
+	@ManyToOne(optional = false)
+    @JoinColumn(name="encoded_star_rating_id")
+	private EncodedStarRating category;
 	
 	@OneToMany(mappedBy="accommodation", cascade = CascadeType.ALL)
 	@JsonIgnore
@@ -79,7 +84,7 @@ public class Accommodation {
 	
 	public Accommodation(Date startDateAvailable, Date endDateAvailable, String name,
 			@Size(min = 1, max = 50) String inputAddress, int numberOfPeople,
-			@Size(min = 1, max = 50) String typeOfAccommodation, @Size(min = 1, max = 50) String category,
+			EncodedAccommodationType typeOfAccommodation, EncodedStarRating category,
 			Set<EncodedFacility> additionalFacilities) {
 		super();
 		this.startDateAvailable = startDateAvailable;
@@ -87,14 +92,15 @@ public class Accommodation {
 		this.name = name;
 		this.inputAddress = inputAddress;
 		this.numberOfPeople = numberOfPeople;
-		this.typeOfAccommodation = typeOfAccommodation;
 		this.category = category;
+		this.typeOfAccommodation = typeOfAccommodation;
 		this.additionalFacilities = additionalFacilities;
 	}
 
 	public Accommodation(Date startDateAvailable, Date endDateAvailable, String name, String pictures,
-			String description, float pricePerPerson, @Size(min = 1, max = 50) String inputAddress, int numberOfPeople,
-			@Size(min = 1, max = 50) String typeOfAccommodation, @Size(min = 1, max = 50) String category,
+			String description, float pricePerPerson, float rating, @Size(min = 1, max = 50) String inputAddress,
+			int numberOfPeople, EncodedAccommodationType typeOfAccommodation,
+			EncodedStarRating category, Set<Reservation> reservations,
 			Set<EncodedFacility> additionalFacilities) {
 		super();
 		this.startDateAvailable = startDateAvailable;
@@ -103,10 +109,12 @@ public class Accommodation {
 		this.pictures = pictures;
 		this.description = description;
 		this.pricePerPerson = pricePerPerson;
+		this.rating = rating;
 		this.inputAddress = inputAddress;
 		this.numberOfPeople = numberOfPeople;
 		this.typeOfAccommodation = typeOfAccommodation;
 		this.category = category;
+		this.reservations = reservations;
 		this.additionalFacilities = additionalFacilities;
 	}
 
@@ -129,6 +137,14 @@ public class Accommodation {
 	public void setReservations(Set<Reservation> reservations) {
 		this.reservations = reservations;
 	}
+	
+	public float getRating() {
+		return rating;
+	}
+
+	public void setRating(float rating) {
+		this.rating = rating;
+	}
 
 	public void setEndDateAvailable(Date endDateAvailable) {
 		this.endDateAvailable = endDateAvailable;
@@ -150,19 +166,19 @@ public class Accommodation {
 		this.numberOfPeople = numberOfPeople;
 	}
 
-	public String getTypeOfAccommodation() {
+	public EncodedAccommodationType getTypeOfAccommodation() {
 		return typeOfAccommodation;
 	}
 
-	public void setTypeOfAccommodation(String typeOfAccommodation) {
+	public void setTypeOfAccommodation(EncodedAccommodationType typeOfAccommodation) {
 		this.typeOfAccommodation = typeOfAccommodation;
 	}
 
-	public String getCategory() {
+	public EncodedStarRating getCategory() {
 		return category;
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(EncodedStarRating category) {
 		this.category = category;
 	}
 

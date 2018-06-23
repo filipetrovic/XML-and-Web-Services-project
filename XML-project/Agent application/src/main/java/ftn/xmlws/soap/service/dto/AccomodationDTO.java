@@ -9,6 +9,8 @@ public class AccomodationDTO {
     private String city;
     private String address;
     private String agentName;
+    private String startFrom;
+    private String end;
     private int starRating;
     private int number;
     private int category;
@@ -88,5 +90,21 @@ public class AccomodationDTO {
 
     public void setAdditions(List<String> additions) {
         this.additions = additions;
+    }
+
+    public String getStartFrom() {
+        return startFrom;
+    }
+
+    public void setStartFrom(String startFrom) {
+        this.startFrom = startFrom;
+    }
+
+    public String getEnd() {
+        return end;
+    }
+
+    public void setEnd(String end) {
+        this.end = end;
     }
 }

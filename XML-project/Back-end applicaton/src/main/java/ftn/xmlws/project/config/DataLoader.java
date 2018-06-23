@@ -1,7 +1,6 @@
 package ftn.xmlws.project.config;
 
 import java.sql.Date;
-import java.sql.SQLException;
 import java.util.Base64;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,16 +16,20 @@ import ftn.xmlws.project.beans.Authority;
 import ftn.xmlws.project.beans.EncodedAccommodationType;
 import ftn.xmlws.project.beans.EncodedFacility;
 import ftn.xmlws.project.beans.EncodedStarRating;
+import ftn.xmlws.project.beans.Message;
+import ftn.xmlws.project.beans.Rating;
 import ftn.xmlws.project.beans.Reservation;
 import ftn.xmlws.project.beans.User;
 import ftn.xmlws.project.repository.AccommodationRepository;
 import ftn.xmlws.project.repository.AgentRepository;
 import ftn.xmlws.project.repository.AuthorityRepository;
+import ftn.xmlws.project.repository.EncodedAccommodationTypeRepository;
 import ftn.xmlws.project.repository.EncodedFacilityRepository;
 import ftn.xmlws.project.repository.EncodedStarRatingRepository;
+import ftn.xmlws.project.repository.MessageRepository;
+import ftn.xmlws.project.repository.RatingRepository;
 import ftn.xmlws.project.repository.ReservationRepository;
 import ftn.xmlws.project.repository.UserRepository;
-import ftn.xmlws.project.repository.EncodedAccommodationTypeRepository;
 
 @Component
 @SuppressWarnings("unused")
@@ -49,19 +52,28 @@ public class DataLoader implements ApplicationRunner {
 	
 	@Autowired
 	private EncodedStarRatingRepository starRatingRepository;
+	
 	@Autowired
 	private EncodedAccommodationTypeRepository accommodationTypeRepository;
+	
 	@Autowired
 	private AgentRepository agentRepository;
+	
+	@Autowired
+	private RatingRepository ratingRepository;
+	
+	@Autowired
+	private MessageRepository messageRepository;
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		insertIntoEncodedFacility();
 		insertIntoEncodedEntities();
 		insertIntoAgents();
-		insertIntoAccommodations();
+//		insertIntoAccommodations();
 		insertIntoUsers();
-		insertIntoReservations();
+//		insertIntoReservations();
+
 	}
 	
 	private void insertIntoEncodedEntities() {
@@ -107,9 +119,11 @@ public class DataLoader implements ApplicationRunner {
  		} catch (Exception ex1) {
 
 		}
+
 	}
 	
 	private void insertIntoAgents() {
+		
 		Agent a = new Agent("Ivan","Jancic","Lukijana Musickog 75, Smederevo", "AppJancic");
 		Agent b = new Agent("Nemanja","Mudri","Djurdja Brankovica 4, Novi Sad", "Auto skola Volan");
 		Agent c = new Agent("Filip","Petrovic","Dimitrija Dimovica 20, Zrenjanin", "Krilca");
@@ -118,6 +132,20 @@ public class DataLoader implements ApplicationRunner {
 			agentRepository.save(a);
 			agentRepository.save(b);
 			agentRepository.save(c);
+		} catch (Exception e) {
+
+		}
+	}
+	
+	private void insertIntoRatings() {
+		
+		Rating r = new Rating("Jako dobar smestaj.", 5, (long)1, (long)1, false);
+		Rating r1 = new Rating("Ocajan smestaj, sve smrdi.", 1, (long)2, (long)2, true);
+		Rating r2 = new Rating("Smestaj ima dvoriste za mog psa Mikicu. Fini domacini.", 4, (long)2, (long)2, false);
+		try {
+			ratingRepository.save(r);
+			ratingRepository.save(r1);
+			ratingRepository.save(r2);
 		} catch (Exception e) {
 
 		}
@@ -213,16 +241,20 @@ public class DataLoader implements ApplicationRunner {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void insertIntoReservations() {
 	
-		Reservation r = new Reservation();
+//		Reservation r = reservationRepository.findById((long)22).get();
 		
-		r.setPriceOfReservation(5000);
-		r.setUser(userRepository.findOneByUsername("ivan@gmail.com").get());
-		r.setCheckInDate(new Date(110000));
-		r.setCheckOutDate(new Date(11000011));
-		r.setAccommodation(accommodationRepository.findById((long)1).get());
 		
+//		r.setPriceOfReservation(5000);
+//		r.setUser(userRepository.findOneByUsername("ivan@gmail.com").get());
+//		r.setCheckInDate(new Date(110000));
+//		r.setCheckOutDate(new Date(11000011));
+//		r.setAccommodation(accommodationRepository.findById((long)1).get());
+		
+		Set<Message> messages = new HashSet<Message>();
+
 		Reservation r1 = new Reservation();
 		
 		r1.setPriceOfReservation(10000);
@@ -232,61 +264,150 @@ public class DataLoader implements ApplicationRunner {
 		r1.setAccommodation(accommodationRepository.findById((long)2).get());
 
 		try {
-			reservationRepository.save(r);
+//			reservationRepository.save(r);
 			reservationRepository.save(r1);
 		} catch (Exception ex) {
 
 		}
+
+		for(Message m:messageRepository.findAll())
+			if(m.getReservation().getId() == (long)22)
+				messages.add(m);
+
+//		r.setMessages(messages);
+//		try {
+////			reservationRepository.save(r);
+//		} catch (Exception e) {
+//
+//		}
 		
-	}	
+		
+	}
 	
-	@SuppressWarnings("deprecation")
-	private void insertIntoAccommodations() {
-
-		Set<EncodedFacility> additionalFacilities = new HashSet<>();
-		additionalFacilities.add(encodedFacilityRepository.findOneById((long) 1));
-		additionalFacilities.add(encodedFacilityRepository.findOneById((long) 2));
-
-		// year month day
-
-		Accommodation ac = new Accommodation(
-				new Date(2018, 6, 18),
-				new Date(2018, 8, 18),
-				"Apartmani Pekic",
-				"",
-				"neki novi apartmani",
-				1750,
-				"Smederevo, Carina",
-				5,
-				"appartment",
-				"5 stars",
-				additionalFacilities);
-
-
-
-		Set<EncodedFacility> additionalFacilities1 = new HashSet<>();
-		additionalFacilities1.add(encodedFacilityRepository.findOneById((long) 3));
-		additionalFacilities1.add(encodedFacilityRepository.findOneById((long) 4));
-
-
-		Accommodation ac1 = new Accommodation(
-				new Date(2018, 6, 14),
-				new Date(2018, 8, 14),
-				"Hotel Viking",
-				"",
-				"veliki hotel vikinga",
-				4000,
-				"Smederevo, Kneza Milosa 35",
-				4,
-				"hotel",
-				"2 star",
-				additionalFacilities1);
+	private void insertIntoMessages() {
+		
+		Message m = new Message();
+		m.setMessage("Can I come at 21pm?");
+		m.setReservation(reservationRepository.findById((long)1).get());
+		m.setUserSender(true);
+		
+		Message m1 = new Message();
+		m1.setMessage("Yes you may!");
+		m1.setReservation(reservationRepository.findById((long)1).get());
+		m1.setUserSender(false);
 		try {
-			accommodationRepository.save(ac);
-			accommodationRepository.save(ac1);
-		} catch (Exception ex) {
+			messageRepository.save(m);
+			messageRepository.save(m1);
+		}catch (Exception e) {
 
 		}
 	}
+	
+//	@SuppressWarnings("deprecation")
+//	private void insertIntoAccommodations() {
+//
+//		Set<EncodedFacility> additionalFacilities = new HashSet<>();
+//		additionalFacilities.add(encodedFacilityRepository.findOneById((long) 1));
+//		additionalFacilities.add(encodedFacilityRepository.findOneById((long) 2));
+//
+//		additionalFacilities.add(encodedFacilityRepository.findOneById((long)1));
+//		additionalFacilities.add(encodedFacilityRepository.findOneById((long)2));
+//
+//		SimpleDateFormat sdf = new SimpleDateFormat("23/06/2018");
+//		java.util.Date parsed = null;
+//
+//		SimpleDateFormat sdfEnd = new SimpleDateFormat("23/08/2018");
+//		java.util.Date parsedEnd = null;
+//
+//		try {
+//			parsed = sdf.parse("23/06/2018");
+//			parsedEnd = sdfEnd.parse("23/08/2018");
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
+//
+//		Date startDate = new Date(parsed.getTime());
+//		Date endDate = new Date(parsedEnd.getTime());
+//
+//
+//		Accommodation ac = new Accommodation(
+//				startDate,
+//				endDate,
+//				"Apartmani Pekic",
+//				"",
+//				"neki novi apartmani",
+//				1750,
+//				3,
+//				"Smederevo, Carina",
+//				5,
+//				"appartment",
+//				"5 stars",
+//				additionalFacilities);
+//
+//
+//
+//		Set<EncodedFacility> additionalFacilities1 = new HashSet<>();
+//		additionalFacilities1.add(encodedFacilityRepository.findOneById((long) 3));
+//		additionalFacilities1.add(encodedFacilityRepository.findOneById((long) 4));
+//
+//
+//				accommodationTypeRepository.findById((long)1).get(),
+//				starRatingRepository.findOneById((long)5),
+//				null, additionalFacilities);
+//
+//
+//
+//		Set<EncodedFacility> additionalFacilities1 = new HashSet<>();
+//		additionalFacilities1.add(encodedFacilityRepository.findOneById((long)3));
+//		additionalFacilities1.add(encodedFacilityRepository.findOneById((long)4));
+//
+//
+//		SimpleDateFormat sdfStat1 = new SimpleDateFormat("24/06/2018");
+//		java.util.Date sdfParsed1 = null;
+//
+//		SimpleDateFormat sdfEnd1 = new SimpleDateFormat("28/06/2018");
+//		java.util.Date parsedEnd1 = null;
+//
+//		try {
+//			sdfParsed1 = sdfStat1.parse("24/06/2018");
+//			parsedEnd1 = sdfEnd1.parse("28/06/2018");
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
+//
+//		Date startDate1 = new Date(sdfParsed1.getTime());
+//		Date endDate1 = new Date(parsedEnd1.getTime());
+//
+//		Accommodation ac1 = new Accommodation(
+//				startDate1,
+//				endDate1,
+//				"Hotel Viking",
+//				"",
+//				"veliki hotel vikinga",
+//				4000,
+//				5, "Smederevo, Kneza Milosa 35",
+//				4,
+//				"hotel",
+//				"2 star",
+//				additionalFacilities1);
+//		try {
+//			accommodationRepository.save(ac);
+//			accommodationRepository.save(ac1);
+//		} catch (Exception ex) {
+//
+//		}
+//				accommodationTypeRepository.findById((long)3).get(),
+//				starRatingRepository.findOneById((long)2),
+//				null, additionalFacilities1);
+//
+//		ac.setReservations(new HashSet<Reservation>());
+//		ac1.setReservations(new HashSet<Reservation>());
+//
+//		accommodationRepository.save(ac);
+//		accommodationRepository.save(ac1);
+//
+//		System.out.println("Successfully inserted into DB: ");
+//		System.out.println(accommodationRepository.findAll());
+//	}
 
 }

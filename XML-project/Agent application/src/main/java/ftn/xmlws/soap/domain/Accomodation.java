@@ -1,6 +1,7 @@
 package ftn.xmlws.soap.domain;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -33,6 +34,12 @@ public class Accomodation {
 
     @ManyToMany
     private List<Addition> additions;
+
+    @Column
+    private Date startDateAvailable;
+
+    @Column
+    private Date endDateAvailable;
 
     public Accomodation() {
 
@@ -137,6 +144,22 @@ public class Accomodation {
 
     public void setStarRating(StarRating starRating) {
         this.starRating = starRating;
+    }
+
+    public Date getStartDateAvailable() {
+        return startDateAvailable;
+    }
+
+    public void setStartDateAvailable(Date startDateAvailable) {
+        this.startDateAvailable = startDateAvailable;
+    }
+
+    public Date getEndDateAvailable() {
+        return endDateAvailable;
+    }
+
+    public void setEndDateAvailable(Date endDateAvailable) {
+        this.endDateAvailable = endDateAvailable;
     }
 
     @Override
