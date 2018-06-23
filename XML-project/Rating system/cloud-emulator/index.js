@@ -45,6 +45,52 @@ exports.addRating = function(req, res) {
 	
 }
 
+exports.updateRating = function(req, res) {
+	
+	cors(req, res, () => {
+	
+	var c = mysql.createConnection({
+			host : 'localhost',
+				user : 'root',
+				password : 'root',
+				database : 'xml-db'
+	});
+	
+	c.connect(function(err) {
+	  if (err) throw err;
+	  console.log("Connected!");
+	});
+	
+	c.query("UPDATE ratings SET approved = true WHERE id = '" + req.body.id +"'");
+
+	 res.status(200).send(true);
+	}); 
+
+};
+	
+exports.updateRating = function(req, res) {
+	
+	cors(req, res, () => {
+	
+	var c = mysql.createConnection({
+			host : 'localhost',
+				user : 'root',
+				password : 'root',
+				database : 'xml-db'
+	});
+	
+	c.connect(function(err) {
+	  if (err) throw err;
+	  console.log("Connected!");
+	});
+	
+	c.query("DELETE FROM ratings WHERE id = '" + req.body.id +"'");
+
+	 res.status(200).send(true);
+	}); 
+
+};
+
 exports.getRatings = function(req, res) {
 
 	cors(req, res, () => {

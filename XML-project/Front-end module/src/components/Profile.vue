@@ -412,9 +412,7 @@ export default {
                 });
                 
         this.$http
-                    .get('http://localhost:8080/api/client/getUserRatings',
-                    { params : params }
-                    )
+                    .get('http://localhost:8080/api/client/getUserRatings')
                     .then(response => {
                         const data = response.body;
 
