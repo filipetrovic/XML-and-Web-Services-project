@@ -17,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 
 import ftn.xmlws.project.beans.Accommodation;
 import ftn.xmlws.project.beans.JsonRating;
+import ftn.xmlws.project.beans.Message;
 import ftn.xmlws.project.beans.Reservation;
 import ftn.xmlws.project.service.AccommodationService;
 import ftn.xmlws.project.service.ReservationService;
@@ -69,6 +70,10 @@ public class ClientAccommodationsController {
 	
 	@RequestMapping(value = "/getReservations", method = RequestMethod.GET, produces="application/json")
 	public ResponseEntity<Set<Reservation>> getReservations(@RequestParam("username") String username) {
+		
+		System.out.println("Velicina poruka: ");
+		for(Reservation r:this.reservationService.getReservations(username))
+			System.out.println(r.getMessages().size());
 		
 		return new ResponseEntity<Set<Reservation>>(this.reservationService.getReservations(username), HttpStatus.OK);
 		

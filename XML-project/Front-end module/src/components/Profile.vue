@@ -123,7 +123,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" @click="submitRating()">Save changes</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
       </div>
     </div>
   </div>
@@ -143,13 +143,13 @@
       <div class="modal-body">
 
         <div v-for="m in messages">
-            <blockquote class="blockquote text-right" v-if="selectedReservation.messages.isUserSender">
-                <p class="mb-0">{{selectedReservation.messages.message}}</p>
+            <blockquote class="blockquote text-right" v-if="m.userSender">
+                <p class="mb-0">{{m.message}}</p>
                 <footer class="blockquote-footer"> <cite title="Source Title">{{user.firstName}} {{user.lastName}}</cite></footer>
             </blockquote>
 
-            <blockquote class="blockquote text-left" v-if="!selectedReservation.messages.isUserSender">
-                <p class="mb-0">{{selectedReservation.messages.message}}</p>
+            <blockquote class="blockquote text-left" v-if="!m.userSender">
+                <p class="mb-0">{{m.message}}</p>
                 <footer class="blockquote-footer"> <cite title="Source Title">Agent</cite></footer>
             </blockquote>
         </div>
@@ -186,7 +186,7 @@ export default {
         selectedReservation: {
             messages : [
                {    
-                smessage: 'sdasda',
+                message: 'sdasda',
                 isUserSender: true
                }]
         },
@@ -269,6 +269,10 @@ export default {
             reservationId: this.selectedReservation.id
         };
 
+       let params = {
+           username : this.user.username
+       }
+
         let headers = {
             headers: {
                 'Content-Type': 'application/json'
@@ -280,12 +284,31 @@ export default {
                 JSON.stringify(message),
                 headers)
                 .then(response => {
-                    console.log('Message sent!');
-                    console.log(response.body);
-                    console.log(this.reservations);
-                    this.messageText = '';
+                    
 
-                    this.$router.push('Profile'); 
+                this.$http
+                    .get('http://localhost:8080/api/client/getReservations',
+                    { params : params }
+                    )
+                    .then(response => {
+                        const data = response.body;
+                        this.reservations = data;
+
+                        this.reservations.sort( ( a, b) => {
+                            return (a.id - b.id);
+                        });
+
+                        this.reservations.forEach((reservation, indexReservation) => {
+                    
+                                this.reservations[indexReservation].messages.sort( ( a, b) => {
+                                    return (a.id - b.id);
+                                });
+                        });
+
+                        this.messageText = '';
+                    }); 
+
+                    this.messageText = '';
                 });
       }
   },
@@ -305,9 +328,14 @@ export default {
                     const data = response.body;
                     this.reservations = data;
 
+                    this.reservations.forEach((reservation, indexReservation) => {
                 
-
+                            this.reservations[indexReservation].messages.sort( ( a, b) => {
+                                return (a.id - b.id);
+                            });
+                        });
                 });
+                
         this.$http
                     .get('http://localhost:8080/api/client/getUserRatings',
                     { params : params }
@@ -315,28 +343,11 @@ export default {
                     .then(response => {
                         const data = response.body;
 
-                        //console.log('Ratings ::::::: ' + data);
-
                         var ratings = [];
                         ratings = data;
 
-                        // this.reservations.forEach((reservation, indexReservation) => {
-                        //     this.reservations[indexReservation].value = 5;
-                        // });
-
                         this.reservations.forEach((reservation, indexReservation) => {
-                            //console.log('Reservation: ');
-                            //console.log(reservation); 
-                            //console.log(indexReservation); 
-
                             ratings.forEach((rating, indexRating) => {
-                            //console.log('Rating :'); 
-                            console.log(rating); 
-                            //console.log(indexRating); 
-        
-                            console.log('Is it even?');
-                            console.log(this.reservations[indexReservation].id);
-                            console.log(rating.reservation_id);
 
                                 if(this.reservations[indexReservation].id === rating.reservation_id)
                                 {
@@ -346,17 +357,18 @@ export default {
                                     this.reservations[indexReservation].value = rating.value;
                                 }
 
-                                
-
                         });
                         });
 
-                        console.log('End: ');
-                        console.log(this.reservations);
+                        
+                    
+                        this.reservations.sort( ( a, b) => {
+                            return (a.id - b.id);
+                        });
+                        
+                        this.messages = '';
                     });
   
-
-      
   }
 }
 </script>

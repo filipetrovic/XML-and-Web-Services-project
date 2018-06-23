@@ -71,10 +71,10 @@ public class DataLoader implements ApplicationRunner {
 //		insertIntoEncodedEntities();
 //		insertIntoAgents();
 //		insertIntoAccommodations();
+//		insertIntoMessages();
 //		insertIntoReservations();
 //		insertIntoRatings();
 //		insertIntoUsers();
-//		insertIntoMessages();
 		
 	}
 	
@@ -252,27 +252,48 @@ public class DataLoader implements ApplicationRunner {
 		encodedFacilityRepository.save(ef3);
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void insertIntoReservations() {
 	
-		Reservation r = new Reservation();
+		Reservation r = reservationRepository.findById((long)22).get();
 		
-		r.setPriceOfReservation(5000);
-		r.setUser(userRepository.findOneByUsername("ivan@gmail.com").get());
-		r.setCheckInDate(new Date(110000));
-		r.setCheckOutDate(new Date(11000011));
-		r.setAccommodation(accommodationRepository.findById((long)1).get());
 		
+//		r.setPriceOfReservation(5000);
+//		r.setUser(userRepository.findOneByUsername("ivan@gmail.com").get());
+//		r.setCheckInDate(new Date(110000));
+//		r.setCheckOutDate(new Date(11000011));
+//		r.setAccommodation(accommodationRepository.findById((long)1).get());
+		
+		Set<Message> messages = new HashSet<Message>();
+		
+		for(Message m:messageRepository.findAll())
+			if(m.getReservation().getId() == (long)22)
+				messages.add(m);
+				
+		r.setMessages(messages);
 		reservationRepository.save(r);
-		
-		Reservation r1 = new Reservation();
-		
-		r1.setPriceOfReservation(10000);
-		r1.setUser(userRepository.findOneByUsername("ivan@gmail.com").get());
-		r1.setCheckInDate(new Date(200000));
-		r1.setCheckOutDate(new Date(2000002));
-		r1.setAccommodation(accommodationRepository.findById((long)2).get());
-		
-		reservationRepository.save(r1);
+//		r.setMessages(messages);
+//		
+//		reservationRepository.save(r);
+//		
+//		Reservation r1 = new Reservation();
+//		
+//		r1.setPriceOfReservation(10000);
+//		r1.setUser(userRepository.findOneByUsername("ivan@gmail.com").get());
+//		r1.setCheckInDate(new Date(200000));
+//		r1.setCheckOutDate(new Date(2000002));
+//		r1.setAccommodation(accommodationRepository.findById((long)2).get());
+//		
+//		Set<Message> messages1 = new HashSet<Message>();
+//		
+//		for(Message m:messageRepository.findAll())
+//			if(m.getReservation().getId() == 2)
+//				messages1.add(m);
+//				
+//		
+//		r.setMessages(messages1);
+//		
+//		reservationRepository.save(r1);
 		
 		
 	}
