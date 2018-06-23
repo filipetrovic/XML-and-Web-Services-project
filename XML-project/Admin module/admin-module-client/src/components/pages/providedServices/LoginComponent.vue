@@ -46,7 +46,7 @@ export default {
   methods: {
     login() {
       var body = this.user;
-      this.$http.post("http://localhost:8090/login", body)
+      this.$http.post("http://localhost:8084/login", body)
       .then(response => {
         this.$store.state.loggedUser = response.body;
         this.$router.push("/home");
