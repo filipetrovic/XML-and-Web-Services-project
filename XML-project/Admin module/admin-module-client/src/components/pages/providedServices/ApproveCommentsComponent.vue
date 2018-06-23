@@ -50,16 +50,16 @@ export default {
     approveComment(comment){
       var body = comment;
       console.log(JSON.stringify(body));
-      this.$http.put("http://localhost:8090/approveComment", body)
+      this.$http.put("http://localhost:8084/approveComment", body)
       .then(response => {
-        this.$http.get("http://localhost:8090/getUnapprovedComments")
+        this.$http.get("http://localhost:8084/getUnapprovedComments")
         .then(list => {
                 this.comments = list.body;
               })
         },
         (err) => {
           alert('This comments\'s status has  been edited meanwhile.');
-          this.$http.get("http://localhost:8090/getUnapprovedComments")
+          this.$http.get("http://localhost:8084/getUnapprovedComments")
           .then(response => {
             this.comments = response.body;
 
@@ -68,16 +68,16 @@ export default {
       },
       deleteComment(comment){
         var body = comment;
-        this.$http.delete("http://localhost:8090/deleteComment", {body: body})
+        this.$http.delete("http://localhost:8084/deleteComment", {body: body})
         .then(response => {
-          this.$http.get("http://localhost:8090/getUnapprovedComments")
+          this.$http.get("http://localhost:8084/getUnapprovedComments")
           .then(list => {
                   this.comments = list.body;
                 })
           },
           (err) => {
             alert('This comments\'s status has  been edited meanwhile.');
-            this.$http.get("http://localhost:8090/getUnapprovedComments")
+            this.$http.get("http://localhost:8084/getUnapprovedComments")
             .then(response => {
               this.comments = response.body;
 
@@ -86,7 +86,7 @@ export default {
       }
   },
   created() {
-    this.$http.get("http://localhost:8090/getUnapprovedComments")
+    this.$http.get("http://localhost:8084/getUnapprovedComments")
       .then(response =>{
         this.comments = response.body;
       })

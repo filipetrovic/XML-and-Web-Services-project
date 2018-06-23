@@ -71,12 +71,12 @@ public class DataLoader implements ApplicationRunner {
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		
-		insertIntoEncodedEntities();
-		insertIntoAgents();
-		insertIntoUsers();
-		insertIntoAccommodations();
-		insertIntoReservations();
-		insertIntoRatings();
+//		insertIntoEncodedEntities();
+//		insertIntoAgents();
+//		insertIntoUsers();
+//		insertIntoAccommodations();
+//		insertIntoReservations();
+//		insertIntoRatings();
 		
 	}
 	
@@ -121,25 +121,23 @@ public class DataLoader implements ApplicationRunner {
 		starRatingRepository.save(ee);
 		starRatingRepository.save(ff);
 		
-		EncodedFacility aaa = new EncodedFacility();
-		EncodedFacility bbb = new EncodedFacility();
-		EncodedFacility ccc = new EncodedFacility();
-		EncodedFacility ddd = new EncodedFacility();
-		EncodedFacility eee = new EncodedFacility();
-		EncodedFacility fff = new EncodedFacility();
-		aaa.setName("WiFi");
-		bbb.setName("Parking");
-		ccc.setName("Spa centre");
-		ddd.setName("Gym");
-		eee.setName("Swimming pool");
-		fff.setName("Sauna");
-		
-		encodedFacilityRepository.save(aaa);
-		encodedFacilityRepository.save(bbb);
-		encodedFacilityRepository.save(ccc);
-		encodedFacilityRepository.save(ddd);
-		encodedFacilityRepository.save(eee);
-		encodedFacilityRepository.save(fff);
+//		EncodedFacility bbb = new EncodedFacility();
+//		EncodedFacility ccc = new EncodedFacility();
+//		EncodedFacility ddd = new EncodedFacility();
+//		EncodedFacility eee = new EncodedFacility();
+//		EncodedFacility fff = new EncodedFacility();
+//		
+//		bbb.setName("Parking");
+//		ccc.setName("Spa centre");
+//		ddd.setName("Gym");
+//		eee.setName("Swimming pool");
+//		fff.setName("Sauna");
+//		
+//		encodedFacilityRepository.save(bbb);
+//		encodedFacilityRepository.save(ccc);
+//		encodedFacilityRepository.save(ddd);
+//		encodedFacilityRepository.save(eee);
+//		encodedFacilityRepository.save(fff);
 		
 		
 	}

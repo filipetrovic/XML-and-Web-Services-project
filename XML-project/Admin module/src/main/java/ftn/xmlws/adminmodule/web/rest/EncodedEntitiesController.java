@@ -39,7 +39,7 @@ public class EncodedEntitiesController {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		try {
-			ResponseEntity<AccommodationType[]> responseEntity = restTemplate.getForEntity("http://localhost:8080/api/encoded/getAllAccommodationTypes", AccommodationType[].class);
+			ResponseEntity<AccommodationType[]> responseEntity = restTemplate.getForEntity("http://localhost:8083/api/encoded/getAllAccommodationTypes", AccommodationType[].class);
 			AccommodationType[] types = responseEntity.getBody();
 			
 			return new ResponseEntity<List<AccommodationType>>(Arrays.asList(types),HttpStatus.OK);
@@ -54,7 +54,7 @@ public class EncodedEntitiesController {
 	public ResponseEntity<AccommodationType> getAccommodationType(@RequestParam("id") Long typeId){
 		RestTemplate restTemplate = new RestTemplate();
 		
-		URI targetUrl= UriComponentsBuilder.fromUriString("http://localhost:8080")  
+		URI targetUrl= UriComponentsBuilder.fromUriString("http://localhost:8083")  
 		    .path("/api/encoded/getAccommodationType")                           
 		    .queryParam("id", typeId)                               
 		    .build()                                                 
@@ -84,7 +84,7 @@ public class EncodedEntitiesController {
 		
 		
 		try {
-			Boolean response = restTemplate.postForObject("http://localhost:8080/api/encoded/addAccommodationType", parametersMap, Boolean.class);
+			Boolean response = restTemplate.postForObject("http://localhost:8083/api/encoded/addAccommodationType", parametersMap, Boolean.class);
 			return new ResponseEntity<Boolean>(response, HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println("An error occurred while trying to access back-end-module/addAccommodationType");
@@ -99,7 +99,7 @@ public class EncodedEntitiesController {
 		
         try {
         	
-            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8080/api/encoded/deleteAccommodationType", 
+            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8083/api/encoded/deleteAccommodationType", 
             														HttpMethod.DELETE, entity, Boolean.class);
             return responseEntity;
         } catch (Exception e) {
@@ -120,7 +120,7 @@ public class EncodedEntitiesController {
 		}
 		
         try {
-            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8080/api/encoded/editAccommodationType", 
+            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8083/api/encoded/editAccommodationType", 
             														HttpMethod.PUT, entity, Boolean.class);
             return responseEntity;
         } catch (Exception e) {
@@ -136,7 +136,7 @@ public class EncodedEntitiesController {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		try {
-			ResponseEntity<StarRating[]> responseEntity = restTemplate.getForEntity("http://localhost:8080/api/encoded/getAllStarRatings", StarRating[].class);
+			ResponseEntity<StarRating[]> responseEntity = restTemplate.getForEntity("http://localhost:8083/api/encoded/getAllStarRatings", StarRating[].class);
 			StarRating[] starRatings = responseEntity.getBody();
 			
 			return new ResponseEntity<List<StarRating>>(Arrays.asList(starRatings),HttpStatus.OK);
@@ -151,7 +151,7 @@ public class EncodedEntitiesController {
 	public ResponseEntity<StarRating> getStarRating(@RequestParam("id") Long ratingId){
 		RestTemplate restTemplate = new RestTemplate();
 		
-		URI targetUrl= UriComponentsBuilder.fromUriString("http://localhost:8080")  
+		URI targetUrl= UriComponentsBuilder.fromUriString("http://localhost:8083")  
 		    .path("/api/encoded/getStarRating")                           
 		    .queryParam("id", ratingId)                               
 		    .build()                                                 
@@ -179,7 +179,7 @@ public class EncodedEntitiesController {
 		}
 		
 		try {
-			Boolean response = restTemplate.postForObject("http://localhost:8080/api/encoded/addStarRating", parametersMap, Boolean.class);
+			Boolean response = restTemplate.postForObject("http://localhost:8083/api/encoded/addStarRating", parametersMap, Boolean.class);
 			return new ResponseEntity<Boolean>(response, HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println("An error occurred while trying to access back-end-module/addStarRating");
@@ -194,7 +194,7 @@ public class EncodedEntitiesController {
 		
         try {
         	
-            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8080/api/encoded/deleteStarRating", 
+            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8083/api/encoded/deleteStarRating", 
             														HttpMethod.DELETE, entity, Boolean.class);
             return responseEntity;
         } catch (Exception e) {
@@ -214,7 +214,7 @@ public class EncodedEntitiesController {
 		}
 		
         try {
-            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8080/api/encoded/editStarRating", 
+            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8083/api/encoded/editStarRating", 
             														HttpMethod.PUT, entity, Boolean.class);
             return responseEntity;
         } catch (Exception e) {
@@ -231,7 +231,7 @@ public class EncodedEntitiesController {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		try {
-			ResponseEntity<Facility[]> responseEntity = restTemplate.getForEntity("http://localhost:8080/api/encoded/getAllFacilities", Facility[].class);
+			ResponseEntity<Facility[]> responseEntity = restTemplate.getForEntity("http://localhost:8083/api/encoded/getAllFacilities", Facility[].class);
 			Facility[] facilities = responseEntity.getBody();
 			return new ResponseEntity<List<Facility>>(Arrays.asList(facilities),HttpStatus.OK);
 			
@@ -245,7 +245,7 @@ public class EncodedEntitiesController {
 	public ResponseEntity<Facility> getFacility(@RequestParam("id") Long facilityId){
 		RestTemplate restTemplate = new RestTemplate();
 		
-		URI targetUrl= UriComponentsBuilder.fromUriString("http://localhost:8080")  
+		URI targetUrl= UriComponentsBuilder.fromUriString("http://localhost:8083")  
 		    .path("/api/encoded/getFacility")                           
 		    .queryParam("id", facilityId)                               
 		    .build()                                                 
@@ -273,7 +273,7 @@ public class EncodedEntitiesController {
 		}
 		
 		try {
-			Boolean response = restTemplate.postForObject("http://localhost:8080/api/encoded/addFacility", parametersMap, Boolean.class);
+			Boolean response = restTemplate.postForObject("http://localhost:8083/api/encoded/addFacility", parametersMap, Boolean.class);
 			return new ResponseEntity<Boolean>(response, HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println("An error occurred while trying to access back-end-module/addFacility");
@@ -288,7 +288,7 @@ public class EncodedEntitiesController {
 		
         try {
         	
-            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8080/api/encoded/deleteFacility", 
+            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8083/api/encoded/deleteFacility", 
             														HttpMethod.DELETE, entity, Boolean.class);
             return responseEntity;
         } catch (Exception e) {
@@ -308,7 +308,7 @@ public class EncodedEntitiesController {
 		}
 		
         try {
-            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8080/api/encoded/editFacility", 
+            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8083/api/encoded/editFacility", 
             														HttpMethod.PUT, entity, Boolean.class);
             return responseEntity;
         } catch (Exception e) {

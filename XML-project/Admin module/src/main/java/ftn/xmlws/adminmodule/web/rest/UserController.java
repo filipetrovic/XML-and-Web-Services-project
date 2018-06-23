@@ -36,7 +36,7 @@ public class UserController {
 		
 		
 		try {
-			User response = restTemplate.postForObject("http://localhost:8080/api/client/login", user,  User.class);
+			User response = restTemplate.postForObject("http://localhost:8083/api/client/login", user,  User.class);
 			for (Authority a : response.getAuthorities()) {
 				if ( a.getName().equals("ADMIN")) {
 					return new ResponseEntity<User>(response, HttpStatus.OK);
@@ -57,7 +57,7 @@ public class UserController {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		try {
-			ResponseEntity<User[]> responseEntity = restTemplate.getForEntity("http://localhost:8080/api/users/getAllUsersThatAreNotAdmins", User[].class);
+			ResponseEntity<User[]> responseEntity = restTemplate.getForEntity("http://localhost:8083/api/users/getAllUsersThatAreNotAdmins", User[].class);
 			User[] types = responseEntity.getBody();
 			
 			return new ResponseEntity<List<User>>(Arrays.asList(types),HttpStatus.OK);
@@ -72,7 +72,7 @@ public class UserController {
 	public ResponseEntity<User> getUser(@RequestParam("username") String username ) {
 		RestTemplate restTemplate = new RestTemplate();
 		
-		URI targetUrl= UriComponentsBuilder.fromUriString("http://localhost:8080")  
+		URI targetUrl= UriComponentsBuilder.fromUriString("http://localhost:8083")  
 		    .path("/api/users/getUser")                           
 		    .queryParam("username", username)                               
 		    .build()                                                 
@@ -97,7 +97,7 @@ public class UserController {
 		System.out.println(user.toString());
 		
         try {
-            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8080/api/users/banUser", 
+            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8083/api/users/banUser", 
             														HttpMethod.PUT, entity, Boolean.class);
             return responseEntity;
         } catch (Exception e) {
@@ -113,7 +113,7 @@ public class UserController {
 		HttpEntity<User> entity = new HttpEntity<>(user);
 		
         try {
-            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8080/api/users/unbanUser", 
+            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8083/api/users/unbanUser", 
             														HttpMethod.PUT, entity, Boolean.class);
             return responseEntity;
         } catch (Exception e) {
@@ -128,7 +128,7 @@ public class UserController {
 		HttpEntity<User> entity = new HttpEntity<>(user);
 		
         try {
-            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8080/api/users/deleteUser", 
+            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8083/api/users/deleteUser", 
             														HttpMethod.DELETE, entity, Boolean.class);
             return responseEntity;
         } catch (Exception e) {
