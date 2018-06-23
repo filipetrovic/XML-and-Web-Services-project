@@ -11,7 +11,7 @@ public class Response {
 
     public Response(String message, Object objectDTO) {
         this.message = message;
-        this.objectDTO = message;
+        this.objectDTO = objectDTO;
     }
 
     public String getMessage() {
@@ -28,5 +28,13 @@ public class Response {
 
     public void setObjectDTO(Object objectDTO) {
         this.objectDTO = objectDTO;
+    }
+
+    @Override
+    public String toString() {
+        return "Response{" +
+                "message='" + message + '\'' +
+                ", objectDTO=" + objectDTO +
+                '}';
     }
 }

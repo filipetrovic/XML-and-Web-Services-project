@@ -138,4 +138,21 @@ public class Accomodation {
     public void setStarRating(StarRating starRating) {
         this.starRating = starRating;
     }
+
+    @Override
+    public String toString() {
+        return "Accomodation{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", image='" + image + '\'' +
+                ", description='" + description + '\'' +
+                ", city='" + city + '\'' +
+                ", address='" + address + '\'' +
+                ", agentName='" + agentName + '\'' +
+                ", starRating=" + starRating +
+                ", number=" + number +
+                ", category=" + category +
+                ", additions=" + additions +
+                '}';
+    }
 }
