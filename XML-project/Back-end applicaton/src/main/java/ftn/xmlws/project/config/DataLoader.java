@@ -1,6 +1,9 @@
 package ftn.xmlws.project.config;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Base64;
 import java.util.HashSet;
 import java.util.Set;
@@ -298,12 +301,27 @@ public class DataLoader implements ApplicationRunner {
 		Set<EncodedFacility> additionalFacilities = new HashSet<>();
 		additionalFacilities.add(encodedFacilityRepository.findOneById((long)1));
 		additionalFacilities.add(encodedFacilityRepository.findOneById((long)2));
+			
+		SimpleDateFormat sdf = new SimpleDateFormat("23/06/2018");
+		java.util.Date parsed = null;
 		
-		// year month day
+		SimpleDateFormat sdfEnd = new SimpleDateFormat("23/08/2018");
+		java.util.Date parsedEnd = null;
+		
+		try {
+			parsed = sdf.parse("23/06/2018");
+			parsedEnd = sdfEnd.parse("23/08/2018");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		Date startDate = new Date(parsed.getTime());
+		Date endDate = new Date(parsedEnd.getTime());
+		
 		
 		Accommodation ac = new Accommodation(
-				new Date(2018, 6, 18),
-				new Date(2018, 8, 18),
+				startDate,
+				endDate,
 				"Apartmani Pekic",
 				"",
 				"neki novi apartmani",
@@ -311,8 +329,8 @@ public class DataLoader implements ApplicationRunner {
 				3,
 				"Smederevo, Carina",
 				5,
-				"appartment",
-				"5 stars",
+				accommodationTypeRepository.findById((long)1).get(),
+				starRatingRepository.findOneById((long)5),
 				null, additionalFacilities);
 		
 		
@@ -322,22 +340,43 @@ public class DataLoader implements ApplicationRunner {
 		additionalFacilities1.add(encodedFacilityRepository.findOneById((long)4));
 		
 		
+		SimpleDateFormat sdfStat1 = new SimpleDateFormat("24/06/2018");
+		java.util.Date sdfParsed1 = null;
+		
+		SimpleDateFormat sdfEnd1 = new SimpleDateFormat("28/06/2018");
+		java.util.Date parsedEnd1 = null;
+		
+		try {
+			sdfParsed1 = sdfStat1.parse("24/06/2018");
+			parsedEnd1 = sdfEnd1.parse("28/06/2018");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		Date startDate1 = new Date(sdfParsed1.getTime());
+		Date endDate1 = new Date(parsedEnd1.getTime());
 		
 		Accommodation ac1 = new Accommodation(
-				new Date(2018, 6, 14),
-				new Date(2018, 8, 14),
+				startDate1,
+				endDate1,
 				"Hotel Viking",
 				"",
 				"veliki hotel vikinga",
 				4000,
 				5, "Smederevo, Kneza Milosa 35",
 				4,
-				"hotel",
-				"2 star",
+				accommodationTypeRepository.findById((long)3).get(),
+				starRatingRepository.findOneById((long)2),
 				null, additionalFacilities1);
+		
+		ac.setReservations(new HashSet<Reservation>());
+		ac1.setReservations(new HashSet<Reservation>());
 		
 		accommodationRepository.save(ac);
 		accommodationRepository.save(ac1);
+		
+		System.out.println("Successfully inserted into DB: ");
+		System.out.println(accommodationRepository.findAll());
 	}
 
 }

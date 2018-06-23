@@ -68,16 +68,16 @@ public class AccommodationServiceImpl implements AccommodationService {
 				continue;
 			}
 			
-			if(!accommodation.getTypeOfAccommodation().equals(""))
-				if(!accommodation.getTypeOfAccommodation().equals(a.getTypeOfAccommodation()))
+			if(!accommodation.getTypeOfAccommodation().getName().equals(""))
+				if(!accommodation.getTypeOfAccommodation().getName().equals(a.getTypeOfAccommodation().getName()))
 				{
 					System.out.println(a.getName() + " continue on getTypeOfAccommodation");
 					System.out.println(a.getTypeOfAccommodation() + " searched: " + accommodation.getTypeOfAccommodation());
 					continue;
 				}
 			
-			if(!accommodation.getCategory().equals(""))
-				if(!accommodation.getCategory().equals(a.getCategory()))
+			if(!accommodation.getCategory().getName().equals(""))
+				if(!accommodation.getCategory().getName().equals(a.getCategory().getName()))
 				{
 					System.out.println(a.getName() + " continue on getCategory");
 					System.out.println(a.getCategory() + " searched: " + accommodation.getCategory());

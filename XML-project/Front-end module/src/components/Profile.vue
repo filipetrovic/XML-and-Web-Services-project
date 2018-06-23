@@ -56,6 +56,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Rating</th>
                     <th scope="col">Review</th>
+                    <th scope="col">Pictures</th>
                     <th scope="col">Messages</th>
                     <th scope="col"></th>
                 </tr>
@@ -72,8 +73,10 @@
                 <td>{{r.value}}</td>
                 <td>{{r.comment}}</td>
                 <td>
-                   <button class="btn btn-primary btn-block" @click="selectMessages(r)" data-toggle="modal" data-target="#messagesModal"> Messages </button>
-                 
+                   <button class="btn btn-warning btn-block" @click="rateStay(r)" data-toggle="modal" data-target="#picturesModal"> Preview </button>  
+                </td>
+                <td>
+                   <button class="btn btn-primary btn-block" @click="selectMessages(r)" data-toggle="modal" data-target="#messagesModal"> Messages </button>     
                 <td>
                     <button class="btn btn-success btn-block" v-if="r.arrivalConfirmed" @click="rateStay(r)" data-toggle="modal" data-target="#ratingModal"> Review </button>
                     <button class="btn btn-danger btn-block" v-if="!r.arrivalConfirmed" @click="cancelReservation(r.id)"> Cancel </button>
@@ -123,7 +126,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" @click="submitRating()">Save changes</button>
       </div>
     </div>
   </div>
@@ -173,6 +176,35 @@
 </div>
 <!-- Modal for messages-->
 
+<!-- Modal for pictures-->
+<div class="modal fade" id="picturesModal" tabindex="-1" role="dialog" aria-labelledby="picturesModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="picturesModalLabel">Pictures</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div v-for="p in pictures">
+           
+            <img height="500" width="600" v-bind:src="p"/> 
+            <hr>
+        </div>
+        
+
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         </div>
+    </div>
+  </div>
+</div>
+<!-- Modal for pictures-->
+
   </div>
 </template>
 
@@ -195,6 +227,10 @@ export default {
         messages: [
             {msg: 'Hello can I come at 21pm?', userIsSender: true},
             {msg: 'Yes you may!', userIsSender: false}
+        ],
+        pictures: [
+            'https://s-ec.bstatic.com/images/hotel/max1024x768/360/36022959.jpg',
+            'http://news.barilga.mn/uploads/content/2017-09/b318eaea7b68f3bfbb2c4d7264468b1adca80f5a.jpg'
         ],
         messageText: ''
     }
@@ -242,8 +278,6 @@ export default {
             this.reservations[index].comment = '';
         });
 
-        this.reservations[0].comment = this.ratingComment;
-
         let headers = {
             headers: {
                 'Content-Type': 'application/json'
@@ -255,9 +289,50 @@ export default {
                 JSON.stringify(rating))
 
                 .then(response => {
-                    console.log(response.body);
+                    const data = response.body;
                     this.ratingComment = '';
                     this.ratingValue = '';
+
+                    const ratings = data;
+
+                    this.reservations.forEach((reservation, indexReservation) => {
+                        ratings.forEach((rating, indexRating) => {
+
+                            
+
+                            if(this.reservations[indexReservation].id === rating.reservation_id)
+                            {
+                                console.log('Found match: ');
+                                console.log(this.reservations[indexReservation].id);
+                                console.log(rating.reservation_id);
+                                console.log('Approved? ');
+                                console.log(rating.approved);
+                                if(rating.approved)
+                                {
+                                    console.log('True approved!');
+                                    this.reservations[indexReservation].comment = rating.comment;
+                                }
+                                    
+
+                                this.reservations[indexReservation].value = rating.value;
+                            }
+
+                    });
+                    });
+
+                    
+                
+                    this.reservations.sort( ( a, b) => {
+                        return (a.id - b.id);
+                    });
+
+                    console.log('After: ');
+                    console.log(this.reservations);
+                    
+                    this.ratingComment = '';
+                    this.ratingValue = '';
+                    this.messages = '';
+                    
                 });
 
       },
@@ -351,7 +426,7 @@ export default {
 
                                 if(this.reservations[indexReservation].id === rating.reservation_id)
                                 {
-                                    if(this.reservations[indexReservation].approved)
+                                    if(rating.approved)
                                         this.reservations[indexReservation].comment = rating.comment;
 
                                     this.reservations[indexReservation].value = rating.value;

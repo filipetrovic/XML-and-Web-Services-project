@@ -17,7 +17,6 @@ import org.springframework.web.client.RestTemplate;
 
 import ftn.xmlws.project.beans.Accommodation;
 import ftn.xmlws.project.beans.JsonRating;
-import ftn.xmlws.project.beans.Message;
 import ftn.xmlws.project.beans.Reservation;
 import ftn.xmlws.project.service.AccommodationService;
 import ftn.xmlws.project.service.ReservationService;

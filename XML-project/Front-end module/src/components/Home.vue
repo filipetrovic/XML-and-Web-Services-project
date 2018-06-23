@@ -85,14 +85,14 @@
             <label for="typeOfAccomodation" class="col-md-2 col-form-label"> <b> Type of accomodation: </b> </label>
             <div class="col-md-4">
                 <select id="typeOfAccomodation" class="form-control" v-model="searchData.typeOfAccomodation" >
-                    <option :value="t.name" v-for="t in accomodationTypes">{{t.name}}</option>
+                    <option :value="t" v-for="t in accomodationTypes">{{t.name}}</option>
                 </select>
             </div>
 
              <label for="category" class="col-md-2 col-form-label"> <b>Category:</b> </label>
             <div class="col-md-4">
                 <select id="category" class="form-control" v-model="searchData.category" >
-                    <option :value="rating.name" v-for="rating in accomodationStarsRating">{{rating.name}}</option>
+                    <option :value="rating" v-for="rating in accomodationStarsRating">{{rating.name}}</option>
                 </select>
             </div>
 
@@ -142,8 +142,8 @@ export default {
         checkOutDate: new Date(),
         inputAddress: '',
         numberOfPeople: '',
-        typeOfAccomodation: '',
-        category: '',
+        typeOfAccomodation: {id:1,name:'',version:0},
+        category: {id:1,name:'',version:0},
         additionalServices: []
       },
       advancedSearchChecked: false,
@@ -231,4 +231,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 </style>

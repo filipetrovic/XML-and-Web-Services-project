@@ -3,22 +3,26 @@ package ftn.xmlws.project.web.dto;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import ftn.xmlws.project.beans.EncodedAccommodationType;
+import ftn.xmlws.project.beans.EncodedStarRating;
+
 public class AccomodationSearchParamsDTO {
 
 	private Date checkInDate;
 	private Date checkOutDate;
 	private String inputAddress;
 	private int numberOfPeople;
-	private String typeOfAccomodation;
-	private String category;
+	private EncodedAccommodationType typeOfAccomodation;
+	private EncodedStarRating category;
 	private ArrayList<String> additionalServices;
 	
 	public AccomodationSearchParamsDTO() {
 		
 	}
-	
+
 	public AccomodationSearchParamsDTO(Date checkInDate, Date checkOutDate, String inputAddress, int numberOfPeople,
-			String typeOfAccomodation, String category, ArrayList<String> additionalServices) {
+			EncodedAccommodationType typeOfAccomodation, EncodedStarRating category,
+			ArrayList<String> additionalServices) {
 		super();
 		this.checkInDate = checkInDate;
 		this.checkOutDate = checkOutDate;
@@ -61,19 +65,19 @@ public class AccomodationSearchParamsDTO {
 		this.numberOfPeople = numberOfPeople;
 	}
 
-	public String getTypeOfAccomodation() {
+	public EncodedAccommodationType getTypeOfAccomodation() {
 		return typeOfAccomodation;
 	}
 
-	public void setTypeOfAccomodation(String typeOfAccomodation) {
+	public void setTypeOfAccomodation(EncodedAccommodationType typeOfAccomodation) {
 		this.typeOfAccomodation = typeOfAccomodation;
 	}
 
-	public String getCategory() {
+	public EncodedStarRating getCategory() {
 		return category;
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(EncodedStarRating category) {
 		this.category = category;
 	}
 

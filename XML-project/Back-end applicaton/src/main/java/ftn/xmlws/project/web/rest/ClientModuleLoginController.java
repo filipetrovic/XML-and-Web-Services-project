@@ -23,13 +23,13 @@ public class ClientModuleLoginController {
 	private UserService userService;
 	
 	@RequestMapping(value = "/registration", method = RequestMethod.POST, consumes="application/json")
-	public ResponseEntity registration(@RequestBody RegistrationUserDTO registrationUserDTO) {
+	public ResponseEntity<Boolean> registration(@RequestBody RegistrationUserDTO registrationUserDTO) {
 		
 		
 		if(userService.registration(ConverterDTO.convertToUser(registrationUserDTO)))
-			return new ResponseEntity(HttpStatus.OK);
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		
-		return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
 		
 		
 	}
