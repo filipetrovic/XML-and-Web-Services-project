@@ -202,7 +202,7 @@ export default {
     };
 
     this.$http
-            .post('http://localhost:8080/api/client/login/registration',
+            .post('http://localhost:8083/api/client/login/registration',
             JSON.stringify(this.user),
             headers)
 
@@ -225,7 +225,7 @@ export default {
     };
 
     this.$http
-            .post('http://localhost:8080/api/client/login',
+            .post('http://localhost:8083/api/client/login',
             JSON.stringify(this.user),
             headers)
 

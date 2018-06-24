@@ -9,5 +9,6 @@ import ftn.xmlws.project.beans.Accommodation;
 public interface AccommodationRepository extends JpaRepository<Accommodation, Long> {
 
 	ArrayList<Accommodation> findAll();
+	Accommodation findOneByName(String name);
 	
 }
