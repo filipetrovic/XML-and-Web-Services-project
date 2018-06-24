@@ -40,7 +40,7 @@ services:
       - ENV_INSTANCE_AGENT_USERNAME=agentOne
       - ENV_INSTANCE_AGENT_PASSWORD=agentOne
       - ENV_INSTANCE_URL="localhost:8080"
-    command: mvn clean install -Dmaven.clean.failOnError=false -Dmaven.test.skip=true spring-boot:run
+    command: mvn  spring-boot:run
     depends_on:
       - agent-1-mysql
 
@@ -61,7 +61,7 @@ services:
       - ENV_INSTANCE_AGENT_USERNAME=agentTwo
       - ENV_INSTANCE_AGENT_PASSWORD=agentTwo
       - ENV_INSTANCE_URL="localhost:8081"
-    command: mvn clean install -Dmaven.clean.failOnError=false -Dmaven.test.skip=true spring-boot:run
+    command: mvn  spring-boot:run
     depends_on:
       - agent-2-mysql
 

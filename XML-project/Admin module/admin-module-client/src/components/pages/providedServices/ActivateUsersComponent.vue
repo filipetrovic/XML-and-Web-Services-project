@@ -82,16 +82,16 @@ export default {
         },650)
       } else {
       var body = user;
-      this.$http.put("http://localhost:8090/banUser", body)
+      this.$http.put("http://localhost:8084/banUser", body)
       .then(response => {
-        this.$http.get("http://localhost:8090/getAllUsersThatAreNotAdmins")
+        this.$http.get("http://localhost:8084/getAllUsersThatAreNotAdmins")
         .then(list => {
                 this.listOfUsers = list.body;
               })
         },
         (err) => {
           alert('This user\'s status has  been edited meanwhile.');
-          this.$http.get("http://localhost:8090/getAllUsersThatAreNotAdmins")
+          this.$http.get("http://localhost:8084/getAllUsersThatAreNotAdmins")
           .then(response => {
             this.listOfUsers = response.body;
 
@@ -108,16 +108,16 @@ export default {
         },650)
       } else {
       var body = user;
-      this.$http.put("http://localhost:8090/unbanUser", body)
+      this.$http.put("http://localhost:8084/unbanUser", body)
       .then(response => {
-        this.$http.get("http://localhost:8090/getAllUsersThatAreNotAdmins")
+        this.$http.get("http://localhost:8084/getAllUsersThatAreNotAdmins")
         .then(list => {
                 this.listOfUsers = list.body;
               })
         },
         (err) => {
           alert('This user\'s status has  been edited meanwhile.');
-          this.$http.get("http://localhost:8090/getAllUsersThatAreNotAdmins")
+          this.$http.get("http://localhost:8084/getAllUsersThatAreNotAdmins")
           .then(response => {
             this.listOfUsers = response.body;
 
@@ -133,16 +133,16 @@ export default {
         },650)
       } else {
         var body = user;
-        this.$http.delete("http://localhost:8090/deleteUser", {body:body})
+        this.$http.delete("http://localhost:8084/deleteUser", {body:body})
         .then(response => {
-          this.$http.get("http://localhost:8090/getAllUsersThatAreNotAdmins")
+          this.$http.get("http://localhost:8084/getAllUsersThatAreNotAdmins")
           .then(list => {
                   this.listOfUsers = list.body;
                 })
           },
           (err) => {
             alert('This user\'s status has  been edited meanwhile.');
-            this.$http.get("http://localhost:8090/getAllUsersThatAreNotAdmins")
+            this.$http.get("http://localhost:8084/getAllUsersThatAreNotAdmins")
             .then(response => {
               this.listOfUsers = response.body;
 
@@ -152,7 +152,7 @@ export default {
     }
   },
   created(){
-    this.$http.get("http://localhost:8090/getAllUsersThatAreNotAdmins")
+    this.$http.get("http://localhost:8084/getAllUsersThatAreNotAdmins")
       .then(response => {
         this.listOfUsers = response.body;
       })
