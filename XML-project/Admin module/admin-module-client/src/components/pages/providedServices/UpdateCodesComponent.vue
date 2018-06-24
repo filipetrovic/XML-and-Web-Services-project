@@ -114,6 +114,7 @@ export default {
           this.$http.get("http://localhost:8084/getAllFacilities")
           .then(response => {
             this.listOfSelectedRegistries = response.body;
+
           })
       }
     },
@@ -202,6 +203,7 @@ export default {
           case 'Facility':
             this.$http.delete("http://localhost:8084/deleteFacility", {body : body})
             .then(response => {
+
               if (response.body) {
                 this.$http.get("http://localhost:8084/getAllFacilities")
                 .then(list => {
@@ -316,7 +318,7 @@ export default {
 
   },
   created() {
-    console.log("createdS")
+
       this.$http.get("http://localhost:8084/getAllAccommodationTypes")
           .then(response => {
             this.listOfSelectedRegistries = response.body;

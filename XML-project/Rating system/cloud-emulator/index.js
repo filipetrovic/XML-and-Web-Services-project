@@ -91,6 +91,71 @@ exports.deleteRating = function(req, res) {
 
 };
 
+exports.approveRating = function(req, res) {
+	
+	cors(req, res, () => {
+	
+	var c = mysql.createConnection({
+			host : 'localhost',
+				user : 'root',
+				password : 'root',
+				database : 'xml-db'
+	});
+	
+	c.connect(function(err) {
+	  if (err) throw err;
+	  console.log("Connected!");
+	});
+	
+	c.query("UPDATE rating SET approved = TRUE where id = '" + req.body.id +"'");
+
+	 res.status(200).send(true);
+	}); 
+
+};
+
+exports.getUnapprovedRatings = function(req, res) {
+
+	cors(req, res, () => {
+		
+		var c = mysql.createConnection({
+			host : 'localhost',
+			user : 'root',
+			password : 'root',
+			database : 'xml-db'
+		});
+	
+		c.connect(function(err) {
+		  if (err) throw err;
+		  console.log("Connected!");
+		});
+		
+		c.query('SELECT * FROM rating WHERE approved = FALSE', (err,rows) => {
+		  if(err) throw err;
+
+		  var niz = [];
+		  
+			for(var i = 0; i < rows.length;i++){
+			
+			
+			niz.push(Array.prototype.slice.call(rows[i].approved, 0));
+			
+			if(niz[i][0] === 1)
+				rows[i].approved = true;
+			else
+				rows[i].approved = false;
+			
+			
+			
+			}
+			
+		  res.setHeader('Content-Type', 'application/json');
+		  res.status(200).send(JSON.stringify(rows));
+		}); 
+		
+	});
+}
+
 exports.getRatings = function(req, res) {
 
 	cors(req, res, () => {
