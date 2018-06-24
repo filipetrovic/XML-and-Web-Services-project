@@ -134,7 +134,7 @@ export default {
         };
 
         this.$http
-                .post('http://localhost:8080/api/client/reserve',
+                .post('http://localhost:8083/api/client/reserve',
                 reservation,
                 headers)
 

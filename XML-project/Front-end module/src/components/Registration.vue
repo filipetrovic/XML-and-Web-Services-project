@@ -160,7 +160,7 @@ export default {
         console.log(JSON.parse(JSON.stringify(this.user)));
 
         this.$http.post(
-        'http://localhost:8080/api/client/auth/registration',
+        'http://localhost:8083/api/client/auth/registration',
         JSON.parse(JSON.stringify(this.user)),
         headers)
 	    .then(response => {
