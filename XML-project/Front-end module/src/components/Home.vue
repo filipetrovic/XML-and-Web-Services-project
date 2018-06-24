@@ -169,7 +169,7 @@ export default {
         };
 
         this.$http
-            .post('http://localhost:8080/api/client/search',
+            .post('http://localhost:8083/api/client/search',
             JSON.stringify(this.searchData),
             headers)
 
@@ -205,21 +205,21 @@ export default {
         }
 
         this.$http
-            .get('http://localhost:8080/api/encoded/getAllAccommodationTypes')
+            .get('http://localhost:8083/api/encoded/getAllAccommodationTypes')
             .then(response => {
                 const data = response.body;
                 this.accomodationTypes = data;
             });
 
         this.$http
-            .get('http://localhost:8080/api/encoded/getAllStarRatings')
+            .get('http://localhost:8083/api/encoded/getAllStarRatings')
             .then(response => {
                 const data = response.body;
                 this.accomodationStarsRating = data;
             });
 
         this.$http
-            .get('http://localhost:8080/api/encoded/getAllFacilities')
+            .get('http://localhost:8083/api/encoded/getAllFacilities')
             .then(response => {
                 const data = response.body;
                 this.additionalFacilities = data;

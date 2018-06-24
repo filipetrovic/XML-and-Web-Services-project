@@ -199,7 +199,7 @@ public class EntityMapper {
         object.setAccomodationId(encodedPriceList.getId());
         object.setPrice(Float.parseFloat(encodedPriceList.getPrice()));
         object.setStartDate(Date.valueOf(encodedPriceList.getFrom()));
-        object.setEndDate(Date.valueOf(encodedPriceList.getTo()));
+        object.setEndDate(Date.valueOf(encodedPriceList.getTo().split(";")[0]));
 
         return  object;
     }

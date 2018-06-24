@@ -244,7 +244,7 @@ export default {
        };
 
        this.$http
-                .delete('http://localhost:8080/api/client/cancelReservation',
+                .delete('http://localhost:8083/api/client/cancelReservation',
                 { params : params }
                 )
                 .then(response => {
@@ -355,14 +355,14 @@ export default {
         };
 
         this.$http
-                .post('http://localhost:8080/api/client/sendMessage',
+                .post('http://localhost:8083/api/client/sendMessage',
                 JSON.stringify(message),
                 headers)
                 .then(response => {
                     
 
                 this.$http
-                    .get('http://localhost:8080/api/client/getReservations',
+                    .get('http://localhost:8083/api/client/getReservations',
                     { params : params }
                     )
                     .then(response => {
@@ -396,7 +396,7 @@ export default {
        }
 
        this.$http
-                .get('http://localhost:8080/api/client/getReservations',
+                .get('http://localhost:8083/api/client/getReservations',
                 { params : params }
                 )
                 .then(response => {
@@ -412,7 +412,7 @@ export default {
                 });
                 
         this.$http
-                    .get('http://localhost:8080/api/client/getUserRatings',
+                    .get('http://localhost:8083/api/client/getUserRatings',
                     { params : params }
                     )
                     .then(response => {
