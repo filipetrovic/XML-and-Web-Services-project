@@ -68,7 +68,7 @@ exports.updateRating = function(req, res) {
 
 };
 	
-exports.updateRating = function(req, res) {
+exports.deleteRating = function(req, res) {
 	
 	cors(req, res, () => {
 	
@@ -84,7 +84,7 @@ exports.updateRating = function(req, res) {
 	  console.log("Connected!");
 	});
 	
-	c.query("DELETE FROM ratings WHERE id = '" + req.body.id +"'");
+	c.query("DELETE FROM rating WHERE id = '" + req.body.id +"'");
 
 	 res.status(200).send(true);
 	}); 

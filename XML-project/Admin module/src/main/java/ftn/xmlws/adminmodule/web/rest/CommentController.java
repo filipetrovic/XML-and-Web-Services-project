@@ -31,7 +31,7 @@ public class CommentController {
 			return new ResponseEntity<List<Rating>>(Arrays.asList(types),HttpStatus.OK);
 			
 		} catch (Exception e) {
-			System.out.println("An error occurred while trying to access back-end-module/getAllAgents");
+			System.out.println("An error occurred while trying to access back-end-module/getrratings");
 			return new ResponseEntity<List<Rating>>(HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -61,7 +61,7 @@ public class CommentController {
 		
         try {
         	
-            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8083/api/comments/deleteComment", 
+            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8010/cloud-demo/us-central1/deleteRating", 
             														HttpMethod.DELETE, entity, Boolean.class);
             return responseEntity;
         } catch (Exception e) {
