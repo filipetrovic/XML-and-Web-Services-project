@@ -1,8 +1,10 @@
 package ftn.xmlws.project.soap.service.mapper;
 
-import ftn.xmlws.project.beans.EncodedAccommodationType;
-import ftn.xmlws.project.beans.EncodedFacility;
-import ftn.xmlws.project.beans.EncodedStarRating;
+import com.xmlws.ftn.soap.EncodedReservation;
+import ftn.xmlws.project.beans.*;
+import ftn.xmlws.project.soap.service.HelperDTO;
+import ftn.xmlws.project.soap.service.PricePerInterval;
+import org.hibernate.id.uuid.Helper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -61,5 +63,80 @@ public class EntityMapper {
                 })
                 .collect(Collectors.toList());
     }
+
+    public List<Accommodation> transferListFromXMLTOAccommodation(List<com.xmlws.ftn.soap.EncodedAccomodation> encodedList) {
+        return encodedList.stream()
+                .map( object -> {
+                    return transferFromXMLToAccommodation(object);
+                })
+                .collect(Collectors.toList());
+    }
+
+    public Accommodation transferFromXMLToAccommodation(com.xmlws.ftn.soap.EncodedAccomodation encodedAccomodation) {
+        Accommodation accommodation = new Accommodation();
+        accommodation.setName(encodedAccomodation.getName());
+        accommodation.setNumberOfPeople(Integer.parseInt(encodedAccomodation.getNumber()));
+        return accommodation;
+    }
+
+    public Reservation transferFromXMLToReservation(com.xmlws.ftn.soap.EncodedReservation encodedReservation) {
+        Reservation reservation = new Reservation();
+        return reservation;
+    }
+
+    public List<Reservation> transferListFromXMLToReservation(List<com.xmlws.ftn.soap.EncodedReservation> encodedReservation) {
+        return encodedReservation.stream()
+                .map( object -> {
+                    return transferFromXMLToReservation(object);
+                })
+                .collect(Collectors.toList());
+    }
+
+    public List<com.xmlws.ftn.soap.EncodedReservation> transferListReservationToXML(List<Reservation> reservations) {
+        return reservations.stream()
+                .map( object -> {
+                    return transferReservationToXML(object);
+                })
+                .collect(Collectors.toList());
+    }
+
+    public com.xmlws.ftn.soap.EncodedReservation transferReservationToXML(Reservation reservation) {
+        com.xmlws.ftn.soap.EncodedReservation encodedReservation = new EncodedReservation();
+        encodedReservation.setAccommodation(reservation.getAccommodation().getName());
+        encodedReservation.setCheckInDate(reservation.getCheckInDate().toString());
+        encodedReservation.setCheckOutDate(reservation.getCheckOutDate().toString());
+        encodedReservation.setId(reservation.getId());
+        encodedReservation.setPriceOfReservation(String.valueOf(reservation.getPriceOfReservation()));
+        encodedReservation.setUser(reservation.getUser().getUsername());
+        encodedReservation.setArrivalConfirmed(String.valueOf(reservation.isArrivalConfirmed()));
+        return encodedReservation;
+    }
+
+    public HelperDTO transferToReservationState(com.xmlws.ftn.soap.EncodedRequest encodedHelper) {
+        HelperDTO helperDTO = new HelperDTO();
+        return helperDTO;
+    }
+
+    public List<HelperDTO> transferListFromXMLToHelperDTO(List<com.xmlws.ftn.soap.EncodedRequest> encodedList) {
+        return encodedList.stream()
+                .map( object -> {
+                    return transferToReservationState(object);
+                })
+                .collect(Collectors.toList());
+    }
+
+    public PricePerInterval transferToPricePerInterval(com.xmlws.ftn.soap.EncodedPriceList encodedPriceList) {
+        PricePerInterval object = new PricePerInterval();
+        return  object;
+    }
+
+    public List<PricePerInterval> transferListFromXMLToPricePerInterval(List<com.xmlws.ftn.soap.EncodedPriceList> encodedList) {
+        return encodedList.stream()
+                .map( object -> {
+                    return transferToPricePerInterval(object);
+                })
+                .collect(Collectors.toList());
+    }
+
 
 }

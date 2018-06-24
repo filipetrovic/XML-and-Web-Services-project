@@ -21,7 +21,9 @@
 
     <xs:complexType name="reservation">
         <xs:sequence>
-            <xs:element name="username" type="xs:string"/>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="status" type="xs:string"/>
+            <xs:element name="messages" type="xs:string"  maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
