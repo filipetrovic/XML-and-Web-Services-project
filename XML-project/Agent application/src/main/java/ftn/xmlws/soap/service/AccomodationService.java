@@ -80,4 +80,8 @@ public class AccomodationService {
         return pricePerPeriodRepository.findAllByAccomodation(accomodation);
     }
 
+    public List<PriceForPeriod> getAllPriceForPeriod() {
+        return pricePerPeriodRepository.findAll();
+    }
+
 }

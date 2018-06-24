@@ -23,6 +23,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="encodedAccommodationType" type="{http://ftn.xmlws.com/soap}encodedAccommodationType" maxOccurs="unbounded"/&gt;
  *         &lt;element name="encodedFacility" type="{http://ftn.xmlws.com/soap}encodedFacility" maxOccurs="unbounded"/&gt;
  *         &lt;element name="encodedStarRating" type="{http://ftn.xmlws.com/soap}encodedStarRating" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="encodedReservation" type="{http://ftn.xmlws.com/soap}encodedReservation" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -35,7 +36,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "encodedAccommodationType",
     "encodedFacility",
-    "encodedStarRating"
+    "encodedStarRating",
+    "encodedReservation"
 })
 @XmlRootElement(name = "getSyncResponse")
 public class GetSyncResponse {
@@ -46,6 +48,8 @@ public class GetSyncResponse {
     protected List<EncodedFacility> encodedFacility;
     @XmlElement(required = true)
     protected List<EncodedStarRating> encodedStarRating;
+    @XmlElement(required = true)
+    protected List<EncodedReservation> encodedReservation;
 
     /**
      * Gets the value of the encodedAccommodationType property.
@@ -132,6 +136,35 @@ public class GetSyncResponse {
             encodedStarRating = new ArrayList<EncodedStarRating>();
         }
         return this.encodedStarRating;
+    }
+
+    /**
+     * Gets the value of the encodedReservation property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the encodedReservation property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getEncodedReservation().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link EncodedReservation }
+     * 
+     * 
+     */
+    public List<EncodedReservation> getEncodedReservation() {
+        if (encodedReservation == null) {
+            encodedReservation = new ArrayList<EncodedReservation>();
+        }
+        return this.encodedReservation;
     }
 
 }

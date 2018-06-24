@@ -35,4 +35,16 @@ public class ReservationResource {
         reservationService.sendMessage(id,messageDTO.getMessage());
         return new ResponseEntity<>(new Response("Message added", reservationService.getById(id)),HttpStatus.OK);
     }
+
+    @PutMapping("/{id}/confirm")
+    public ResponseEntity<Response> confirm(@PathVariable("id") Long id) {
+        reservationService.confirmReservation(id);
+        return new ResponseEntity<>(new Response("Reservation confirmed", reservationService.getById(id)),HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}/decline")
+    public ResponseEntity<Response> decline(@PathVariable("id") Long id) {
+        reservationService.confirmReservationWithFalse(id);
+        return new ResponseEntity<>(new Response("Reservation confirmed", reservationService.getById(id)),HttpStatus.OK);
+    }
 }

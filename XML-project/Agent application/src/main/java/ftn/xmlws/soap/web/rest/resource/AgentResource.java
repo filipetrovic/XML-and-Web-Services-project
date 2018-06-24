@@ -1,10 +1,12 @@
 package ftn.xmlws.soap.web.rest.resource;
 
 import com.xmlws.ftn.soap.*;
-import ftn.xmlws.soap.service.AdditionalService;
-import ftn.xmlws.soap.service.CategoryService;
-import ftn.xmlws.soap.service.StarRatingService;
+import ftn.xmlws.soap.domain.Accomodation;
+import ftn.xmlws.soap.domain.PriceForPeriod;
+import ftn.xmlws.soap.domain.Reservation;
+import ftn.xmlws.soap.service.*;
 import ftn.xmlws.soap.service.dto.LoginDTO;
+import ftn.xmlws.soap.service.mapper.Mapper;
 import ftn.xmlws.soap.web.rest.resource.response.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +40,15 @@ public class AgentResource {
     @Autowired
     private StarRatingService starRatingService;
 
+    @Autowired
+    private AccomodationService accomodationService;
+
+    @Autowired
+    private ReservationService reservationService;
+
+    @Autowired
+    private Mapper mapper;
+
     private static final Logger logger = LoggerFactory.getLogger(AgentResource.class);
 
     @GetMapping("")
@@ -56,12 +67,19 @@ public class AgentResource {
             SyncServicePortService syncService = new SyncServicePortService();
             SyncServicePort sync = syncService.getSyncServicePortSoap11();
             GetSyncRequest request = new GetSyncRequest();
-            request.setAgentId(username);
+
+            List<Accomodation> accomodationList = accomodationService.getAccomodations();
+            List<Reservation> reservationList = reservationService.getAll();
+            List<PriceForPeriod> priceForPeriodList = accomodationService.getAllPriceForPeriod();
+            mapper.transformListAccomodationToXML(accomodationList).stream().forEach(dao -> request.getEncodedAccomodation().add(dao));
+            mapper.transformListPricePerIntervalToXML(priceForPeriodList).stream().forEach(dao -> request.getEncodedPriceList().add(dao));
+            mapper.transformEncodedRequestListToXML(reservationList).stream().forEach(dao -> request.getEncodedRequest().add(dao));
+
             GetSyncResponse response = sync.getSync(request);
-            logger.info("SYNC");
             additionalService.sync(response.getEncodedFacility());
             categoryService.sync(response.getEncodedAccommodationType());
             starRatingService.sync(response.getEncodedStarRating());
+            reservationService.saveReservation(mapper.fromCoreToReservationList(response.getEncodedReservation()));
             return new ResponseEntity<>(new Response("Approved", url), HttpStatus.OK);
         }
         return new ResponseEntity<>(new Response("Wrong Credentials", null),HttpStatus.BAD_REQUEST);

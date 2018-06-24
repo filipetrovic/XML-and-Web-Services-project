@@ -10,16 +10,6 @@ import java.text.SimpleDateFormat;
 public class DateParser {
 
     public Date parseDate(String dateAsString) {
-        SimpleDateFormat sdfStat1 = new SimpleDateFormat(dateAsString);
-        java.util.Date sdfParsed1 = null;
-
-        try {
-            sdfParsed1 = sdfStat1.parse(dateAsString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        Date date = new Date(sdfParsed1.getTime());
-        return  date;
+        return  Date.valueOf(dateAsString);
     }
 }

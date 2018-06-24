@@ -38,6 +38,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link EncodedAccomodation }
+     * 
+     */
+    public EncodedAccomodation createEncodedAccomodation() {
+        return new EncodedAccomodation();
+    }
+
+    /**
+     * Create an instance of {@link EncodedPriceList }
+     * 
+     */
+    public EncodedPriceList createEncodedPriceList() {
+        return new EncodedPriceList();
+    }
+
+    /**
+     * Create an instance of {@link EncodedRequest }
+     * 
+     */
+    public EncodedRequest createEncodedRequest() {
+        return new EncodedRequest();
+    }
+
+    /**
      * Create an instance of {@link GetSyncResponse }
      * 
      */
@@ -67,6 +91,14 @@ public class ObjectFactory {
      */
     public EncodedStarRating createEncodedStarRating() {
         return new EncodedStarRating();
+    }
+
+    /**
+     * Create an instance of {@link EncodedReservation }
+     * 
+     */
+    public EncodedReservation createEncodedReservation() {
+        return new EncodedReservation();
     }
 
 }

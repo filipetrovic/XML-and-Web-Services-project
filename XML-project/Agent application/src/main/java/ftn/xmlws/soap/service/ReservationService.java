@@ -43,6 +43,18 @@ public class ReservationService {
         return reservationRepository.save(reservation);
     }
 
+    public void saveReservation(List<Reservation> reservationList) {
+        reservationList.stream().forEach(reservation -> {
+            Reservation temp = reservationRepository.findOneById(reservation.getId());
+             if(temp != null) {
+                 reservationRepository.delete(reservation.getId());
+                 reservationRepository.save(reservation);
+             }else {
+                 reservationRepository.save(reservation);
+             }
+        });
+    }
+
     public List<Reservation> getAll() {
         return reservationRepository.findAll();
     }
