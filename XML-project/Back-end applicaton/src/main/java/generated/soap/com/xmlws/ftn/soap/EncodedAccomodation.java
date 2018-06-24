@@ -12,6 +12,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -75,7 +77,7 @@ public class EncodedAccomodation {
     @XmlElement(required = true)
     protected String category;
     @XmlElement(required = true)
-    protected String additions;
+    protected List<String> additions;
     @XmlElement(required = true)
     protected String startDateAvailable;
     @XmlElement(required = true)
@@ -267,28 +269,32 @@ public class EncodedAccomodation {
 
     /**
      * Gets the value of the additions property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the messages property.
+     *
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getAdditions().add(newItem);
+     * </pre>
+     *
+     *
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link String }
+     *
+     *
      */
-    public String getAdditions() {
-        return additions;
+    public List<String> getAdditions() {
+        if (additions == null) {
+            additions = new ArrayList<String>();
+        }
+        return this.additions;
     }
-
-    /**
-     * Sets the value of the additions property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setAdditions(String value) {
-        this.additions = value;
-    }
-
     /**
      * Gets the value of the startDateAvailable property.
      * 

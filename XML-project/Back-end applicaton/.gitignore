@@ -16,7 +16,6 @@
 *.iml
 *.ipr
 
-/src/java/main/resources/application.properties
 
 ### NetBeans ###
 /nbproject/private/

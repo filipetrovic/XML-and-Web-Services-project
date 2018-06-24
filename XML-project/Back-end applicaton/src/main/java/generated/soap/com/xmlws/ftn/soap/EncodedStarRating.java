@@ -6,7 +6,7 @@
 //
 
 
-package com.xmlws.ftn.soap;
+package generated.soap.com.xmlws.ftn.soap;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

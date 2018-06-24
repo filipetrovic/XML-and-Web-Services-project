@@ -6,7 +6,7 @@
 //
 
 
-package com.xmlws.ftn.soap;
+package generated.soap.com.xmlws.ftn.soap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +15,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import com.xmlws.ftn.soap.EncodedAccommodationType;
-import com.xmlws.ftn.soap.EncodedFacility;
-import com.xmlws.ftn.soap.EncodedStarRating;
-import com.xmlws.ftn.soap.EncodedReservation;
+import generated.soap.com.xmlws.ftn.soap.*;
+
 
 
 /**

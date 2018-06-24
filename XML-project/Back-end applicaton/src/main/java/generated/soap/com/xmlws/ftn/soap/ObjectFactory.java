@@ -6,10 +6,10 @@
 //
 
 
-package com.xmlws.ftn.soap;
+package generated.soap.com.xmlws.ftn.soap;
 
 import javax.xml.bind.annotation.XmlRegistry;
-
+import generated.soap.com.xmlws.ftn.soap.*;
 
 /**
  * This object contains factory methods for each 
