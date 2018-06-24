@@ -15,6 +15,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import com.xmlws.ftn.soap.EncodedAccomodation;
+import com.xmlws.ftn.soap.EncodedPriceList;
+import com.xmlws.ftn.soap.EncodedRequest;
 
 
 /**

@@ -15,6 +15,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import com.xmlws.ftn.soap.EncodedAccommodationType;
+import com.xmlws.ftn.soap.EncodedFacility;
+import com.xmlws.ftn.soap.EncodedStarRating;
+import com.xmlws.ftn.soap.EncodedReservation;
 
 
 /**
