@@ -86,6 +86,7 @@
 
     <xs:complexType name="encodedRequest">
         <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
             <xs:element name="messageby" type="xs:string" maxOccurs="unbounded"/>
             <xs:element name="status" type="xs:string"/>
             <xs:element name="messages" type="xs:string"  maxOccurs="unbounded"/>
