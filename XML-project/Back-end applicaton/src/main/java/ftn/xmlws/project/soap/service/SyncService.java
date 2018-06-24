@@ -24,37 +24,37 @@ public class SyncService {
     @Autowired
     private EntityMapper entityMapper;
 
-    public List<com.xmlws.ftn.soap.EncodedAccommodationType> getTypesAsXML() {
+    public List<generated.soap.com.xmlws.ftn.soap.EncodedAccommodationType> getTypesAsXML() {
         return entityMapper.transformListEncodedAccommodationTypesEntityToXML(encodedEntitiesService.getAllAccommodationTypes());
     }
 
-    public List<com.xmlws.ftn.soap.EncodedFacility> getFacilitysAsXML() {
+    public List<generated.soap.com.xmlws.ftn.soap.EncodedFacility> getFacilitysAsXML() {
         return entityMapper.transformListEncodedFacilityToXML(encodedEntitiesService.getAllFacilities());
     }
 
-    public List<com.xmlws.ftn.soap.EncodedStarRating> getStarRatingAsXML() {
+    public List<generated.soap.com.xmlws.ftn.soap.EncodedStarRating> getStarRatingAsXML() {
         return entityMapper.transformListEncodedStarRatingToXML(encodedEntitiesService.getAllStarRatings());
     }
 
     //DODATI GET ALL RESERVATION umesto null
-    public List<com.xmlws.ftn.soap.EncodedReservation> getReservationAsXML() {
+    public List<generated.soap.com.xmlws.ftn.soap.EncodedReservation> getReservationAsXML() {
         return entityMapper.transferListReservationToXML(null);
     }
 
-    public List<Accommodation> getAccomodationFromXml(List<com.xmlws.ftn.soap.EncodedAccomodation> encodedList) {
+    public List<Accommodation> getAccomodationFromXml(List<generated.soap.com.xmlws.ftn.soap.EncodedAccomodation> encodedList) {
         return  entityMapper.transferListFromXMLTOAccommodation(encodedList);
     }
 
     //kiks
-    public List<Reservation> getReservationFromXML(List<com.xmlws.ftn.soap.EncodedReservation> encodedList) {
+    public List<Reservation> getReservationFromXML(List<generated.soap.com.xmlws.ftn.soap.EncodedReservation> encodedList) {
         return entityMapper.transferListFromXMLToReservation(encodedList);
     }
 
-    public List<PricePerInterval> getPricePerIntervalFromXml(List<com.xmlws.ftn.soap.EncodedPriceList> encodedList) {
+    public List<PricePerInterval> getPricePerIntervalFromXml(List<generated.soap.com.xmlws.ftn.soap.EncodedPriceList> encodedList) {
         return entityMapper.transferListFromXMLToPricePerInterval(encodedList);
     }
 
-    public List<HelperDTO> getHelperDTOFromXML(List<com.xmlws.ftn.soap.EncodedRequest> encodedList) {
+    public List<HelperDTO> getHelperDTOFromXML(List<generated.soap.com.xmlws.ftn.soap.EncodedRequest> encodedList) {
         return entityMapper.transferListFromXMLToHelperDTO(encodedList);
     }
 

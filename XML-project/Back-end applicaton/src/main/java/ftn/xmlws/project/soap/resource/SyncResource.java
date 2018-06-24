@@ -27,8 +27,8 @@ public class SyncResource {
 
 	@PayloadRoot(namespace = ApplicationConstants.ENDPOINT_AGENT, localPart = ApplicationConstants.LOCAL_PART_AGENT)
     @ResponsePayload
-    public com.xmlws.ftn.soap.GetSyncResponse getSyncResponse(@RequestPayload com.xmlws.ftn.soap.GetSyncRequest request) {
-        com.xmlws.ftn.soap.GetSyncResponse response = new com.xmlws.ftn.soap.GetSyncResponse();
+    public generated.soap.com.xmlws.ftn.soap.GetSyncResponse getSyncResponse(@RequestPayload generated.soap.com.xmlws.ftn.soap.GetSyncRequest request) {
+        generated.soap.com.xmlws.ftn.soap.GetSyncResponse response = new generated.soap.com.xmlws.ftn.soap.GetSyncResponse();
         syncService.getTypesAsXML().stream().forEach( dao -> response.getEncodedAccommodationType().add(dao));
         syncService.getFacilitysAsXML().stream().forEach( dao -> response.getEncodedFacility().add(dao));
         syncService.getStarRatingAsXML().stream().forEach( dao -> response.getEncodedStarRating().add(dao));
