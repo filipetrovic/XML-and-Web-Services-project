@@ -318,11 +318,6 @@ export default {
 
   },
   created() {
-<<<<<<< HEAD
-    console.log("createdS")
-=======
-
->>>>>>> origin/master
       this.$http.get("http://localhost:8084/getAllAccommodationTypes")
           .then(response => {
             this.listOfSelectedRegistries = response.body;

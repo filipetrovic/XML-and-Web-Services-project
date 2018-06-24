@@ -275,37 +275,37 @@ public class DataLoader implements ApplicationRunner {
 
 //		Reservation r = reservationRepository.findById((long)22).get();
 		
-
-		Reservation r = new Reservation();
-
-		
-		r.setPriceOfReservation(5000);
-		r.setUser(userRepository.findOneByUsername("ivan@gmail.com").get());
-		r.setCheckInDate(Date.valueOf("2018-06-27"));
-		r.setCheckOutDate(Date.valueOf("2018-06-30"));
-		r.setAccommodation(accommodationRepository.findById((long)1).get());
-		
-		Set<Message> messages = new HashSet<Message>();
-
-		Reservation r1 = new Reservation();
-		
-
-		r1.setPriceOfReservation(10000);
-		r1.setUser(userRepository.findOneByUsername("ivan@gmail.com").get());
-		r1.setCheckInDate(new Date(200000));
-		r1.setCheckOutDate(new Date(2000002));
-		r1.setAccommodation(accommodationRepository.findById((long)2).get());
-
-		try {
-//			reservationRepository.save(r);
-			reservationRepository.save(r1);
-		} catch (Exception ex) {
-
-		}
-
-		for(Message m:messageRepository.findAll())
-			if(m.getReservation().getId() == (long)22)
-				messages.add(m);
+//
+//		Reservation r = new Reservation();
+//
+//
+//		r.setPriceOfReservation(5000);
+//		r.setUser(userRepository.findOneByUsername("ivan@gmail.com").get());
+//		r.setCheckInDate(Date.valueOf("2018-06-27"));
+//		r.setCheckOutDate(Date.valueOf("2018-06-30"));
+//		r.setAccommodation(accommodationRepository.findById((long)1).get());
+//
+//		Set<Message> messages = new HashSet<Message>();
+//
+//		Reservation r1 = new Reservation();
+//
+//
+//		r1.setPriceOfReservation(10000);
+//		r1.setUser(userRepository.findOneByUsername("ivan@gmail.com").get());
+//		r1.setCheckInDate(new Date(200000));
+//		r1.setCheckOutDate(new Date(2000002));
+//		r1.setAccommodation(accommodationRepository.findById((long)2).get());
+//
+//		try {
+////			reservationRepository.save(r);
+//			reservationRepository.save(r1);
+//		} catch (Exception ex) {
+//
+//		}
+//
+//		for(Message m:messageRepository.findAll())
+//			if(m.getReservation().getId() == (long)22)
+//				messages.add(m);
 
 //		r.setMessages(messages);
 //		try {
@@ -314,52 +314,52 @@ public class DataLoader implements ApplicationRunner {
 //
 //		}
 
-		Message m = new Message();
-		m.setMessage("Can I come at 21pm?");
-		m.setUserSender(true);
-		m.setReservation(r);
-		messages.add(m);
-		
-		Message m1 = new Message();
-		m1.setMessage("Yes you may!");
-		m1.setUserSender(false);
-		m1.setReservation(r);
-		messages.add(m1);		
-		
-		r.setMessages(messages);
-		reservationRepository.save(r);
-		
-		
-		
-		
-		
-		
-		
-		Reservation r1 = new Reservation();
-		
-		r1.setPriceOfReservation(10000);
-		r1.setUser(userRepository.findOneByUsername("ivan@gmail.com").get());
-		r1.setCheckInDate(Date.valueOf("2018-06-27"));
-		r1.setCheckOutDate(Date.valueOf("2018-06-28"));
-		r1.setAccommodation(accommodationRepository.findById((long)2).get());
-		
-		Set<Message> messages2 = new HashSet<Message>();
-		
-		Message m3 = new Message();
-		m3.setMessage("Hello do you accept dogs?");
-		m3.setUserSender(true);
-		m3.setReservation(r1);
-		messages2.add(m3);
-		
-		Message m4 = new Message();
-		m4.setMessage("Yes we love big fluffy dogs!");
-		m4.setUserSender(false);
-		m4.setReservation(r1);
-		messages2.add(m4);	
-		
-		r1.setMessages(messages2);
-		
-		reservationRepository.save(r1);
+//		Message m = new Message();
+//		m.setMessage("Can I come at 21pm?");
+//		m.setUserSender(true);
+//		m.setReservation(r);
+//		messages.add(m);
+//
+//		Message m1 = new Message();
+//		m1.setMessage("Yes you may!");
+//		m1.setUserSender(false);
+//		m1.setReservation(r);
+//		messages.add(m1);
+//
+//		r.setMessages(messages);
+//		reservationRepository.save(r);
+//
+//
+//
+//
+//
+//
+//
+//		Reservation r1 = new Reservation();
+//
+//		r1.setPriceOfReservation(10000);
+//		r1.setUser(userRepository.findOneByUsername("ivan@gmail.com").get());
+//		r1.setCheckInDate(Date.valueOf("2018-06-27"));
+//		r1.setCheckOutDate(Date.valueOf("2018-06-28"));
+//		r1.setAccommodation(accommodationRepository.findById((long)2).get());
+//
+//		Set<Message> messages2 = new HashSet<Message>();
+//
+//		Message m3 = new Message();
+//		m3.setMessage("Hello do you accept dogs?");
+//		m3.setUserSender(true);
+//		m3.setReservation(r1);
+//		messages2.add(m3);
+//
+//		Message m4 = new Message();
+//		m4.setMessage("Yes we love big fluffy dogs!");
+//		m4.setUserSender(false);
+//		m4.setReservation(r1);
+//		messages2.add(m4);
+//
+//		r1.setMessages(messages2);
+//
+//		reservationRepository.save(r1);
 		
 		
 	}
