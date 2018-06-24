@@ -3,6 +3,5 @@
 // See <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Any modifications to this file will be lost upon recompilation of the source schema. 
 
-
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://ftn.xmlws.com/soap", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package generated.soap.com.xmlws.ftn.soap;

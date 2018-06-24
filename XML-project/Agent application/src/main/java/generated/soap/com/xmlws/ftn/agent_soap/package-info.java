@@ -6,4 +6,4 @@
 //
 
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://ftn.xmlws.com/agent-soap", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package com.xmlws.ftn.agent_soap;
+package generated.soap.com.xmlws.ftn.agent_soap;

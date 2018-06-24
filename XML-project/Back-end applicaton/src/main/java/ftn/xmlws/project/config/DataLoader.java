@@ -67,9 +67,10 @@ public class DataLoader implements ApplicationRunner {
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		insertIntoEncodedFacility();
-		insertIntoEncodedEntities();
-		insertIntoAgents();
+
+//		insertIntoEncodedFacility();
+//		insertIntoEncodedEntities();
+//		insertIntoAgents();
 //		insertIntoAccommodations();
 		insertIntoUsers();
 //		insertIntoReservations();
@@ -103,6 +104,7 @@ public class DataLoader implements ApplicationRunner {
 		ee.setName("4 stars");
 		ff.setName("5 stars");
 
+
 		try {
 			accommodationTypeRepository.save(a);
 			accommodationTypeRepository.save(b);
@@ -119,6 +121,34 @@ public class DataLoader implements ApplicationRunner {
  		} catch (Exception ex1) {
 
 		}
+
+		
+		starRatingRepository.save(aa);
+		starRatingRepository.save(bb);
+		starRatingRepository.save(cc);
+		starRatingRepository.save(dd);
+		starRatingRepository.save(ee);
+		starRatingRepository.save(ff);
+		
+//		EncodedFacility bbb = new EncodedFacility();
+//		EncodedFacility ccc = new EncodedFacility();
+//		EncodedFacility ddd = new EncodedFacility();
+//		EncodedFacility eee = new EncodedFacility();
+//		EncodedFacility fff = new EncodedFacility();
+//		
+//		bbb.setName("Parking");
+//		ccc.setName("Spa centre");
+//		ddd.setName("Gym");
+//		eee.setName("Swimming pool");
+//		fff.setName("Sauna");
+//		
+//		encodedFacilityRepository.save(bbb);
+//		encodedFacilityRepository.save(ccc);
+//		encodedFacilityRepository.save(ddd);
+//		encodedFacilityRepository.save(eee);
+//		encodedFacilityRepository.save(fff);
+		
+		
 
 	}
 	
@@ -241,22 +271,25 @@ public class DataLoader implements ApplicationRunner {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void insertIntoReservations() {
-	
+
 //		Reservation r = reservationRepository.findById((long)22).get();
 		
+
+		Reservation r = new Reservation();
+
 		
-//		r.setPriceOfReservation(5000);
-//		r.setUser(userRepository.findOneByUsername("ivan@gmail.com").get());
-//		r.setCheckInDate(new Date(110000));
-//		r.setCheckOutDate(new Date(11000011));
-//		r.setAccommodation(accommodationRepository.findById((long)1).get());
+		r.setPriceOfReservation(5000);
+		r.setUser(userRepository.findOneByUsername("ivan@gmail.com").get());
+		r.setCheckInDate(Date.valueOf("2018-06-27"));
+		r.setCheckOutDate(Date.valueOf("2018-06-30"));
+		r.setAccommodation(accommodationRepository.findById((long)1).get());
 		
 		Set<Message> messages = new HashSet<Message>();
 
 		Reservation r1 = new Reservation();
 		
+
 		r1.setPriceOfReservation(10000);
 		r1.setUser(userRepository.findOneByUsername("ivan@gmail.com").get());
 		r1.setCheckInDate(new Date(200000));
@@ -280,6 +313,53 @@ public class DataLoader implements ApplicationRunner {
 //		} catch (Exception e) {
 //
 //		}
+
+		Message m = new Message();
+		m.setMessage("Can I come at 21pm?");
+		m.setUserSender(true);
+		m.setReservation(r);
+		messages.add(m);
+		
+		Message m1 = new Message();
+		m1.setMessage("Yes you may!");
+		m1.setUserSender(false);
+		m1.setReservation(r);
+		messages.add(m1);		
+		
+		r.setMessages(messages);
+		reservationRepository.save(r);
+		
+		
+		
+		
+		
+		
+		
+		Reservation r1 = new Reservation();
+		
+		r1.setPriceOfReservation(10000);
+		r1.setUser(userRepository.findOneByUsername("ivan@gmail.com").get());
+		r1.setCheckInDate(Date.valueOf("2018-06-27"));
+		r1.setCheckOutDate(Date.valueOf("2018-06-28"));
+		r1.setAccommodation(accommodationRepository.findById((long)2).get());
+		
+		Set<Message> messages2 = new HashSet<Message>();
+		
+		Message m3 = new Message();
+		m3.setMessage("Hello do you accept dogs?");
+		m3.setUserSender(true);
+		m3.setReservation(r1);
+		messages2.add(m3);
+		
+		Message m4 = new Message();
+		m4.setMessage("Yes we love big fluffy dogs!");
+		m4.setUserSender(false);
+		m4.setReservation(r1);
+		messages2.add(m4);	
+		
+		r1.setMessages(messages2);
+		
+		reservationRepository.save(r1);
 		
 		
 	}
@@ -301,6 +381,58 @@ public class DataLoader implements ApplicationRunner {
 		}catch (Exception e) {
 
 		}
+
+		
+		messageRepository.save(m);
+		messageRepository.save(m1);
+	}
+	
+	private void insertIntoAccommodations() {
+		
+		Set<EncodedFacility> additionalFacilities = new HashSet<>();
+		additionalFacilities.add(encodedFacilityRepository.findOneById((long)1));
+		additionalFacilities.add(encodedFacilityRepository.findOneById((long)2));
+			
+		Accommodation ac = new Accommodation(
+				java.sql.Date.valueOf("2018-06-24"),
+				java.sql.Date.valueOf("2018-08-24"),
+				"Apartmani Pekic",
+				"",
+				"neki novi apartmani",
+				1750,
+				3,
+				"Smederevo, Carina",
+				5,
+				accommodationTypeRepository.findById((long)1).get(),
+				starRatingRepository.findOneById((long)5),
+				null, additionalFacilities);
+		
+		
+		
+		Set<EncodedFacility> additionalFacilities1 = new HashSet<>();
+		additionalFacilities1.add(encodedFacilityRepository.findOneById((long)3));
+		additionalFacilities1.add(encodedFacilityRepository.findOneById((long)4));
+		
+		// yy mm dd
+		Accommodation ac1 = new Accommodation(
+				Date.valueOf("2018-06-26"),
+				Date.valueOf("2018-06-29"),
+				"Hotel Viking",
+				"",
+				"veliki hotel vikinga",
+				4000,
+				5, "Smederevo, Kneza Milosa 35",
+				4,
+				accommodationTypeRepository.findById((long)3).get(),
+				starRatingRepository.findOneById((long)2),
+				null, additionalFacilities1);
+		
+		ac.setReservations(new HashSet<Reservation>());
+		ac1.setReservations(new HashSet<Reservation>());
+		
+		accommodationRepository.save(ac);
+		accommodationRepository.save(ac1);
+
 	}
 	
 //	@SuppressWarnings("deprecation")

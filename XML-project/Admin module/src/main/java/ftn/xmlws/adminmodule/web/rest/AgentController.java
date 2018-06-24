@@ -23,8 +23,9 @@ public class AgentController {
 	@GetMapping("/getAgent")
 	public ResponseEntity<Agent> getAgent(@RequestParam("id") Long id){
 		RestTemplate restTemplate = new RestTemplate();
-		
+
 		URI targetUrl= UriComponentsBuilder.fromUriString("http://localhost:8083")
+
 		    .path("/api/agent/getAgent")                           
 		    .queryParam("id", id)                               
 		    .build()                                                 

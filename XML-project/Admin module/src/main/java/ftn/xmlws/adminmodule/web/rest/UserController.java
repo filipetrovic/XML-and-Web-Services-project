@@ -71,7 +71,7 @@ public class UserController {
 	@GetMapping("/getUser")
 	public ResponseEntity<User> getUser(@RequestParam("username") String username ) {
 		RestTemplate restTemplate = new RestTemplate();
-		
+
 		URI targetUrl= UriComponentsBuilder.fromUriString("http://localhost:8083")
 		    .path("/api/users/getUser")                           
 		    .queryParam("username", username)                               

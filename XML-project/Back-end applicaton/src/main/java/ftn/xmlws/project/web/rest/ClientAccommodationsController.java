@@ -6,8 +6,11 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -92,16 +95,15 @@ public class ClientAccommodationsController {
 	/************************************************************** RATINGS **************************************************************/
 	
 	@RequestMapping(value = "/getUserRatings", method = RequestMethod.GET, produces="application/json")
-	public ResponseEntity<List<JsonRating>> getUserRatings(@RequestParam("username") String username) {
+	public ResponseEntity<List<JsonRating>> getUserRatings() {
 			
 			RestTemplate restTemplate = new RestTemplate();
-			System.out.println("pogodjeno getUserRatings");
+			
 			
 			try {
 				ResponseEntity<JsonRating[]> responseEntity = restTemplate.getForEntity("http://localhost:8010/cloud-demo/us-central1/getRatings", JsonRating[].class);
 				JsonRating[] types = responseEntity.getBody();
 				
-				System.out.println(types);
 				
 				return new ResponseEntity<List<JsonRating>>(Arrays.asList(types),HttpStatus.OK);
 				
@@ -111,6 +113,59 @@ public class ClientAccommodationsController {
 				return new ResponseEntity<List<JsonRating>>(HttpStatus.BAD_REQUEST);
 			}
 		}
+	
+		 
+
+	@RequestMapping(value = "/getUnapprovedRatings", method = RequestMethod.GET, produces="application/json")
+	public ResponseEntity<List<JsonRating>> getUnapprovedRatings() {
+			
+			RestTemplate restTemplate = new RestTemplate();
+			
+			try {
+				ResponseEntity<JsonRating[]> responseEntity = restTemplate.getForEntity("http://localhost:8010/cloud-demo/us-central1/getUnapprovedRatings", JsonRating[].class);
+				JsonRating[] types = responseEntity.getBody();
+				return new ResponseEntity<List<JsonRating>>(Arrays.asList(types),HttpStatus.OK);
+				
+			} catch (Exception e) {
+				System.out.println("An error occurred while trying to access cloud storage function getAllAccommodationTypes" + e.getMessage());
+				e.printStackTrace();
+				return new ResponseEntity<List<JsonRating>>(HttpStatus.BAD_REQUEST);
+			}
+		}
+	
+	@RequestMapping(value = "/approveComment", method = RequestMethod.PUT, produces="application/json")
+	public ResponseEntity<Boolean> approveComment(@RequestBody JsonRating r) {
+			
+		RestTemplate restTemplate = new RestTemplate();
+		HttpEntity<JsonRating> entity = new HttpEntity<>(r);
+		
+        try {
+        	
+            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8010/cloud-demo/us-central1/approveRating ", 
+            														HttpMethod.DELETE, entity, Boolean.class);
+            return new ResponseEntity<Boolean>(responseEntity.getBody(), HttpStatus.OK);
+        } catch (Exception e) {
+        	System.out.println("An error occurred while trying to access back-end-module/deleteAccommodationType");
+        	return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
+        }
+	}
+	
+	@DeleteMapping("/deleteComment")
+	public ResponseEntity<Boolean> deleteComment(@RequestBody JsonRating comment) {
+		RestTemplate restTemplate = new RestTemplate();
+		HttpEntity<JsonRating> entity = new HttpEntity<>(comment);
+		
+        try {
+        	
+            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8010/cloud-demo/us-central1/deleteRating", 
+            														HttpMethod.DELETE, entity, Boolean.class);
+            return  new ResponseEntity<Boolean>(responseEntity.getBody(), HttpStatus.OK); 
+        } catch (Exception e) {
+        	e.printStackTrace();
+        	System.out.println("An error occurred while trying to access back-end-module/deleteAccommodationType");
+        	return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
+        }
+	}
 		
 	/************************************************************** RATINGS **************************************************************/
 	

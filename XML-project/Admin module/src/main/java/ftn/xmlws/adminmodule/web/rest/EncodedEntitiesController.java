@@ -54,6 +54,7 @@ public class EncodedEntitiesController {
 	public ResponseEntity<AccommodationType> getAccommodationType(@RequestParam("id") Long typeId){
 		RestTemplate restTemplate = new RestTemplate();
 		
+
 		URI targetUrl= UriComponentsBuilder.fromUriString("http://localhost:8083")
 		    .path("/api/encoded/getAccommodationType")                           
 		    .queryParam("id", typeId)                               
@@ -98,7 +99,7 @@ public class EncodedEntitiesController {
 		HttpEntity<AccommodationType> entity = new HttpEntity<>(accommodationType);
 		
         try {
-        	
+
             ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8083/api/encoded/deleteAccommodationType",
             														HttpMethod.DELETE, entity, Boolean.class);
             return responseEntity;
@@ -120,6 +121,7 @@ public class EncodedEntitiesController {
 		}
 		
         try {
+
             ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8083/api/encoded/editAccommodationType",
             														HttpMethod.PUT, entity, Boolean.class);
             return responseEntity;
@@ -150,7 +152,7 @@ public class EncodedEntitiesController {
 	@GetMapping("/getStarRating")
 	public ResponseEntity<StarRating> getStarRating(@RequestParam("id") Long ratingId){
 		RestTemplate restTemplate = new RestTemplate();
-		
+
 		URI targetUrl= UriComponentsBuilder.fromUriString("http://localhost:8083")
 		    .path("/api/encoded/getStarRating")                           
 		    .queryParam("id", ratingId)                               
@@ -194,6 +196,7 @@ public class EncodedEntitiesController {
 		
         try {
         	
+
             ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8083/api/encoded/deleteStarRating",
             														HttpMethod.DELETE, entity, Boolean.class);
             return responseEntity;
@@ -244,8 +247,9 @@ public class EncodedEntitiesController {
 	@GetMapping("/getFacility")
 	public ResponseEntity<Facility> getFacility(@RequestParam("id") Long facilityId){
 		RestTemplate restTemplate = new RestTemplate();
-		
+
 		URI targetUrl= UriComponentsBuilder.fromUriString("http://localhost:8083")
+
 		    .path("/api/encoded/getFacility")                           
 		    .queryParam("id", facilityId)                               
 		    .build()                                                 
@@ -287,7 +291,7 @@ public class EncodedEntitiesController {
 		HttpEntity<Facility> entity = new HttpEntity<>(facility);
 		
         try {
-        	
+
             ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8083/api/encoded/deleteFacility",
             														HttpMethod.DELETE, entity, Boolean.class);
             return responseEntity;

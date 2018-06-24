@@ -110,13 +110,9 @@ public class EncodedEntitiesController {
 	
 	@DeleteMapping("/deleteFacility")
 	public ResponseEntity<Boolean> deleteFacility(@RequestBody EncodedFacility facility){
-		EncodedFacility f = new EncodedFacility();
-		f.setId(facility.getId());
-		f.setName(facility.getName());
-		//zastooo?
 		
 		
-		return new ResponseEntity<Boolean>(service.deleteFacility(f), HttpStatus.OK);
+		return new ResponseEntity<Boolean>(service.deleteFacility(facility), HttpStatus.OK);
 	}
 	
 	@PutMapping("/editFacility")

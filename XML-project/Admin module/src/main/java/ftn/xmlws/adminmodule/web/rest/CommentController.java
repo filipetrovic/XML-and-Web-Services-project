@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
 import ftn.xmlws.adminmodule.beans.Rating;
 
 @RestController
@@ -22,16 +21,17 @@ import ftn.xmlws.adminmodule.beans.Rating;
 public class CommentController {
 	@GetMapping("/getUnapprovedComments")
 	public ResponseEntity<List<Rating>> getUnapprovedComments() {
+		
 		RestTemplate restTemplate = new RestTemplate();
 		
 		try {
-			ResponseEntity<Rating[]> responseEntity = restTemplate.getForEntity("http://localhost:8083/api/comments/getUnapprovedComments", Rating[].class);
+			ResponseEntity<Rating[]> responseEntity = restTemplate.getForEntity("http://localhost:8083/api/client/getUnapprovedRatings", Rating[].class);
 			Rating[] types = responseEntity.getBody();
 			
 			return new ResponseEntity<List<Rating>>(Arrays.asList(types),HttpStatus.OK);
 			
 		} catch (Exception e) {
-			System.out.println("An error occurred while trying to access back-end-module/getUnapprovedComments");
+			System.out.println("An error occurred while trying to access back-end-module/getrratings");
 			return new ResponseEntity<List<Rating>>(HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -44,8 +44,9 @@ public class CommentController {
 		System.out.println(comment.toString());
 		
         try {
-            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8083/api/comments/approveComment",
+            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8083/api/client/approveComment",
             														HttpMethod.PUT, entity, Boolean.class);
+            
             return responseEntity;
         } catch (Exception e) {
         	e.printStackTrace();
@@ -59,13 +60,17 @@ public class CommentController {
 		RestTemplate restTemplate = new RestTemplate();
 		HttpEntity<Rating> entity = new HttpEntity<>(comment);
 		
+		System.out.println(comment.toString());
+		
         try {
-        	
-            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8083/api/comments/deleteComment",
+            ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8083/api/client/deleteComment", 
+
             														HttpMethod.DELETE, entity, Boolean.class);
+            
             return responseEntity;
         } catch (Exception e) {
-        	System.out.println("An error occurred while trying to access back-end-module/deleteAccommodationType");
+        	e.printStackTrace();
+        	System.out.println("An error occurred while trying to access back-end-module/approveComment");
         	return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
         }
 	}
