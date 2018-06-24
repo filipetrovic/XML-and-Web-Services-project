@@ -8,4 +8,5 @@ import ftn.xmlws.project.beans.EncodedFacility;
 @Repository
 public interface EncodedFacilityRepository extends JpaRepository<EncodedFacility, Long>{
 	EncodedFacility findOneById(Long facilityId);
+	EncodedFacility findOneByName(String name);
 }

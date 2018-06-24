@@ -7,8 +7,29 @@ import ftn.xmlws.project.soap.service.PricePerInterval;
 
 import org.springframework.stereotype.Component;
 
+import java.sql.Date;
+import java.util.HashSet;
+
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import ftn.xmlws.project.beans.Accommodation;
+import ftn.xmlws.project.beans.EncodedAccommodationType;
+import ftn.xmlws.project.beans.EncodedFacility;
+import ftn.xmlws.project.beans.EncodedStarRating;
+import ftn.xmlws.project.beans.Message;
+import ftn.xmlws.project.beans.Reservation;
+import ftn.xmlws.project.repository.EncodedAccommodationTypeRepository;
+import ftn.xmlws.project.repository.EncodedFacilityRepository;
+import ftn.xmlws.project.repository.EncodedStarRatingRepository;
+import ftn.xmlws.project.repository.ReservationRepository;
+import ftn.xmlws.project.soap.service.HelperDTO;
+import ftn.xmlws.project.soap.service.PricePerInterval;
+import generated.soap.com.xmlws.ftn.soap.EncodedReservation;
 
 /**
  * Class for transforming objects from database to XML
@@ -16,7 +37,18 @@ import java.util.stream.Collectors;
  */
 @Component
 public class EntityMapper {
+	
+	@Autowired
+	private EncodedStarRatingRepository starRatingRepository;
+	
+	@Autowired
+	private EncodedFacilityRepository facilityRepository;
+	
+	@Autowired
+	private ReservationRepository reservationRepository;
 
+	@Autowired
+	private EncodedAccommodationTypeRepository accommodationTypeRepository;
 
     public generated.soap.com.xmlws.ftn.soap.EncodedAccommodationType transformEncodedAccommodationTypesEntityToXML(EncodedAccommodationType encodedAccommodationType) {
         generated.soap.com.xmlws.ftn.soap.EncodedAccommodationType object = new generated.soap.com.xmlws.ftn.soap.EncodedAccommodationType();
@@ -76,6 +108,21 @@ public class EntityMapper {
         Accommodation accommodation = new Accommodation();
         accommodation.setName(encodedAccomodation.getName());
         accommodation.setNumberOfPeople(Integer.parseInt(encodedAccomodation.getNumber()));
+        // city je opis
+        accommodation.setDescription(encodedAccomodation.getCity());
+        accommodation.setInputAddress(encodedAccomodation.getAddress());
+        accommodation.setStartDateAvailable(java.sql.Date.valueOf(encodedAccomodation.getStartDateAvailable()));
+        accommodation.setEndDateAvailable(java.sql.Date.valueOf(encodedAccomodation.getEndDateAvailable()));
+        accommodation.setCategory(starRatingRepository.findOneByName(encodedAccomodation.getStarRating()));
+        accommodation.setTypeOfAccommodation(accommodationTypeRepository.findOneByName(encodedAccomodation.getCategory()));
+        accommodation.setPictures(encodedAccomodation.getImage());
+        accommodation.setRating(0);
+        
+//        for(String a : encodedAccomodation.getAdditions())
+//        {
+//        	accommodation.getAdditionalFacilities().add(facilityRepository.findOneByName(a));
+//        }
+        	
         return accommodation;
     }
 
@@ -112,12 +159,33 @@ public class EntityMapper {
         return encodedReservation;
     }
 
-    public HelperDTO transferToReservationState(generated.soap.com.xmlws.ftn.soap.EncodedRequest encodedHelper) {
-        HelperDTO helperDTO = new HelperDTO();
-        return helperDTO;
+    public Reservation transferToReservationState(generated.soap.com.xmlws.ftn.soap.EncodedRequest encodedHelper) {
+        Reservation r = reservationRepository.findOneById(encodedHelper.getId());
+        
+        if(encodedHelper.getStatus().equals("true"))
+        	r.setArrivalConfirmed(true);
+        else
+        	r.setArrivalConfirmed(false);
+        
+        Set<Message> messages = new HashSet<Message>();
+        
+        for(int i=0; i<encodedHelper.getMessages().size(); i++)
+        {
+        	Message m = new Message();
+        	
+        	m.setMessage(encodedHelper.getMessages().get(i));
+        	m.setUserSender(encodedHelper.getMessageby().get(i).equals((r.getUser().getUsername())));
+        	m.setReservation(r);
+
+        	messages.add(m);
+        }
+        
+        r.setMessages(messages);
+        
+        return r;
     }
 
-    public List<HelperDTO> transferListFromXMLToHelperDTO(List<generated.soap.com.xmlws.ftn.soap.EncodedRequest> encodedList) {
+    public List<Reservation> transferListFromXMLToHelperDTO(List<generated.soap.com.xmlws.ftn.soap.EncodedRequest> encodedList) {
         return encodedList.stream()
                 .map( object -> {
                     return transferToReservationState(object);
@@ -125,12 +193,18 @@ public class EntityMapper {
                 .collect(Collectors.toList());
     }
 
-    public PricePerInterval transferToPricePerInterval(generated.soap.com.xmlws.ftn.soap.EncodedPriceList encodedPriceList) {
-        PricePerInterval object = new PricePerInterval();
+    public ftn.xmlws.project.beans.PricePerInterval transferToPricePerInterval(generated.soap.com.xmlws.ftn.soap.EncodedPriceList encodedPriceList) {
+        ftn.xmlws.project.beans.PricePerInterval object = new ftn.xmlws.project.beans.PricePerInterval();
+        
+        object.setAccomodationId(encodedPriceList.getId());
+        object.setPrice(Float.parseFloat(encodedPriceList.getPrice()));
+        object.setStartDate(Date.valueOf(encodedPriceList.getFrom()));
+        object.setEndDate(Date.valueOf(encodedPriceList.getTo()));
+
         return  object;
     }
 
-    public List<PricePerInterval> transferListFromXMLToPricePerInterval(List<generated.soap.com.xmlws.ftn.soap.EncodedPriceList> encodedList) {
+    public List<ftn.xmlws.project.beans.PricePerInterval> transferListFromXMLToPricePerInterval(List<generated.soap.com.xmlws.ftn.soap.EncodedPriceList> encodedList) {
         return encodedList.stream()
                 .map( object -> {
                     return transferToPricePerInterval(object);

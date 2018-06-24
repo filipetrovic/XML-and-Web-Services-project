@@ -50,11 +50,11 @@ public class SyncService {
         return entityMapper.transferListFromXMLToReservation(encodedList);
     }
 
-    public List<PricePerInterval> getPricePerIntervalFromXml(List<generated.soap.com.xmlws.ftn.soap.EncodedPriceList> encodedList) {
+    public List<ftn.xmlws.project.beans.PricePerInterval> getPricePerIntervalFromXml(List<generated.soap.com.xmlws.ftn.soap.EncodedPriceList> encodedList) {
         return entityMapper.transferListFromXMLToPricePerInterval(encodedList);
     }
 
-    public List<HelperDTO> getHelperDTOFromXML(List<generated.soap.com.xmlws.ftn.soap.EncodedRequest> encodedList) {
+    public List<Reservation> getHelperDTOFromXML(List<generated.soap.com.xmlws.ftn.soap.EncodedRequest> encodedList) {
         return entityMapper.transferListFromXMLToHelperDTO(encodedList);
     }
 

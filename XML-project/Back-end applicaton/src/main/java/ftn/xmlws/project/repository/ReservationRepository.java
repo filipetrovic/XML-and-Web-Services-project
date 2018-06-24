@@ -8,4 +8,6 @@ import ftn.xmlws.project.beans.Reservation;
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
+	Reservation findOneById(long id);
+
 }

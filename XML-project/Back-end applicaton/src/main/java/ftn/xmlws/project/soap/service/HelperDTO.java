@@ -9,12 +9,22 @@ public class HelperDTO {
     private String reservationStatus;
 
     private List<String> messages;
+    
+    private Long reservationId;
 
     public HelperDTO() {
 
     }
 
-    public List<String> getMessageby() {
+    public Long getReservationId() {
+		return reservationId;
+	}
+
+	public void setReservationId(Long reservationId) {
+		this.reservationId = reservationId;
+	}
+
+	public List<String> getMessageby() {
         return messageby;
     }
 

@@ -36,6 +36,7 @@ public class SyncResource {
 
         List<Accommodation> accommodationList = syncService.getAccomodationFromXml(request.getEncodedAccomodation());
         List<PricePerInterval> pricePerIntervalsList = syncService.getPricePerIntervalFromXml(request.getEncodedPriceList());
+        // dobijem id od smestaja, string od kog datuma je ta cena do kog datuma je ta cena, i string cene
         List<HelperDTO> helperDTOList = syncService.getHelperDTOFromXML(request.getEncodedRequest());
         // dalje staviti gde treba da se upise u bazu
         return response;
